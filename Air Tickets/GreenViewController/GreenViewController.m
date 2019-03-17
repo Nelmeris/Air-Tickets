@@ -29,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self configurateTimerView];
+    
     [self.view setBackgroundColor:UIColor.greenColor];
     // Do any additional setup after loading the view.
 }
