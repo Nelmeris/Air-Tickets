@@ -7,6 +7,7 @@
 //
 
 #import "TableViewController.h"
+#import "GreenViewController.h"
 
 @interface TableViewController () {
     NSArray *cellStrings;
@@ -33,8 +34,7 @@
     UIViewController *vc1 = [UIViewController new];
     [vc1.view setBackgroundColor:UIColor.brownColor];
     
-    UIViewController *vc2 = [UIViewController new];
-    [vc2.view setBackgroundColor:UIColor.greenColor];
+    GreenViewController *vc2 = [GreenViewController new];
     
     vcs = [NSArray arrayWithObjects:vc1, vc2, nil];
 }
