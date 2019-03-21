@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		572287852243A74F001898F1 /* CellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 572287842243A74F001898F1 /* CellData.m */; };
 		5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771304D223EA92A00FB9806 /* AppDelegate.m */; };
 		57713056223EA92B00FB9806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57713055223EA92B00FB9806 /* Assets.xcassets */; };
 		57713059223EA92B00FB9806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57713057223EA92B00FB9806 /* LaunchScreen.storyboard */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		572287832243A74F001898F1 /* CellData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellData.h; sourceTree = "<group>"; };
+		572287842243A74F001898F1 /* CellData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellData.m; sourceTree = "<group>"; };
 		57713049223EA92900FB9806 /* Air Tickets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Air Tickets.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5771304C223EA92A00FB9806 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5771304D223EA92A00FB9806 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -43,6 +46,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		572287822243A736001898F1 /* CellData */ = {
+			isa = PBXGroup;
+			children = (
+				572287832243A74F001898F1 /* CellData.h */,
+				572287842243A74F001898F1 /* CellData.m */,
+			);
+			path = CellData;
+			sourceTree = "<group>";
+		};
 		57713040223EA92900FB9806 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +107,7 @@
 		57713067223EAAC300FB9806 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				572287822243A736001898F1 /* CellData */,
 				57713068223EAAE200FB9806 /* TableViewController.h */,
 				57713069223EAAE200FB9806 /* TableViewController.m */,
 			);
@@ -180,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57713065223EAA9000FB9806 /* NavigationController.m in Sources */,
+				572287852243A74F001898F1 /* CellData.m in Sources */,
 				5771305C223EA92B00FB9806 /* main.m in Sources */,
 				5771306D223EAD2D00FB9806 /* GreenViewController.m in Sources */,
 				5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */,

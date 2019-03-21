@@ -8,10 +8,10 @@
 
 #import "TableViewController.h"
 #import "GreenViewController.h"
+#import "CellData/CellData.h"
 
 @interface TableViewController () {
-    NSArray *cellStrings;
-    NSArray *vcs;
+    NSMutableArray<CellData *> *data;
 }
 
 @end
@@ -31,12 +31,14 @@
     
     self.title = @"Table";
     
-    cellStrings = [NSArray arrayWithObjects:@"Brown", @"Green", nil];
+    data = [NSMutableArray new];
     
     UIViewController *vc1 = [UIViewController new];
     [vc1.view setBackgroundColor:UIColor.brownColor];
+    [data addObject: [[CellData alloc] initWithTitle:@"Brown" andController:vc1]];
     
     GreenViewController *vc2 = [GreenViewController new];
+    [data addObject: [[CellData alloc] initWithTitle:@"Green" andController:vc2]];
     
     vcs = [NSArray arrayWithObjects:vc1, vc2, nil];
 }
@@ -46,20 +48,20 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return vcs.count;
+    return data.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [UITableViewCell new];
     
-    [cell.textLabel setText:cellStrings[indexPath.row]];
+    [cell.textLabel setText:data[indexPath.row].title];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIViewController *vc = vcs[indexPath.row];
-    [vc setTitle:cellStrings[indexPath.row]];
+    UIViewController *vc = data[indexPath.row].controller;
+    [vc setTitle:data[indexPath.row].title];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Main VC" style:UIBarButtonItemStylePlain target:nil action:nil];
     [navigationController pushViewController:vc animated:YES];
 }
