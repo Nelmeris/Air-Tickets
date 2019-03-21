@@ -29,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Table";
+    
     cellStrings = [NSArray arrayWithObjects:@"Brown", @"Green", nil];
     
     UIViewController *vc1 = [UIViewController new];

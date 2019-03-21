@@ -15,17 +15,11 @@
 
 @implementation NavigationController
 
-- (void)loadView {
-    [super loadView];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     TableViewController *tv = [[TableViewController alloc] initWithNavController:self];
     [self pushViewController:tv animated:NO];
-    
-    self.navigationBar.topItem.title = @"Navigation Controller";
     
     // Do any additional setup after loading the view.
 }
