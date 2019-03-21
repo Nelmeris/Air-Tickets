@@ -33,12 +33,14 @@
     
     data = [NSMutableArray new];
     
-    UIViewController *vc1 = [UIViewController new];
-    [vc1.view setBackgroundColor:UIColor.brownColor];
-    [data addObject: [[CellData alloc] initWithTitle:@"Brown" andController:vc1]];
+    [data addObject: [[CellData alloc] initWithTitle:@"Timer" andController:[GreenViewController new]]];
     
-    GreenViewController *vc2 = [GreenViewController new];
-    [data addObject: [[CellData alloc] initWithTitle:@"Green" andController:vc2]];
+    for (int i = 0; i < 100; i++) {
+        UIViewController *controller = [UIViewController new];
+        UIColor *color = [UIColor colorWithRed:rand() % 255 / 255.0 green:rand() % 255 / 255.0 blue:rand() % 255 / 255.0 alpha:1];
+        [controller.view setBackgroundColor:color];
+        [data addObject:[[CellData alloc] initWithTitle:[NSString stringWithFormat:@"%d", i] andController:controller]];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
