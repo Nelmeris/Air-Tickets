@@ -39,8 +39,6 @@
     
     GreenViewController *vc2 = [GreenViewController new];
     [data addObject: [[CellData alloc] initWithTitle:@"Green" andController:vc2]];
-    
-    vcs = [NSArray arrayWithObjects:vc1, vc2, nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
