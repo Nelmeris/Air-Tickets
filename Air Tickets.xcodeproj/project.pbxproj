@@ -11,6 +11,9 @@
 		57713056223EA92B00FB9806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57713055223EA92B00FB9806 /* Assets.xcassets */; };
 		57713059223EA92B00FB9806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57713057223EA92B00FB9806 /* LaunchScreen.storyboard */; };
 		5771305C223EA92B00FB9806 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771305B223EA92B00FB9806 /* main.m */; };
+		57713065223EAA9000FB9806 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57713064223EAA9000FB9806 /* NavigationController.m */; };
+		5771306A223EAAE200FB9806 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57713069223EAAE200FB9806 /* TableViewController.m */; };
+		5771306D223EAD2D00FB9806 /* GreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771306C223EAD2D00FB9806 /* GreenViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +24,12 @@
 		57713058223EA92B00FB9806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5771305A223EA92B00FB9806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5771305B223EA92B00FB9806 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		57713063223EAA9000FB9806 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		57713064223EAA9000FB9806 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		57713068223EAAE200FB9806 /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		57713069223EAAE200FB9806 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		5771306B223EAD2D00FB9806 /* GreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GreenViewController.h; sourceTree = "<group>"; };
+		5771306C223EAD2D00FB9806 /* GreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GreenViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,14 +62,52 @@
 		5771304B223EA92900FB9806 /* Air Tickets */ = {
 			isa = PBXGroup;
 			children = (
-				5771304C223EA92A00FB9806 /* AppDelegate.h */,
-				5771304D223EA92A00FB9806 /* AppDelegate.m */,
+				57713062223EAA7300FB9806 /* AppDelegate */,
+				57713066223EAAB700FB9806 /* NavigationController */,
+				57713067223EAAC300FB9806 /* TableViewController */,
+				5771306E223EAD3100FB9806 /* GreenViewController */,
 				57713055223EA92B00FB9806 /* Assets.xcassets */,
 				57713057223EA92B00FB9806 /* LaunchScreen.storyboard */,
 				5771305A223EA92B00FB9806 /* Info.plist */,
 				5771305B223EA92B00FB9806 /* main.m */,
 			);
 			path = "Air Tickets";
+			sourceTree = "<group>";
+		};
+		57713062223EAA7300FB9806 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				5771304C223EA92A00FB9806 /* AppDelegate.h */,
+				5771304D223EA92A00FB9806 /* AppDelegate.m */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		57713066223EAAB700FB9806 /* NavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				57713063223EAA9000FB9806 /* NavigationController.h */,
+				57713064223EAA9000FB9806 /* NavigationController.m */,
+			);
+			path = NavigationController;
+			sourceTree = "<group>";
+		};
+		57713067223EAAC300FB9806 /* TableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				57713068223EAAE200FB9806 /* TableViewController.h */,
+				57713069223EAAE200FB9806 /* TableViewController.m */,
+			);
+			path = TableViewController;
+			sourceTree = "<group>";
+		};
+		5771306E223EAD3100FB9806 /* GreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5771306B223EAD2D00FB9806 /* GreenViewController.h */,
+				5771306C223EAD2D00FB9806 /* GreenViewController.m */,
+			);
+			path = GreenViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,8 +179,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57713065223EAA9000FB9806 /* NavigationController.m in Sources */,
 				5771305C223EA92B00FB9806 /* main.m in Sources */,
+				5771306D223EAD2D00FB9806 /* GreenViewController.m in Sources */,
 				5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */,
+				5771306A223EAAE200FB9806 /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
