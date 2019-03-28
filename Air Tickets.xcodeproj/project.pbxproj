@@ -75,6 +75,24 @@
 			path = JSONs;
 			sourceTree = "<group>";
 		};
+		5715B8E1224CEE7C0064FA3A /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5715B8D1224CE83A0064FA3A /* MainViewController.h */,
+				5715B8D2224CE83A0064FA3A /* MainViewController.m */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		5715B8E2224CEE820064FA3A /* PlaceViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5715B8D4224CE9BC0064FA3A /* PlaceViewController.h */,
+				5715B8D5224CE9BC0064FA3A /* PlaceViewController.m */,
+			);
+			path = PlaceViewController;
+			sourceTree = "<group>";
+		};
 		57713040223EA92900FB9806 = {
 			isa = PBXGroup;
 			children = (
@@ -94,31 +112,29 @@
 		5771304B223EA92900FB9806 /* Air Tickets */ = {
 			isa = PBXGroup;
 			children = (
+				57713062223EAA7300FB9806 /* App */,
 				5715B8DA224CEB810064FA3A /* JSONs */,
 				57F47D61224CE166004653C9 /* DataManager */,
 				57F47D5D224CE109004653C9 /* APIManager */,
-				57713062223EAA7300FB9806 /* AppDelegate */,
 				57713066223EAAB700FB9806 /* NavigationController */,
-				57713055223EA92B00FB9806 /* Assets.xcassets */,
-				57713057223EA92B00FB9806 /* LaunchScreen.storyboard */,
-				5771305A223EA92B00FB9806 /* Info.plist */,
-				5771305B223EA92B00FB9806 /* main.m */,
-				5715B8D1224CE83A0064FA3A /* MainViewController.h */,
-				5715B8D2224CE83A0064FA3A /* MainViewController.m */,
-				5715B8D4224CE9BC0064FA3A /* PlaceViewController.h */,
-				5715B8D5224CE9BC0064FA3A /* PlaceViewController.m */,
+				5715B8E2224CEE820064FA3A /* PlaceViewController */,
+				5715B8E1224CEE7C0064FA3A /* MainViewController */,
 				5715B8D7224CEA100064FA3A /* SearchRequest.h */,
 			);
 			path = "Air Tickets";
 			sourceTree = "<group>";
 		};
-		57713062223EAA7300FB9806 /* AppDelegate */ = {
+		57713062223EAA7300FB9806 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				5771304C223EA92A00FB9806 /* AppDelegate.h */,
 				5771304D223EA92A00FB9806 /* AppDelegate.m */,
+				57713055223EA92B00FB9806 /* Assets.xcassets */,
+				57713057223EA92B00FB9806 /* LaunchScreen.storyboard */,
+				5771305A223EA92B00FB9806 /* Info.plist */,
+				5771305B223EA92B00FB9806 /* main.m */,
 			);
-			path = AppDelegate;
+			path = App;
 			sourceTree = "<group>";
 		};
 		57713066223EAAB700FB9806 /* NavigationController */ = {
