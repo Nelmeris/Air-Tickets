@@ -6,6 +6,8 @@
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 #import "Country.h"
 #import "City.h"
 #import "Airport.h"
