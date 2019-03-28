@@ -13,6 +13,8 @@
 		5715B8DF224CEBA50064FA3A /* cities.json in Resources */ = {isa = PBXBuildFile; fileRef = 5715B8DC224CEBA50064FA3A /* cities.json */; };
 		5715B8E0224CEBA50064FA3A /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 5715B8DD224CEBA50064FA3A /* countries.json */; };
 		5715B8E5224CEEB90064FA3A /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5715B8E4224CEEB90064FA3A /* Ticket.m */; };
+		5715B8E9224CF1B60064FA3A /* TicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5715B8E8224CF1B60064FA3A /* TicketTableViewCell.m */; };
+		5715B8ED224CF2030064FA3A /* TicketsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5715B8EC224CF2030064FA3A /* TicketsTableViewController.m */; };
 		5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771304D223EA92A00FB9806 /* AppDelegate.m */; };
 		57713056223EA92B00FB9806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57713055223EA92B00FB9806 /* Assets.xcassets */; };
 		57713059223EA92B00FB9806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57713057223EA92B00FB9806 /* LaunchScreen.storyboard */; };
@@ -39,6 +41,10 @@
 		5715B8DD224CEBA50064FA3A /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
 		5715B8E3224CEEB90064FA3A /* Ticket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
 		5715B8E4224CEEB90064FA3A /* Ticket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
+		5715B8E7224CF1B60064FA3A /* TicketTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TicketTableViewCell.h; sourceTree = "<group>"; };
+		5715B8E8224CF1B60064FA3A /* TicketTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TicketTableViewCell.m; sourceTree = "<group>"; };
+		5715B8EB224CF2030064FA3A /* TicketsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TicketsTableViewController.h; sourceTree = "<group>"; };
+		5715B8EC224CF2030064FA3A /* TicketsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TicketsTableViewController.m; sourceTree = "<group>"; };
 		57713049223EA92900FB9806 /* Air Tickets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Air Tickets.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5771304C223EA92A00FB9806 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5771304D223EA92A00FB9806 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -79,7 +85,6 @@
 				503BA6A369D1DBF6684EAD10 /* Pods-Air Tickets.debug.xcconfig */,
 				4597CE88B0E7E6209B2F7859 /* Pods-Air Tickets.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -111,6 +116,24 @@
 			path = PlaceViewController;
 			sourceTree = "<group>";
 		};
+		5715B8E6224CF1980064FA3A /* TicketTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5715B8E7224CF1B60064FA3A /* TicketTableViewCell.h */,
+				5715B8E8224CF1B60064FA3A /* TicketTableViewCell.m */,
+			);
+			path = TicketTableViewCell;
+			sourceTree = "<group>";
+		};
+		5715B8EA224CF1E30064FA3A /* TicketsTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5715B8EB224CF2030064FA3A /* TicketsTableViewController.h */,
+				5715B8EC224CF2030064FA3A /* TicketsTableViewController.m */,
+			);
+			path = TicketsTableViewController;
+			sourceTree = "<group>";
+		};
 		57713040223EA92900FB9806 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +155,8 @@
 		5771304B223EA92900FB9806 /* Air Tickets */ = {
 			isa = PBXGroup;
 			children = (
+				5715B8EA224CF1E30064FA3A /* TicketsTableViewController */,
+				5715B8E6224CF1980064FA3A /* TicketTableViewCell */,
 				57713062223EAA7300FB9806 /* App */,
 				5715B8DA224CEB810064FA3A /* JSONs */,
 				57F47D61224CE166004653C9 /* DataManager */,
@@ -309,12 +334,14 @@
 				57F47D6B224CE1EC004653C9 /* City.m in Sources */,
 				5715B8D3224CE83A0064FA3A /* MainViewController.m in Sources */,
 				5715B8D6224CE9BC0064FA3A /* PlaceViewController.m in Sources */,
+				5715B8E9224CF1B60064FA3A /* TicketTableViewCell.m in Sources */,
 				57713065223EAA9000FB9806 /* NavigationController.m in Sources */,
 				5771305C223EA92B00FB9806 /* main.m in Sources */,
 				57F47D60224CE11F004653C9 /* APIManager.m in Sources */,
 				57F47D65224CE1A0004653C9 /* Airport.m in Sources */,
 				5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */,
 				5715B8E5224CEEB90064FA3A /* Ticket.m in Sources */,
+				5715B8ED224CF2030064FA3A /* TicketsTableViewController.m in Sources */,
 				57F47D68224CE1E3004653C9 /* Country.m in Sources */,
 				57F47D6E224CE23F004653C9 /* DataManager.m in Sources */,
 			);
