@@ -10,7 +10,7 @@
 #import "DataManager.h"
 #import "PlaceViewController.h"
 #import "SearchRequest.h"
-#import "APIManager/APIManager.h"
+#import "APIManager.h"
 
 @interface MainViewController () <PlaceViewControllerDelegate>
 @property (nonatomic, strong) UIView *placeContainerView;

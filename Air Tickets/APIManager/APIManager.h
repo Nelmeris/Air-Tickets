@@ -8,6 +8,8 @@
 
 #import "DataManager.h"
 
+#define AirlineLogo(iata) [NSURL URLWithString:[NSString stringWithFormat:@"https://pics.avs.io/200/200/%@.png", iata]];
+
 @interface APIManager : NSObject
 
 + (instancetype)sharedInstance;

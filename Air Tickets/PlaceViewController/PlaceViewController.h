@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DataManager/DataManager.h"
+#import "DataManager.h"
 
 typedef enum PlaceType {
     PlaceTypeArrival,
