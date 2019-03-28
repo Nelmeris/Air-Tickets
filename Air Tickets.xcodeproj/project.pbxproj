@@ -15,6 +15,10 @@
 		57713065223EAA9000FB9806 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57713064223EAA9000FB9806 /* NavigationController.m */; };
 		5771306A223EAAE200FB9806 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57713069223EAAE200FB9806 /* TableViewController.m */; };
 		5771306D223EAD2D00FB9806 /* GreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771306C223EAD2D00FB9806 /* GreenViewController.m */; };
+		57F47D65224CE1A0004653C9 /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D64224CE1A0004653C9 /* Airport.m */; };
+		57F47D68224CE1E3004653C9 /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D67224CE1E3004653C9 /* Country.m */; };
+		57F47D6B224CE1EC004653C9 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D6A224CE1EC004653C9 /* City.m */; };
+		57F47D6E224CE23F004653C9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D6D224CE23F004653C9 /* DataManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,14 @@
 		57713069223EAAE200FB9806 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		5771306B223EAD2D00FB9806 /* GreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GreenViewController.h; sourceTree = "<group>"; };
 		5771306C223EAD2D00FB9806 /* GreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GreenViewController.m; sourceTree = "<group>"; };
+		57F47D63224CE1A0004653C9 /* Airport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
+		57F47D64224CE1A0004653C9 /* Airport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Airport.m; sourceTree = "<group>"; };
+		57F47D66224CE1E3004653C9 /* Country.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Country.h; sourceTree = "<group>"; };
+		57F47D67224CE1E3004653C9 /* Country.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Country.m; sourceTree = "<group>"; };
+		57F47D69224CE1EC004653C9 /* City.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
+		57F47D6A224CE1EC004653C9 /* City.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
+		57F47D6C224CE23F004653C9 /* DataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		57F47D6D224CE23F004653C9 /* DataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +86,7 @@
 		5771304B223EA92900FB9806 /* Air Tickets */ = {
 			isa = PBXGroup;
 			children = (
+				57F47D61224CE166004653C9 /* DataManager */,
 				57713062223EAA7300FB9806 /* AppDelegate */,
 				57713066223EAAB700FB9806 /* NavigationController */,
 				57713067223EAAC300FB9806 /* TableViewController */,
@@ -121,6 +134,29 @@
 				5771306C223EAD2D00FB9806 /* GreenViewController.m */,
 			);
 			path = GreenViewController;
+			sourceTree = "<group>";
+		};
+		57F47D61224CE166004653C9 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				57F47D62224CE18F004653C9 /* Modeles */,
+				57F47D6C224CE23F004653C9 /* DataManager.h */,
+				57F47D6D224CE23F004653C9 /* DataManager.m */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
+		57F47D62224CE18F004653C9 /* Modeles */ = {
+			isa = PBXGroup;
+			children = (
+				57F47D63224CE1A0004653C9 /* Airport.h */,
+				57F47D64224CE1A0004653C9 /* Airport.m */,
+				57F47D66224CE1E3004653C9 /* Country.h */,
+				57F47D67224CE1E3004653C9 /* Country.m */,
+				57F47D69224CE1EC004653C9 /* City.h */,
+				57F47D6A224CE1EC004653C9 /* City.m */,
+			);
+			path = Modeles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,11 +228,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57F47D6B224CE1EC004653C9 /* City.m in Sources */,
 				57713065223EAA9000FB9806 /* NavigationController.m in Sources */,
 				572287852243A74F001898F1 /* CellData.m in Sources */,
 				5771305C223EA92B00FB9806 /* main.m in Sources */,
 				5771306D223EAD2D00FB9806 /* GreenViewController.m in Sources */,
+				57F47D65224CE1A0004653C9 /* Airport.m in Sources */,
 				5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */,
+				57F47D68224CE1E3004653C9 /* Country.m in Sources */,
+				57F47D6E224CE23F004653C9 /* DataManager.m in Sources */,
 				5771306A223EAAE200FB9806 /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
