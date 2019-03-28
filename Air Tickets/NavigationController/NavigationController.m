@@ -7,7 +7,7 @@
 //
 
 #import "NavigationController.h"
-#import "TableViewController.h"
+#import "MainViewController.h"
 
 @interface NavigationController ()
 
@@ -18,8 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    TableViewController *tv = [[TableViewController alloc] initWithNavController:self];
-    [self pushViewController:tv animated:NO];
+    [self pushViewController:[MainViewController new] animated:false];
     
     // Do any additional setup after loading the view.
 }
