@@ -30,13 +30,13 @@
 {
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
         NSArray *countriesJsonArray = [self arrayFromFileName:@"countries" ofType:@"json"];
-        _countriesArray = [self createObjectsFromArray:countriesJsonArray withType: DataSourceTypeCountry];
+        self->_countriesArray = [self createObjectsFromArray:countriesJsonArray withType: DataSourceTypeCountry];
         
         NSArray *citiesJsonArray = [self arrayFromFileName:@"cities" ofType:@"json"];
-        _citiesArray = [self createObjectsFromArray:citiesJsonArray withType: DataSourceTypeCity];
+        self->_citiesArray = [self createObjectsFromArray:citiesJsonArray withType: DataSourceTypeCity];
         
         NSArray *airportsJsonArray = [self arrayFromFileName:@"airports" ofType:@"json"];
-        _airportsArray = [self createObjectsFromArray:airportsJsonArray withType: DataSourceTypeAirport];
+        self->_airportsArray = [self createObjectsFromArray:airportsJsonArray withType: DataSourceTypeAirport];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kDataManagerLoadDataDidComplete object:nil];
@@ -88,6 +88,17 @@
 - (NSArray *)airports
 {
     return _airportsArray;
+}
+
+- (City *)cityForIATA:(NSString *)iata {
+    if (iata) {
+        for (City *city in _citiesArray) {
+            if ([city.code isEqualToString:iata]) {
+                return city;
+            }
+        }
+    }
+    return nil;
 }
 
 @end

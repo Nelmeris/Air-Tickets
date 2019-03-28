@@ -29,4 +29,6 @@ typedef enum DataSourceType {
 @property (nonatomic, strong, readonly) NSArray *cities;
 @property (nonatomic, strong, readonly) NSArray *airports;
 
+- (City *)cityForIATA:(NSString *)iata;
+
 @end
