@@ -7,14 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		572287852243A74F001898F1 /* CellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 572287842243A74F001898F1 /* CellData.m */; };
 		5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771304D223EA92A00FB9806 /* AppDelegate.m */; };
 		57713056223EA92B00FB9806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57713055223EA92B00FB9806 /* Assets.xcassets */; };
 		57713059223EA92B00FB9806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57713057223EA92B00FB9806 /* LaunchScreen.storyboard */; };
 		5771305C223EA92B00FB9806 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771305B223EA92B00FB9806 /* main.m */; };
 		57713065223EAA9000FB9806 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57713064223EAA9000FB9806 /* NavigationController.m */; };
-		5771306A223EAAE200FB9806 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57713069223EAAE200FB9806 /* TableViewController.m */; };
-		5771306D223EAD2D00FB9806 /* GreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771306C223EAD2D00FB9806 /* GreenViewController.m */; };
 		57F47D60224CE11F004653C9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D5F224CE11F004653C9 /* APIManager.m */; };
 		57F47D65224CE1A0004653C9 /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D64224CE1A0004653C9 /* Airport.m */; };
 		57F47D68224CE1E3004653C9 /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D67224CE1E3004653C9 /* Country.m */; };
@@ -23,8 +20,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		572287832243A74F001898F1 /* CellData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellData.h; sourceTree = "<group>"; };
-		572287842243A74F001898F1 /* CellData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellData.m; sourceTree = "<group>"; };
 		57713049223EA92900FB9806 /* Air Tickets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Air Tickets.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5771304C223EA92A00FB9806 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5771304D223EA92A00FB9806 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -34,10 +29,6 @@
 		5771305B223EA92B00FB9806 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		57713063223EAA9000FB9806 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		57713064223EAA9000FB9806 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
-		57713068223EAAE200FB9806 /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
-		57713069223EAAE200FB9806 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
-		5771306B223EAD2D00FB9806 /* GreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GreenViewController.h; sourceTree = "<group>"; };
-		5771306C223EAD2D00FB9806 /* GreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GreenViewController.m; sourceTree = "<group>"; };
 		57F47D5E224CE11F004653C9 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		57F47D5F224CE11F004653C9 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		57F47D63224CE1A0004653C9 /* Airport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
@@ -61,15 +52,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		572287822243A736001898F1 /* CellData */ = {
-			isa = PBXGroup;
-			children = (
-				572287832243A74F001898F1 /* CellData.h */,
-				572287842243A74F001898F1 /* CellData.m */,
-			);
-			path = CellData;
-			sourceTree = "<group>";
-		};
 		57713040223EA92900FB9806 = {
 			isa = PBXGroup;
 			children = (
@@ -93,8 +75,6 @@
 				57F47D5D224CE109004653C9 /* APIManager */,
 				57713062223EAA7300FB9806 /* AppDelegate */,
 				57713066223EAAB700FB9806 /* NavigationController */,
-				57713067223EAAC300FB9806 /* TableViewController */,
-				5771306E223EAD3100FB9806 /* GreenViewController */,
 				57713055223EA92B00FB9806 /* Assets.xcassets */,
 				57713057223EA92B00FB9806 /* LaunchScreen.storyboard */,
 				5771305A223EA92B00FB9806 /* Info.plist */,
@@ -119,25 +99,6 @@
 				57713064223EAA9000FB9806 /* NavigationController.m */,
 			);
 			path = NavigationController;
-			sourceTree = "<group>";
-		};
-		57713067223EAAC300FB9806 /* TableViewController */ = {
-			isa = PBXGroup;
-			children = (
-				572287822243A736001898F1 /* CellData */,
-				57713068223EAAE200FB9806 /* TableViewController.h */,
-				57713069223EAAE200FB9806 /* TableViewController.m */,
-			);
-			path = TableViewController;
-			sourceTree = "<group>";
-		};
-		5771306E223EAD3100FB9806 /* GreenViewController */ = {
-			isa = PBXGroup;
-			children = (
-				5771306B223EAD2D00FB9806 /* GreenViewController.h */,
-				5771306C223EAD2D00FB9806 /* GreenViewController.m */,
-			);
-			path = GreenViewController;
 			sourceTree = "<group>";
 		};
 		57F47D5D224CE109004653C9 /* APIManager */ = {
@@ -243,15 +204,12 @@
 			files = (
 				57F47D6B224CE1EC004653C9 /* City.m in Sources */,
 				57713065223EAA9000FB9806 /* NavigationController.m in Sources */,
-				572287852243A74F001898F1 /* CellData.m in Sources */,
 				5771305C223EA92B00FB9806 /* main.m in Sources */,
-				5771306D223EAD2D00FB9806 /* GreenViewController.m in Sources */,
 				57F47D60224CE11F004653C9 /* APIManager.m in Sources */,
 				57F47D65224CE1A0004653C9 /* Airport.m in Sources */,
 				5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */,
 				57F47D68224CE1E3004653C9 /* Country.m in Sources */,
 				57F47D6E224CE23F004653C9 /* DataManager.m in Sources */,
-				5771306A223EAAE200FB9806 /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
