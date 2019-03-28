@@ -8,6 +8,7 @@
 
 #import "TicketTableViewCell.h"
 #import <YYWebImage/YYWebImage.h>
+#import "APIManager.h"
 
 @interface TicketTableViewCell ()
 @property (nonatomic, strong) UIImageView *airlineLogoView;
@@ -21,7 +22,6 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
         self.contentView.layer.shadowColor = [[[UIColor blackColor] colorWithAlphaComponent:0.2] CGColor];
         self.contentView.layer.shadowOffset = CGSizeMake(1.0, 1.0);
         self.contentView.layer.shadowRadius = 10.0;
@@ -29,25 +29,37 @@
         self.contentView.layer.cornerRadius = 6.0;
         self.contentView.backgroundColor = [UIColor whiteColor];
         
-        _priceLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        _priceLabel.font = [UIFont systemFontOfSize:24.0 weight:UIFontWeightBold];
-        [self.contentView addSubview:_priceLabel];
-        
-        _airlineLogoView = [[UIImageView alloc] initWithFrame:self.bounds];
-        _airlineLogoView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.contentView addSubview:_airlineLogoView];
-        
-        _placesLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        _placesLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightLight];
-        _placesLabel.textColor = [UIColor darkGrayColor];
-        [self.contentView addSubview:_placesLabel];
-        
-        _dateLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        _dateLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
-        [self.contentView addSubview:_dateLabel];
-        
+        [self priceLabelConfiguration];
+        [self airlineLogoViewConfiguration];
+        [self placesLabelConfiguration];
+        [self dateLabelConfiguration];
     }
     return self;
+}
+
+- (void)priceLabelConfiguration {
+    _priceLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    _priceLabel.font = [UIFont systemFontOfSize:24.0 weight:UIFontWeightBold];
+    [self.contentView addSubview:_priceLabel];
+}
+
+- (void)airlineLogoViewConfiguration {
+    _airlineLogoView = [[UIImageView alloc] initWithFrame:self.bounds];
+    _airlineLogoView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.contentView addSubview:_airlineLogoView];
+}
+
+- (void)placesLabelConfiguration {
+    _placesLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    _placesLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightLight];
+    _placesLabel.textColor = [UIColor darkGrayColor];
+    [self.contentView addSubview:_placesLabel];
+}
+
+- (void)dateLabelConfiguration {
+    _dateLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    _dateLabel.font = [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular];
+    [self.contentView addSubview:_dateLabel];
 }
 
 - (void)layoutSubviews {

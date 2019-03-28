@@ -7,7 +7,6 @@
 //
 
 #import "APIManager.h"
-#import "SearchRequest.h"
 #import "Ticket.h"
 
 #define API_TOKEN @"4507a59c923b283326882df84dbe468b"

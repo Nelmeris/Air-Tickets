@@ -19,7 +19,6 @@
 		57713056223EA92B00FB9806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57713055223EA92B00FB9806 /* Assets.xcassets */; };
 		57713059223EA92B00FB9806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57713057223EA92B00FB9806 /* LaunchScreen.storyboard */; };
 		5771305C223EA92B00FB9806 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771305B223EA92B00FB9806 /* main.m */; };
-		57713065223EAA9000FB9806 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57713064223EAA9000FB9806 /* NavigationController.m */; };
 		57F47D60224CE11F004653C9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D5F224CE11F004653C9 /* APIManager.m */; };
 		57F47D65224CE1A0004653C9 /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D64224CE1A0004653C9 /* Airport.m */; };
 		57F47D68224CE1E3004653C9 /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D67224CE1E3004653C9 /* Country.m */; };
@@ -52,8 +51,6 @@
 		57713058223EA92B00FB9806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5771305A223EA92B00FB9806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5771305B223EA92B00FB9806 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		57713063223EAA9000FB9806 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
-		57713064223EAA9000FB9806 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		57F47D5E224CE11F004653C9 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		57F47D5F224CE11F004653C9 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		57F47D63224CE1A0004653C9 /* Airport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
@@ -155,16 +152,14 @@
 		5771304B223EA92900FB9806 /* Air Tickets */ = {
 			isa = PBXGroup;
 			children = (
+				5715B8E1224CEE7C0064FA3A /* MainViewController */,
 				5715B8EA224CF1E30064FA3A /* TicketsTableViewController */,
 				5715B8E6224CF1980064FA3A /* TicketTableViewCell */,
-				57713062223EAA7300FB9806 /* App */,
-				5715B8DA224CEB810064FA3A /* JSONs */,
 				57F47D61224CE166004653C9 /* DataManager */,
 				57F47D5D224CE109004653C9 /* APIManager */,
-				57713066223EAAB700FB9806 /* NavigationController */,
 				5715B8E2224CEE820064FA3A /* PlaceViewController */,
-				5715B8E1224CEE7C0064FA3A /* MainViewController */,
 				5715B8D7224CEA100064FA3A /* SearchRequest.h */,
+				57713062223EAA7300FB9806 /* App */,
 				5771305A223EA92B00FB9806 /* Info.plist */,
 			);
 			path = "Air Tickets";
@@ -182,15 +177,6 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		57713066223EAAB700FB9806 /* NavigationController */ = {
-			isa = PBXGroup;
-			children = (
-				57713063223EAA9000FB9806 /* NavigationController.h */,
-				57713064223EAA9000FB9806 /* NavigationController.m */,
-			);
-			path = NavigationController;
-			sourceTree = "<group>";
-		};
 		57F47D5D224CE109004653C9 /* APIManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				57F47D62224CE18F004653C9 /* Modeles */,
+				5715B8DA224CEB810064FA3A /* JSONs */,
 				57F47D6C224CE23F004653C9 /* DataManager.h */,
 				57F47D6D224CE23F004653C9 /* DataManager.m */,
 			);
@@ -335,7 +322,6 @@
 				5715B8D3224CE83A0064FA3A /* MainViewController.m in Sources */,
 				5715B8D6224CE9BC0064FA3A /* PlaceViewController.m in Sources */,
 				5715B8E9224CF1B60064FA3A /* TicketTableViewCell.m in Sources */,
-				57713065223EAA9000FB9806 /* NavigationController.m in Sources */,
 				5771305C223EA92B00FB9806 /* main.m in Sources */,
 				57F47D60224CE11F004653C9 /* APIManager.m in Sources */,
 				57F47D65224CE1A0004653C9 /* Airport.m in Sources */,
