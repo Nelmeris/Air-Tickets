@@ -49,6 +49,7 @@
     
     [self departureButtonConfiguration];
     [self arrivalButtonConfiguration];
+    [self searchButtonConfiguration];
     
     [self.view addSubview:_placeContainerView];
 }
