@@ -40,6 +40,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentLocation:) name:kLocationServiceDidUpdateCurrentLocation object:nil];
 }
 
+#pragma mark - Location
+
 - (void)updateCurrentLocation:(NSNotification *)notification {
     CLLocation *currentLocation = notification.object;
     City *city = [[DataManager sharedInstance] cityForLocation:currentLocation];
