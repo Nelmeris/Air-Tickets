@@ -11,6 +11,7 @@
 #import "PlaceViewController.h"
 #import "APIManager.h"
 #import "TicketsTableViewController.h"
+#import "MapViewController.h"
 
 @interface MainViewController () <PlaceViewControllerDelegate>
 @property (nonatomic, strong) UIView *placeContainerView;
@@ -101,14 +102,16 @@
 #pragma mark - Tap reactions
 
 - (void)placeButtonDidTap:(UIButton *)sender {
-    PlaceViewController *placeViewController;
-    if ([sender isEqual:_departureButton]) {
-        placeViewController = [[PlaceViewController alloc] initWithType: PlaceTypeDeparture];
-    } else {
-        placeViewController = [[PlaceViewController alloc] initWithType: PlaceTypeArrival];
-    }
-    placeViewController.delegate = self;
-    [self.navigationController pushViewController: placeViewController animated:YES];
+    MapViewController *mapViewController = [MapViewController new];
+    [self.navigationController pushViewController:mapViewController animated:YES];
+//    PlaceViewController *placeViewController;
+//    if ([sender isEqual:_departureButton]) {
+//        placeViewController = [[PlaceViewController alloc] initWithType: PlaceTypeDeparture];
+//    } else {
+//        placeViewController = [[PlaceViewController alloc] initWithType: PlaceTypeArrival];
+//    }
+//    placeViewController.delegate = self;
+//    [self.navigationController pushViewController: placeViewController animated:YES];
 }
 
 - (void)searchButtonDidTap:(UIButton *)sender {

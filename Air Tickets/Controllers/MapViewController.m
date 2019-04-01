@@ -27,6 +27,7 @@
     
     _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
     _mapView.showsUserLocation = YES;
+    _mapView.delegate = self;
     [self.view addSubview:_mapView];
     
     [[DataManager sharedInstance] loadData];
@@ -40,7 +41,7 @@
 }
 
 - (void)dataLoadedSuccessfully {
-    _locationService = [[LocationService alloc] init];
+    _locationService = [LocationService new];
 }
 
 - (void)updateCurrentLocation:(NSNotification *)notification {
@@ -65,13 +66,26 @@
     
     for (MapPrice *price in prices) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+            MKPointAnnotation *annotation = [MKPointAnnotation new];
             annotation.title = [NSString stringWithFormat:@"%@ (%@)", price.destination.name, price.destination.code];
             annotation.subtitle = [NSString stringWithFormat:@"%ld руб.", (long)price.value];
             annotation.coordinate = price.destination.coordinate;
             [self->_mapView addAnnotation: annotation];
         });
     }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    static NSString *identifier = @"MarkerIdentifier";
+    MKMarkerAnnotationView *annotationView = (MKMarkerAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+    if (!annotationView && ![annotationView.annotation.title  isEqual: @"My Location"]) {
+        annotationView = [[MKMarkerAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+        annotationView.canShowCallout = YES;
+        annotationView.calloutOffset = CGPointMake(-5.0, 5.0);
+        annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    }
+    annotationView.annotation = annotation;
+    return annotationView;
 }
 
 @end

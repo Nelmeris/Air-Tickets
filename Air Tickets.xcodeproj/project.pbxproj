@@ -198,12 +198,12 @@
 		57F84F3522523C460047FCFD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5715B8EB224CF2030064FA3A /* TicketsTableViewController.h */,
-				5715B8EC224CF2030064FA3A /* TicketsTableViewController.m */,
-				5715B8D4224CE9BC0064FA3A /* PlaceViewController.h */,
-				5715B8D5224CE9BC0064FA3A /* PlaceViewController.m */,
 				5715B8D1224CE83A0064FA3A /* MainViewController.h */,
 				5715B8D2224CE83A0064FA3A /* MainViewController.m */,
+				5715B8D4224CE9BC0064FA3A /* PlaceViewController.h */,
+				5715B8D5224CE9BC0064FA3A /* PlaceViewController.m */,
+				5715B8EB224CF2030064FA3A /* TicketsTableViewController.h */,
+				5715B8EC224CF2030064FA3A /* TicketsTableViewController.m */,
 				57F84F3722523D170047FCFD /* MapViewController.h */,
 				57F84F3822523D170047FCFD /* MapViewController.m */,
 			);
