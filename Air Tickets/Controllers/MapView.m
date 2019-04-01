@@ -15,6 +15,7 @@
 @property (strong, nonatomic) MKMapView *mapView;
 @property (nonatomic, strong) LocationService *locationService;
 @property (nonatomic, strong) City *origin;
+@property (nonatomic, strong) City *destination;
 @property (nonatomic, strong) NSArray *prices;
 @end
 
@@ -81,7 +82,7 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     static NSString *identifier = @"MarkerIdentifier";
     MKMarkerAnnotationView *annotationView = (MKMarkerAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-    if (!annotationView && ![annotationView.annotation.title  isEqual: @"My Location"]) {
+    if (!annotationView) {
         annotationView = [[MKMarkerAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
         annotationView.canShowCallout = YES;
         annotationView.calloutOffset = CGPointMake(0, 5.0);
@@ -96,7 +97,15 @@
     return annotationView;
 }
 
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    for (MapPrice *price in _prices) {
+        if (price.destination.coordinate.latitude == view.annotation.coordinate.latitude && price.destination.coordinate.longitude == view.annotation.coordinate.longitude)
+            _destination = price.destination;
+    }
+}
+
 - (void)selectAirport {
+    [self.delegate selectCity:_destination];
 }
 
 @end

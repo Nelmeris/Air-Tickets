@@ -12,6 +12,10 @@
 
 #define ReuseIdentifier @"CellIdentifier"
 
+@interface PlaceViewController () <MapViewDelegate>
+
+@end
+
 @interface PlaceViewController ()
 @property (nonatomic) PlaceType placeType;
 @property (nonatomic, strong) UITableView *tableView;
@@ -52,6 +56,7 @@
 
 - (void)configureMapView {
     _mapView = [[MapView alloc] initWithFrame:self.view.bounds];
+    _mapView.delegate = self;
 }
 
 - (void)congigureSegmentedControl {
@@ -121,4 +126,13 @@
     [self.delegate selectPlace:[_currentArray objectAtIndex:indexPath.row] withType:_placeType andDataType:dataType];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark - MapViewDelegate
+
+- (void)selectCity:(City *)city {
+    DataSourceType dataType = DataSourceTypeCity;
+    [self.delegate selectPlace:city withType:_placeType andDataType:dataType];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 @end

@@ -9,6 +9,11 @@
 #import <MapKit/MapKit.h>
 #import "DataManager.h"
 
+@protocol MapViewDelegate <NSObject>
+- (void)selectCity:(City *)city;
+@end
+
 @interface MapView : UIView
+@property (nonatomic, strong) id<MapViewDelegate>delegate;
 
 @end

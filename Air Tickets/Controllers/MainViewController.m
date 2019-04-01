@@ -12,6 +12,7 @@
 #import "APIManager.h"
 #import "TicketsTableViewController.h"
 #import "MapView.h"
+#import "LocationService.h"
 
 @interface MainViewController () <PlaceViewControllerDelegate>
 @property (nonatomic, strong) UIView *placeContainerView;
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) UIButton *arrivalButton;
 @property (nonatomic) SearchRequest searchRequest;
 @property (nonatomic, strong) UIButton *searchButton;
+@property (nonatomic, strong) LocationService *locationService;
 @end
 
 @implementation MainViewController
@@ -35,6 +37,17 @@
     [self configurePlaceContainerView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadedSuccessfully) name:kDataManagerLoadDataDidComplete object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentLocation:) name:kLocationServiceDidUpdateCurrentLocation object:nil];
+}
+
+- (void)updateCurrentLocation:(NSNotification *)notification {
+    CLLocation *currentLocation = notification.object;
+    City *city = [[DataManager sharedInstance] cityForLocation:currentLocation];
+    [self setPlace:city withDataType:DataSourceTypeCity andPlaceType:PlaceTypeDeparture forButton:self->_departureButton];
+}
+
+- (void)dataLoadedSuccessfully {
+    _locationService = [LocationService new];
 }
 
 #pragma mark - Configurations
@@ -93,21 +106,11 @@
     [self.view addSubview:_searchButton];
 }
 
-- (void)dataLoadedSuccessfully {
-    [[APIManager sharedInstance] cityForCurrentIP:^(City *city) {
-        [self setPlace:city withDataType:DataSourceTypeCity andPlaceType:PlaceTypeDeparture forButton:self->_departureButton];
-    }];
-}
-
 #pragma mark - Tap reactions
 
 - (void)placeButtonDidTap:(UIButton *)sender {
     PlaceViewController *placeViewController;
-    if ([sender isEqual:_departureButton]) {
-        placeViewController = [[PlaceViewController alloc] initWithType: PlaceTypeDeparture];
-    } else {
-        placeViewController = [[PlaceViewController alloc] initWithType: PlaceTypeArrival];
-    }
+    placeViewController = [[PlaceViewController alloc] initWithType: ([sender isEqual:_departureButton]) ? PlaceTypeDeparture : PlaceTypeArrival];
     placeViewController.delegate = self;
     [self.navigationController pushViewController: placeViewController animated:YES];
 }
