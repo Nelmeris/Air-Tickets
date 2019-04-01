@@ -158,7 +158,6 @@
 		5771304B223EA92900FB9806 /* Air Tickets */ = {
 			isa = PBXGroup;
 			children = (
-				57F84F2D22523A940047FCFD /* MapPrice */,
 				57F84F29225238CE0047FCFD /* LocationService */,
 				5715B8EA224CF1E30064FA3A /* TicketsTableViewController */,
 				5715B8E6224CF1980064FA3A /* TicketTableViewCell */,
@@ -208,14 +207,11 @@
 		57F47D62224CE18F004653C9 /* Modeles */ = {
 			isa = PBXGroup;
 			children = (
-				57F47D63224CE1A0004653C9 /* Airport.h */,
-				57F47D64224CE1A0004653C9 /* Airport.m */,
-				57F47D66224CE1E3004653C9 /* Country.h */,
-				57F47D67224CE1E3004653C9 /* Country.m */,
-				57F47D69224CE1EC004653C9 /* City.h */,
-				57F47D6A224CE1EC004653C9 /* City.m */,
-				5715B8E3224CEEB90064FA3A /* Ticket.h */,
-				5715B8E4224CEEB90064FA3A /* Ticket.m */,
+				57F84F2D22523A940047FCFD /* MapPrice */,
+				57F84F3122523B220047FCFD /* Airport */,
+				57F84F3222523B390047FCFD /* Country */,
+				57F84F3322523B3F0047FCFD /* City */,
+				57F84F3422523B450047FCFD /* Ticket */,
 			);
 			path = Modeles;
 			sourceTree = "<group>";
@@ -236,6 +232,42 @@
 				57F84F2F22523AA00047FCFD /* MapPrice.m */,
 			);
 			path = MapPrice;
+			sourceTree = "<group>";
+		};
+		57F84F3122523B220047FCFD /* Airport */ = {
+			isa = PBXGroup;
+			children = (
+				57F47D63224CE1A0004653C9 /* Airport.h */,
+				57F47D64224CE1A0004653C9 /* Airport.m */,
+			);
+			path = Airport;
+			sourceTree = "<group>";
+		};
+		57F84F3222523B390047FCFD /* Country */ = {
+			isa = PBXGroup;
+			children = (
+				57F47D66224CE1E3004653C9 /* Country.h */,
+				57F47D67224CE1E3004653C9 /* Country.m */,
+			);
+			path = Country;
+			sourceTree = "<group>";
+		};
+		57F84F3322523B3F0047FCFD /* City */ = {
+			isa = PBXGroup;
+			children = (
+				57F47D69224CE1EC004653C9 /* City.h */,
+				57F47D6A224CE1EC004653C9 /* City.m */,
+			);
+			path = City;
+			sourceTree = "<group>";
+		};
+		57F84F3422523B450047FCFD /* Ticket */ = {
+			isa = PBXGroup;
+			children = (
+				5715B8E3224CEEB90064FA3A /* Ticket.h */,
+				5715B8E4224CEEB90064FA3A /* Ticket.m */,
+			);
+			path = Ticket;
 			sourceTree = "<group>";
 		};
 		5F6E013727A17EA574763144 /* Frameworks */ = {
