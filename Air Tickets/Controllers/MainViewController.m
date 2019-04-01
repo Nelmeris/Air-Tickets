@@ -21,6 +21,7 @@
 @property (nonatomic) SearchRequest searchRequest;
 @property (nonatomic, strong) UIButton *searchButton;
 @property (nonatomic, strong) LocationService *locationService;
+@property (nonatomic, strong) City *origin;
 @end
 
 @implementation MainViewController
@@ -42,14 +43,18 @@
 
 #pragma mark - Location
 
+- (void)dataLoadedSuccessfully {
+    _locationService = [LocationService new];
+}
+
 - (void)updateCurrentLocation:(NSNotification *)notification {
     CLLocation *currentLocation = notification.object;
     City *city = [[DataManager sharedInstance] cityForLocation:currentLocation];
     [self setPlace:city withDataType:DataSourceTypeCity andPlaceType:PlaceTypeDeparture forButton:self->_departureButton];
-}
-
-- (void)dataLoadedSuccessfully {
-    _locationService = [LocationService new];
+    
+    _locationService = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDataManagerLoadDataDidComplete object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServiceDidUpdateCurrentLocation object:nil];
 }
 
 #pragma mark - Configurations
@@ -112,12 +117,19 @@
 
 - (void)placeButtonDidTap:(UIButton *)sender {
     PlaceViewController *placeViewController;
-    placeViewController = [[PlaceViewController alloc] initWithType: ([sender isEqual:_departureButton]) ? PlaceTypeDeparture : PlaceTypeArrival];
+    placeViewController = [[PlaceViewController alloc] initWithType: (([sender isEqual:_departureButton]) ? PlaceTypeDeparture : PlaceTypeArrival) origin:_origin];
     placeViewController.delegate = self;
     [self.navigationController pushViewController: placeViewController animated:YES];
 }
 
 - (void)searchButtonDidTap:(UIButton *)sender {
+    if (!_searchRequest.destionation || !_searchRequest.origin) {
+        NSString *msg = (!_searchRequest.origin) ? @"Выберите адрес отправления" : @"Выберите адрес прибытия";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Внимание!" message:msg preferredStyle: UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Закрыть" style:(UIAlertActionStyleDefault) handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+        return;
+    }
     [[APIManager sharedInstance] ticketsWithRequest:_searchRequest withCompletion:^(NSArray *tickets) {
         if (tickets.count > 0) {
             TicketsTableViewController *ticketsViewController = [[TicketsTableViewController alloc] initWithTickets:tickets];
@@ -147,6 +159,7 @@
         City *city = (City *)place;
         title = city.name;
         iata = city.code;
+        _origin = city;
     }
     else if (dataType == DataSourceTypeAirport) {
         Airport *airport = (Airport *)place;

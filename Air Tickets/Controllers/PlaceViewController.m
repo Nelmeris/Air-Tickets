@@ -33,10 +33,11 @@
 
 @implementation PlaceViewController
 
-- (instancetype)initWithType:(PlaceType)type {
+- (instancetype)initWithType:(PlaceType)type origin:(City *)city {
     self = [super init];
     if (self) {
         _placeType = type;
+        _origin = city;
     }
     return self;
 }
@@ -49,9 +50,11 @@
     self.title = (_placeType == PlaceTypeDeparture) ? @"Откуда" : @"Куда";
     
     [self configureTableView];
-    [self configureMapView];
     [self congigureSegmentedControl];
     [self changeSource];
+    
+    if (_placeType == PlaceTypeArrival)
+        [self configureMapView];
 }
 
 #pragma mark - Configurations
@@ -94,12 +97,20 @@
 }
 
 - (void)configureMapView {
-    _mapView = [[MapView alloc] initWithFrame:self.view.bounds];
+    if (_origin) {
+        _mapView = [[MapView alloc] initWithFrame:self.view.bounds origin:_origin];
+    } else {
+        _mapView = [[MapView alloc] initWithFrame:self.view.bounds];
+    }
     _mapView.delegate = self;
 }
 
 - (void)congigureSegmentedControl {
-    _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Города", @"Аэропорты", @"Карта"]];
+    NSMutableArray<NSString *> *items = [NSMutableArray arrayWithArray:@[@"Города", @"Аэропорты"]];
+    if (_placeType == PlaceTypeArrival) {
+        [items addObject:@"Карта"];
+    }
+    _segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
     [_segmentedControl addTarget:self action:@selector(changeSource) forControlEvents:UIControlEventValueChanged];
     _segmentedControl.tintColor = [UIColor blackColor];
     self.navigationItem.titleView = _segmentedControl;
@@ -111,7 +122,8 @@
         case 0:
             if (![self.view.subviews containsObject:_tableView])
                 [self.view addSubview:_tableView];
-            [_mapView removeFromSuperview];
+            if ([self.view.subviews containsObject:_mapView])
+                [_mapView removeFromSuperview];
             _currentArray = [[DataManager sharedInstance] cities];
             self.navigationItem.searchController = _searchController;
             [self.navigationController.navigationBar setPrefersLargeTitles:YES];
@@ -119,7 +131,8 @@
         case 1:
             if (![self.view.subviews containsObject:_tableView])
                 [self.view addSubview:_tableView];
-            [_mapView removeFromSuperview];
+            if ([self.view.subviews containsObject:_mapView])
+                [_mapView removeFromSuperview];
             _currentArray = [[DataManager sharedInstance] airports];
             self.navigationItem.searchController = _searchController;
             [self.navigationController.navigationBar setPrefersLargeTitles:YES];
@@ -140,13 +153,11 @@
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [_currentArray count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TABLE_CELL_IDENTIFIER];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:TABLE_CELL_IDENTIFIER];

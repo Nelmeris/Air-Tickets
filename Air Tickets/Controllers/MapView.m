@@ -14,7 +14,6 @@
 @interface MapView () <MKMapViewDelegate>
 @property (strong, nonatomic) MKMapView *mapView;
 @property (nonatomic, strong) LocationService *locationService;
-@property (nonatomic, strong) City *origin;
 @property (nonatomic, strong) City *destination;
 @property (nonatomic, strong) NSArray *prices;
 @end
@@ -27,10 +26,24 @@
     if (self) {
         [self configureMapView];
         
-        [[DataManager sharedInstance] loadData];
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadedSuccessfully) name:kDataManagerLoadDataDidComplete object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentLocation:) name:kLocationServiceDidUpdateCurrentLocation object:nil];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame origin:(City *)city {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self configureMapView];
+        _origin = city;
+        
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(_origin.coordinate, 1000000, 1000000);
+        [_mapView setRegion: region animated: YES];
+        
+        [[APIManager sharedInstance] mapPricesFor:_origin withCompletion:^(NSArray *prices) {
+            self.prices = prices;
+        }];
     }
     return self;
 }
