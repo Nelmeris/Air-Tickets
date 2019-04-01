@@ -11,7 +11,7 @@
 #import "PlaceViewController.h"
 #import "APIManager.h"
 #import "TicketsTableViewController.h"
-#import "MapViewController.h"
+#import "MapView.h"
 
 @interface MainViewController () <PlaceViewControllerDelegate>
 @property (nonatomic, strong) UIView *placeContainerView;
@@ -32,14 +32,14 @@
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.title = @"Поиск";
     
-    [self placeContainerViewConfiguration];
+    [self configurePlaceContainerView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadedSuccessfully) name:kDataManagerLoadDataDidComplete object:nil];
 }
 
 #pragma mark - Configurations
 
-- (void)placeContainerViewConfiguration {
+- (void)configurePlaceContainerView {
     _placeContainerView = [[UIView alloc] initWithFrame:CGRectMake(20.0, 140.0, [UIScreen mainScreen].bounds.size.width - 40.0, 170.0)];
     _placeContainerView.backgroundColor = [UIColor whiteColor];
     _placeContainerView.layer.shadowColor = [[[UIColor blackColor] colorWithAlphaComponent:0.1] CGColor];
@@ -48,14 +48,14 @@
     _placeContainerView.layer.shadowOpacity = 1.0;
     _placeContainerView.layer.cornerRadius = 6.0;
     
-    [self departureButtonConfiguration];
-    [self arrivalButtonConfiguration];
-    [self searchButtonConfiguration];
+    [self configureDepartureButton];
+    [self configureArrivalButton];
+    [self configureSearchButton];
     
     [self.view addSubview:_placeContainerView];
 }
 
-- (void)departureButtonConfiguration {
+- (void)configureDepartureButton {
     _departureButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [_departureButton setTitle:@"Откуда" forState: UIControlStateNormal];
     _departureButton.tintColor = [UIColor blackColor];
@@ -67,7 +67,7 @@
     [self.placeContainerView addSubview:_departureButton];
 }
 
-- (void)arrivalButtonConfiguration {
+- (void)configureArrivalButton {
     _arrivalButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [_arrivalButton setTitle:@"Куда" forState: UIControlStateNormal];
     _arrivalButton.tintColor = [UIColor blackColor];
@@ -79,7 +79,7 @@
     [self.placeContainerView addSubview:_arrivalButton];
 }
 
-- (void)searchButtonConfiguration {
+- (void)configureSearchButton {
     _searchButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [_searchButton setTitle:@"Найти" forState:UIControlStateNormal];
     _searchButton.tintColor = [UIColor whiteColor];
@@ -102,16 +102,14 @@
 #pragma mark - Tap reactions
 
 - (void)placeButtonDidTap:(UIButton *)sender {
-    MapViewController *mapViewController = [MapViewController new];
-    [self.navigationController pushViewController:mapViewController animated:YES];
-//    PlaceViewController *placeViewController;
-//    if ([sender isEqual:_departureButton]) {
-//        placeViewController = [[PlaceViewController alloc] initWithType: PlaceTypeDeparture];
-//    } else {
-//        placeViewController = [[PlaceViewController alloc] initWithType: PlaceTypeArrival];
-//    }
-//    placeViewController.delegate = self;
-//    [self.navigationController pushViewController: placeViewController animated:YES];
+    PlaceViewController *placeViewController;
+    if ([sender isEqual:_departureButton]) {
+        placeViewController = [[PlaceViewController alloc] initWithType: PlaceTypeDeparture];
+    } else {
+        placeViewController = [[PlaceViewController alloc] initWithType: PlaceTypeArrival];
+    }
+    placeViewController.delegate = self;
+    [self.navigationController pushViewController: placeViewController animated:YES];
 }
 
 - (void)searchButtonDidTap:(UIButton *)sender {

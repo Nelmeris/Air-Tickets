@@ -26,7 +26,7 @@
 		57F47D6E224CE23F004653C9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D6D224CE23F004653C9 /* DataManager.m */; };
 		57F84F2C225238EE0047FCFD /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F2B225238EE0047FCFD /* LocationService.m */; };
 		57F84F3022523AA00047FCFD /* MapPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F2F22523AA00047FCFD /* MapPrice.m */; };
-		57F84F3922523D170047FCFD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F3822523D170047FCFD /* MapViewController.m */; };
+		57F84F3922523D170047FCFD /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F3822523D170047FCFD /* MapView.m */; };
 		A5E242518E486B08B78B16B9 /* libPods-Air Tickets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4169EA067D8C569A09DC9C /* libPods-Air Tickets.a */; };
 /* End PBXBuildFile section */
 
@@ -68,8 +68,9 @@
 		57F84F2B225238EE0047FCFD /* LocationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationService.m; sourceTree = "<group>"; };
 		57F84F2E22523AA00047FCFD /* MapPrice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapPrice.h; sourceTree = "<group>"; };
 		57F84F2F22523AA00047FCFD /* MapPrice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapPrice.m; sourceTree = "<group>"; };
-		57F84F3722523D170047FCFD /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		57F84F3822523D170047FCFD /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		57F84F3722523D170047FCFD /* MapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
+		57F84F3822523D170047FCFD /* MapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapView.m; sourceTree = "<group>"; };
+		57F84F3A225250F10047FCFD /* DataSourceType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataSourceType.h; sourceTree = "<group>"; };
 		9A4169EA067D8C569A09DC9C /* libPods-Air Tickets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Air Tickets.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -132,6 +133,7 @@
 				57F84F3522523C460047FCFD /* Controllers */,
 				57F84F3622523C520047FCFD /* Cells */,
 				57713062223EAA7300FB9806 /* Application */,
+				57713055223EA92B00FB9806 /* Assets.xcassets */,
 			);
 			path = "Air Tickets";
 			sourceTree = "<group>";
@@ -141,7 +143,6 @@
 			children = (
 				5771304C223EA92A00FB9806 /* AppDelegate.h */,
 				5771304D223EA92A00FB9806 /* AppDelegate.m */,
-				57713055223EA92B00FB9806 /* Assets.xcassets */,
 				57713057223EA92B00FB9806 /* LaunchScreen.storyboard */,
 				5771305A223EA92B00FB9806 /* Info.plist */,
 				5771305B223EA92B00FB9806 /* main.m */,
@@ -164,6 +165,7 @@
 				5715B8DA224CEB810064FA3A /* JSONs */,
 				57F47D6C224CE23F004653C9 /* DataManager.h */,
 				57F47D6D224CE23F004653C9 /* DataManager.m */,
+				57F84F3A225250F10047FCFD /* DataSourceType.h */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -204,8 +206,8 @@
 				5715B8D5224CE9BC0064FA3A /* PlaceViewController.m */,
 				5715B8EB224CF2030064FA3A /* TicketsTableViewController.h */,
 				5715B8EC224CF2030064FA3A /* TicketsTableViewController.m */,
-				57F84F3722523D170047FCFD /* MapViewController.h */,
-				57F84F3822523D170047FCFD /* MapViewController.m */,
+				57F84F3722523D170047FCFD /* MapView.h */,
+				57F84F3822523D170047FCFD /* MapView.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -337,7 +339,7 @@
 				5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */,
 				5715B8E5224CEEB90064FA3A /* Ticket.m in Sources */,
 				5715B8ED224CF2030064FA3A /* TicketsTableViewController.m in Sources */,
-				57F84F3922523D170047FCFD /* MapViewController.m in Sources */,
+				57F84F3922523D170047FCFD /* MapView.m in Sources */,
 				57F47D68224CE1E3004653C9 /* Country.m in Sources */,
 				57F47D6E224CE23F004653C9 /* DataManager.m in Sources */,
 			);

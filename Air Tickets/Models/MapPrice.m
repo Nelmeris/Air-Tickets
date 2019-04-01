@@ -10,11 +10,9 @@
 
 @implementation MapPrice
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary withOrigin: (City *)origin
-{
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary withOrigin: (City *)origin {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _destination = [[DataManager sharedInstance] cityForIATA: [dictionary valueForKey:@"destination"]];
         _origin = origin;
         _departure = [self dateFromString:[dictionary valueForKey:@"depart_date"]];
@@ -28,8 +26,8 @@
 }
 
 - (NSDate * _Nullable)dateFromString:(NSString *)dateString {
-    if (!dateString) { return  nil; }
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    if (!dateString) return nil;
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
     dateFormatter.dateFormat = @"yyyy-MM-dd";
     return [dateFormatter dateFromString: dateString];
 }

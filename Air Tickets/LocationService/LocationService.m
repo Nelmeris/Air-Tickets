@@ -7,7 +7,9 @@
 //
 
 #import "LocationService.h"
+
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface LocationService () <CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -16,11 +18,10 @@
 
 @implementation LocationService
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
-        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager = [CLLocationManager new];
         _locationManager.delegate = self;
         [_locationManager requestAlwaysAuthorization];
     }
@@ -38,11 +39,11 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    if (!_currentLocation) {
-        _currentLocation = [locations firstObject];
-        [_locationManager stopUpdatingLocation];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServiceDidUpdateCurrentLocation object:_currentLocation];
-    }
+    if (_currentLocation) return;
+    
+    _currentLocation = [locations firstObject];
+    [_locationManager stopUpdatingLocation];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServiceDidUpdateCurrentLocation object:_currentLocation];
 }
 
 @end

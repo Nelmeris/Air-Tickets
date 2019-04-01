@@ -1,39 +1,44 @@
 //
-//  MapViewController.m
+//  MapView.m
 //  Air Tickets
 //
 //  Created by Артем Куфаев on 01/04/2019.
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
-#import "MapViewController.h"
+#import "MapView.h"
 #import "LocationService.h"
 #import "APIManager.h"
 #import "MapPrice.h"
 
-@interface MapViewController () <MKMapViewDelegate>
+@interface MapView () <MKMapViewDelegate>
 @property (strong, nonatomic) MKMapView *mapView;
 @property (nonatomic, strong) LocationService *locationService;
 @property (nonatomic, strong) City *origin;
 @property (nonatomic, strong) NSArray *prices;
 @end
 
-@implementation MapViewController
+@implementation MapView
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.title = @"Карта цен";
-    
-    _mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self configureMapView];
+        
+        [[DataManager sharedInstance] loadData];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadedSuccessfully) name:kDataManagerLoadDataDidComplete object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentLocation:) name:kLocationServiceDidUpdateCurrentLocation object:nil];
+    }
+    return self;
+}
+
+- (void)configureMapView {
+    _mapView = [[MKMapView alloc] initWithFrame:self.bounds];
     _mapView.showsUserLocation = YES;
     _mapView.delegate = self;
-    [self.view addSubview:_mapView];
-    
-    [[DataManager sharedInstance] loadData];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadedSuccessfully) name:kDataManagerLoadDataDidComplete object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentLocation:) name:kLocationServiceDidUpdateCurrentLocation object:nil];
+    [self addSubview:_mapView];
 }
 
 - (void)dealloc {
@@ -50,14 +55,12 @@
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, 1000000, 1000000);
     [_mapView setRegion: region animated: YES];
     
-    if (currentLocation) {
-        _origin = [[DataManager sharedInstance] cityForLocation:currentLocation];
-        if (_origin) {
-            [[APIManager sharedInstance] mapPricesFor:_origin withCompletion:^(NSArray *prices) {
-                self.prices = prices;
-            }];
-        }
-    }
+    if (!currentLocation) return;
+    _origin = [[DataManager sharedInstance] cityForLocation:currentLocation];
+    if (!_origin) return;
+    [[APIManager sharedInstance] mapPricesFor:_origin withCompletion:^(NSArray *prices) {
+        self.prices = prices;
+    }];
 }
 
 - (void)setPrices:(NSArray *)prices {
@@ -81,11 +84,19 @@
     if (!annotationView && ![annotationView.annotation.title  isEqual: @"My Location"]) {
         annotationView = [[MKMarkerAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
         annotationView.canShowCallout = YES;
-        annotationView.calloutOffset = CGPointMake(-5.0, 5.0);
-        annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        annotationView.calloutOffset = CGPointMake(0, 5.0);
+        UIButton* annotationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [annotationButton setFrame:CGRectMake(0, 0, 30, 30)];
+        [annotationButton setImage:[UIImage imageNamed:@"SelectIcon"] forState:UIControlStateNormal];
+        annotationView.rightCalloutAccessoryView = annotationButton;
+        [annotationButton addTarget:self action:@selector(selectAirport) forControlEvents:UIControlEventTouchUpInside];
     }
     annotationView.annotation = annotation;
+    
     return annotationView;
+}
+
+- (void)selectAirport {
 }
 
 @end

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
-#import <CoreLocation/CoreLocation.h>
+#import <Foundation/Foundation.h>
 
 #define kLocationServiceDidUpdateCurrentLocation @"LocationServiceDidUpdateCurrentLocation"
 

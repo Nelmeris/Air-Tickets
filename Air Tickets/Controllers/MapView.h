@@ -1,5 +1,5 @@
 //
-//  MapViewController.h
+//  MapView.h
 //  Air Tickets
 //
 //  Created by Артем Куфаев on 01/04/2019.
@@ -9,6 +9,6 @@
 #import <MapKit/MapKit.h>
 #import "DataManager.h"
 
-@interface MapViewController : UIViewController
+@interface MapView : UIView
 
 @end

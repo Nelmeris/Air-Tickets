@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
-#import "MapViewController.h"
 
 @interface AppDelegate ()
 

@@ -22,7 +22,7 @@
     static APIManager *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[APIManager alloc] init];
+        instance = [APIManager new];
     });
     return instance;
 }
@@ -32,14 +32,12 @@
         [self load:[NSString stringWithFormat:@"%@%@", API_URL_CITY_FROM_IP, ipAddress] withCompletion:^(id  _Nullable result) {
             NSDictionary *json = result;
             NSString *iata = [json valueForKey:@"iata"];
-            if (iata) {
-                City *city = [[DataManager sharedInstance] cityForIATA:iata];
-                if (city) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(city);
-                    });
-                }
-            }
+            if (!iata) return;
+            City *city = [[DataManager sharedInstance] cityForIATA:iata];
+            if (!city) return;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(city);
+            });
         }];
     }];
 }
@@ -67,51 +65,47 @@
     NSString *urlString = [NSString stringWithFormat:@"%@?%@&token=%@", API_URL_CHEAP, SearchRequestQuery(request), API_TOKEN];
     [self load:urlString withCompletion:^(id  _Nullable result) {
         NSDictionary *response = result;
-        if (response) {
-            NSDictionary *json = [[response valueForKey:@"data"] valueForKey:request.destionation];
-            NSMutableArray *array = [NSMutableArray new];
-            for (NSString *key in json) {
-                NSDictionary *value = [json valueForKey: key];
-                Ticket *ticket = [[Ticket alloc] initWithDictionary:value];
-                ticket.from = request.origin;
-                ticket.to = request.destionation;
-                [array addObject:ticket];
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(array);
-            });
+        if (!response) return;
+        NSDictionary *json = [[response valueForKey:@"data"] valueForKey:request.destionation];
+        NSMutableArray *array = [NSMutableArray new];
+        for (NSString *key in json) {
+            NSDictionary *value = [json valueForKey: key];
+            Ticket *ticket = [[Ticket alloc] initWithDictionary:value];
+            ticket.from = request.origin;
+            ticket.to = request.destionation;
+            [array addObject:ticket];
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(array);
+        });
     }];
 }
 
 NSString * SearchRequestQuery(SearchRequest request) {
     NSString *result = [NSString stringWithFormat:@"origin=%@&destination=%@", request.origin, request.destionation];
-    if (request.departDate && request.returnDate) {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"yyyy-MM";
-        result = [NSString stringWithFormat:@"%@&depart_date=%@&return_date=%@", result, [dateFormatter stringFromDate:request.departDate], [dateFormatter stringFromDate:request.returnDate]];
-    }
+    if (!request.departDate || !request.returnDate) return result;
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    dateFormatter.dateFormat = @"yyyy-MM";
+    result = [NSString stringWithFormat:@"%@&depart_date=%@&return_date=%@", result, [dateFormatter stringFromDate:request.departDate], [dateFormatter stringFromDate:request.returnDate]];
     return result;
 }
 
-- (void)mapPricesFor:(City *)origin withCompletion:(void (^)(NSArray *prices))completion
-{
+- (void)mapPricesFor:(City *)origin withCompletion:(void (^)(NSArray *prices))completion {
     static BOOL isLoading;
-    if (isLoading) { return; }
+    if (isLoading) return;
     isLoading = YES;
     [self load:[NSString stringWithFormat:@"%@%@", API_URL_MAP_PRICE, origin.code] withCompletion:^(id  _Nullable result) {
         NSArray *array = result;
         NSMutableArray *prices = [NSMutableArray new];
-        if (array) {
-            for (NSDictionary *mapPriceDictionary in array) {
-                MapPrice *mapPrice = [[MapPrice alloc] initWithDictionary:mapPriceDictionary withOrigin:origin];
-                [prices addObject:mapPrice];
-            }
-            isLoading = NO;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(prices);
-            });
+        if (!array) return;
+        for (NSDictionary *mapPriceDictionary in array) {
+            MapPrice *mapPrice = [[MapPrice alloc] initWithDictionary:mapPriceDictionary withOrigin:origin];
+            [prices addObject:mapPrice];
         }
+        isLoading = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(prices);
+        });
     }];
 }
 

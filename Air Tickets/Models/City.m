@@ -23,9 +23,8 @@
         if (coords && ![coords isEqual:[NSNull null]]) {
             NSNumber *lon = [coords valueForKey:@"lon"];
             NSNumber *lat = [coords valueForKey:@"lat"];
-            if (![lon isEqual:[NSNull null]] && ![lat isEqual:[NSNull null]]) {
+            if (![lon isEqual:[NSNull null]] && ![lat isEqual:[NSNull null]])
                 _coordinate = CLLocationCoordinate2DMake([lat doubleValue], [lon doubleValue]);
-            }
         }
     }
     return self;
