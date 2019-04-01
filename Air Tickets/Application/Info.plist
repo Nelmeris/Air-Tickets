@@ -32,6 +32,8 @@
 	</array>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Предоставьте доступ для возможности поиска билетов по карте</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Предоставьте доступ для возможности поиска билетов по карте</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
