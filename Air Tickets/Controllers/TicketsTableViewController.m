@@ -19,8 +19,7 @@
 
 - (instancetype)initWithTickets:(NSArray *)tickets {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         _tickets = tickets;
         self.title = @"Билеты";
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

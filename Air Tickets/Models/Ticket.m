@@ -24,8 +24,8 @@
 }
 
 NSDate *dateFromString(NSString *dateString) {
-    if (!dateString) { return  nil; }
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    if (!dateString) return nil;
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
     NSString *correctSrtingDate = [dateString stringByReplacingOccurrencesOfString:@"T" withString:@" "];
     correctSrtingDate = [correctSrtingDate stringByReplacingOccurrencesOfString:@"Z" withString:@" "];
     dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";

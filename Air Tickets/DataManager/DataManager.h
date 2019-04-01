@@ -7,18 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DataSourceType.h"
 
 #import "Country.h"
 #import "City.h"
 #import "Airport.h"
 
 #define kDataManagerLoadDataDidComplete @"DataManagerLoadDataDidComplete"
-
-typedef enum DataSourceType {
-    DataSourceTypeCountry,
-    DataSourceTypeCity,
-    DataSourceTypeAirport
-} DataSourceType;
 
 @interface DataManager : NSObject
 
@@ -29,5 +24,6 @@ typedef enum DataSourceType {
 + (instancetype)sharedInstance;
 - (void)loadData;
 - (City *)cityForIATA:(NSString *)iata;
+- (City *)cityForLocation:(CLLocation *)location;
 
 @end

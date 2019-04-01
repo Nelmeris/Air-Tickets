@@ -78,7 +78,7 @@
     _priceLabel.text = [NSString stringWithFormat:@"%@ руб.", ticket.price];
     _placesLabel.text = [NSString stringWithFormat:@"%@ - %@", ticket.from, ticket.to];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
     dateFormatter.dateFormat = @"dd MMMM yyyy hh:mm";
     _dateLabel.text = [dateFormatter stringFromDate:ticket.departure];
     NSURL *urlLogo = AirlineLogo(ticket.airline);

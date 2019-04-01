@@ -1,14 +1,14 @@
 //
-//  Airport.m
+//  City.m
 //  Air Tickets
 //
 //  Created by Artem Kufaev on 28/03/2019.
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
-#import "Airport.h"
+#import "City.h"
 
-@implementation Airport
+@implementation City
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
@@ -18,16 +18,13 @@
         _translations = [dictionary valueForKey:@"name_translations"];
         _name = [dictionary valueForKey:@"name"];
         _countryCode = [dictionary valueForKey:@"country_code"];
-        _cityCode = [dictionary valueForKey:@"city_code"];
         _code = [dictionary valueForKey:@"code"];
-        _flightable = [dictionary valueForKey:@"flightable"];
         NSDictionary *coords = [dictionary valueForKey:@"coordinates"];
         if (coords && ![coords isEqual:[NSNull null]]) {
             NSNumber *lon = [coords valueForKey:@"lon"];
             NSNumber *lat = [coords valueForKey:@"lat"];
-            if (![lon isEqual:[NSNull null]] && ![lat isEqual:[NSNull null]]) {
+            if (![lon isEqual:[NSNull null]] && ![lat isEqual:[NSNull null]])
                 _coordinate = CLLocationCoordinate2DMake([lat doubleValue], [lon doubleValue]);
-            }
         }
     }
     return self;
