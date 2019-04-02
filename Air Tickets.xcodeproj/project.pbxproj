@@ -26,7 +26,9 @@
 		57F47D6E224CE23F004653C9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D6D224CE23F004653C9 /* DataManager.m */; };
 		57F84F2C225238EE0047FCFD /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F2B225238EE0047FCFD /* LocationService.m */; };
 		57F84F3022523AA00047FCFD /* MapPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F2F22523AA00047FCFD /* MapPrice.m */; };
-		57F84F3922523D170047FCFD /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F3822523D170047FCFD /* MapView.m */; };
+		57F84F3922523D170047FCFD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F3822523D170047FCFD /* MapViewController.m */; };
+		57F84F4022529F860047FCFD /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F3F22529F860047FCFD /* SearchCollectionViewCell.m */; };
+		57F84F45225358B00047FCFD /* PlaceTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F44225358B00047FCFD /* PlaceTabBarViewController.m */; };
 		A5E242518E486B08B78B16B9 /* libPods-Air Tickets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4169EA067D8C569A09DC9C /* libPods-Air Tickets.a */; };
 /* End PBXBuildFile section */
 
@@ -68,9 +70,13 @@
 		57F84F2B225238EE0047FCFD /* LocationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationService.m; sourceTree = "<group>"; };
 		57F84F2E22523AA00047FCFD /* MapPrice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapPrice.h; sourceTree = "<group>"; };
 		57F84F2F22523AA00047FCFD /* MapPrice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapPrice.m; sourceTree = "<group>"; };
-		57F84F3722523D170047FCFD /* MapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
-		57F84F3822523D170047FCFD /* MapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapView.m; sourceTree = "<group>"; };
+		57F84F3722523D170047FCFD /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		57F84F3822523D170047FCFD /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		57F84F3A225250F10047FCFD /* DataSourceType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataSourceType.h; sourceTree = "<group>"; };
+		57F84F3E22529F860047FCFD /* SearchCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCollectionViewCell.h; sourceTree = "<group>"; };
+		57F84F3F22529F860047FCFD /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
+		57F84F412252D44F0047FCFD /* PlaceTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceTabBarViewController.h; sourceTree = "<group>"; };
+		57F84F44225358B00047FCFD /* PlaceTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceTabBarViewController.m; sourceTree = "<group>"; };
 		9A4169EA067D8C569A09DC9C /* libPods-Air Tickets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Air Tickets.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -206,8 +212,10 @@
 				5715B8D5224CE9BC0064FA3A /* PlaceViewController.m */,
 				5715B8EB224CF2030064FA3A /* TicketsTableViewController.h */,
 				5715B8EC224CF2030064FA3A /* TicketsTableViewController.m */,
-				57F84F3722523D170047FCFD /* MapView.h */,
-				57F84F3822523D170047FCFD /* MapView.m */,
+				57F84F412252D44F0047FCFD /* PlaceTabBarViewController.h */,
+				57F84F44225358B00047FCFD /* PlaceTabBarViewController.m */,
+				57F84F3722523D170047FCFD /* MapViewController.h */,
+				57F84F3822523D170047FCFD /* MapViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -217,6 +225,8 @@
 			children = (
 				5715B8E7224CF1B60064FA3A /* TicketTableViewCell.h */,
 				5715B8E8224CF1B60064FA3A /* TicketTableViewCell.m */,
+				57F84F3E22529F860047FCFD /* SearchCollectionViewCell.h */,
+				57F84F3F22529F860047FCFD /* SearchCollectionViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -329,6 +339,7 @@
 			files = (
 				57F47D6B224CE1EC004653C9 /* City.m in Sources */,
 				5715B8D3224CE83A0064FA3A /* MainViewController.m in Sources */,
+				57F84F4022529F860047FCFD /* SearchCollectionViewCell.m in Sources */,
 				5715B8D6224CE9BC0064FA3A /* PlaceViewController.m in Sources */,
 				5715B8E9224CF1B60064FA3A /* TicketTableViewCell.m in Sources */,
 				5771305C223EA92B00FB9806 /* main.m in Sources */,
@@ -339,7 +350,8 @@
 				5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */,
 				5715B8E5224CEEB90064FA3A /* Ticket.m in Sources */,
 				5715B8ED224CF2030064FA3A /* TicketsTableViewController.m in Sources */,
-				57F84F3922523D170047FCFD /* MapView.m in Sources */,
+				57F84F45225358B00047FCFD /* PlaceTabBarViewController.m in Sources */,
+				57F84F3922523D170047FCFD /* MapViewController.m in Sources */,
 				57F47D68224CE1E3004653C9 /* Country.m in Sources */,
 				57F47D6E224CE23F004653C9 /* DataManager.m in Sources */,
 			);
