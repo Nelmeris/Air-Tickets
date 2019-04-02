@@ -1,5 +1,5 @@
 //
-//  MapView.h
+//  MapViewController.h
 //  Air Tickets
 //
 //  Created by Артем Куфаев on 01/04/2019.
@@ -9,15 +9,16 @@
 #import <MapKit/MapKit.h>
 #import "DataManager.h"
 
-@protocol MapViewDelegate <NSObject>
+@protocol MapViewControllerDelegate <NSObject>
 - (void)selectCity:(City *)city;
 @end
 
-@interface MapView : UIView
+@interface MapViewController : UIViewController
 
-@property (nonatomic, strong) id<MapViewDelegate>delegate;
+@property (nonatomic, strong) id<MapViewControllerDelegate>delegate;
 @property (nonatomic, strong) City *origin;
 
-- (instancetype)initWithFrame:(CGRect)frame origin:(City *)city;
+- (instancetype)init;
+- (instancetype)initWithOrigin:(City *)city;
 
 @end

@@ -8,13 +8,11 @@
 //
 
 #import "PlaceViewController.h"
-#import "MapView.h"
 #import "SearchCollectionViewCell.h"
 
 @interface PlaceViewController ()
 @property (nonatomic) PlaceType placeType;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) MapView *mapView;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) NSArray *currentArray;
 @end
@@ -28,33 +26,22 @@
 @property (nonatomic, strong) UISearchController *searchController;
 @end
 
-@interface PlaceViewController () <MapViewDelegate>
-@end
-
 @implementation PlaceViewController
 
-- (instancetype)initWithType:(PlaceType)type origin:(City *)city {
+- (instancetype)initWithType:(PlaceType)type {
     self = [super init];
     if (self) {
         _placeType = type;
-        _origin = city;
+        
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+        self.navigationItem.hidesSearchBarWhenScrolling = NO;
+        self.title = (_placeType == PlaceTypeDeparture) ? @"Откуда" : @"Куда";
+        
+        [self configureTableView];
+        [self congigureSegmentedControl];
+        [self changeSource];
     }
     return self;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    self.navigationItem.hidesSearchBarWhenScrolling = NO;
-    self.title = (_placeType == PlaceTypeDeparture) ? @"Откуда" : @"Куда";
-    
-    [self configureTableView];
-    [self congigureSegmentedControl];
-    [self changeSource];
-    
-    if (_placeType == PlaceTypeArrival)
-        [self configureMapView];
 }
 
 #pragma mark - Configurations
@@ -70,6 +57,8 @@
     } else {
         _tableView.tableHeaderView = _searchController.searchBar;
     }
+    
+    [self.view addSubview:_tableView];
 }
 
 - (void)configureSearchController {
@@ -96,56 +85,22 @@
     [_searchCollectionView registerClass:[SearchCollectionViewCell class] forCellWithReuseIdentifier:SEARCH_COLLECTION_CELL_IDENTIFIER];
 }
 
-- (void)configureMapView {
-    if (_origin) {
-        _mapView = [[MapView alloc] initWithFrame:self.view.bounds origin:_origin];
-    } else {
-        _mapView = [[MapView alloc] initWithFrame:self.view.bounds];
-    }
-    _mapView.delegate = self;
-}
-
 - (void)congigureSegmentedControl {
     NSMutableArray<NSString *> *items = [NSMutableArray arrayWithArray:@[@"Города", @"Аэропорты"]];
-    if (_placeType == PlaceTypeArrival) {
-        [items addObject:@"Карта"];
-    }
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
     [_segmentedControl addTarget:self action:@selector(changeSource) forControlEvents:UIControlEventValueChanged];
     _segmentedControl.tintColor = [UIColor blackColor];
-    self.navigationItem.titleView = _segmentedControl;
     _segmentedControl.selectedSegmentIndex = 0;
+    self.navigationItem.titleView = _segmentedControl;
 }
 
 - (void)changeSource {
     switch (_segmentedControl.selectedSegmentIndex) {
         case 0:
-            if (![self.view.subviews containsObject:_tableView])
-                [self.view addSubview:_tableView];
-            if ([self.view.subviews containsObject:_mapView])
-                [_mapView removeFromSuperview];
             _currentArray = [[DataManager sharedInstance] cities];
-            self.navigationItem.searchController = _searchController;
-            [self.navigationController.navigationBar setPrefersLargeTitles:YES];
             break;
         case 1:
-            if (![self.view.subviews containsObject:_tableView])
-                [self.view addSubview:_tableView];
-            if ([self.view.subviews containsObject:_mapView])
-                [_mapView removeFromSuperview];
             _currentArray = [[DataManager sharedInstance] airports];
-            self.navigationItem.searchController = _searchController;
-            [self.navigationController.navigationBar setPrefersLargeTitles:YES];
-            break;
-        case 2:
-            if (![self.view.subviews containsObject:_mapView])
-                [self.view addSubview:_mapView];
-            if ([self.view.subviews containsObject:_tableView])
-                [_tableView removeFromSuperview];
-            self.navigationItem.searchController = nil;
-            [self.navigationController.navigationBar setPrefersLargeTitles:NO];
-            break;
-        default:
             break;
     }
     [self.tableView reloadData];
@@ -187,14 +142,6 @@
     } else {
         [self.delegate selectPlace:[_currentArray objectAtIndex:indexPath.row] withType:_placeType andDataType:dataType];
     }
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark - MapViewDelegate
-
-- (void)selectCity:(City *)city {
-    DataSourceType dataType = DataSourceTypeCity;
-    [self.delegate selectPlace:city withType:_placeType andDataType:dataType];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

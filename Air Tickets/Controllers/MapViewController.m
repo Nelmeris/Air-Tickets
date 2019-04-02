@@ -1,28 +1,27 @@
 //
-//  MapView.m
+//  MapViewController.m
 //  Air Tickets
 //
 //  Created by Артем Куфаев on 01/04/2019.
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
-#import "MapView.h"
+#import "MapViewController.h"
 #import "LocationService.h"
 #import "APIManager.h"
 #import "MapPrice.h"
 
-@interface MapView () <MKMapViewDelegate>
+@interface MapViewController () <MKMapViewDelegate>
 @property (strong, nonatomic) MKMapView *mapView;
 @property (nonatomic, strong) LocationService *locationService;
 @property (nonatomic, strong) City *destination;
 @property (nonatomic, strong) NSArray *prices;
 @end
 
-@implementation MapView
+@implementation MapViewController
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
+- (instancetype)init {
+    self = [super init];
     if (self) {
         [self configureMapView];
         
@@ -32,8 +31,8 @@
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame origin:(City *)city {
-    self = [super initWithFrame:frame];
+- (instancetype)initWithOrigin:(City *)city {
+    self = [super init];
     if (self) {
         [self configureMapView];
         _origin = city;
@@ -49,10 +48,10 @@
 }
 
 - (void)configureMapView {
-    _mapView = [[MKMapView alloc] initWithFrame:self.bounds];
+    _mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
     _mapView.showsUserLocation = YES;
     _mapView.delegate = self;
-    [self addSubview:_mapView];
+    [self.view addSubview:_mapView];
 }
 
 - (void)dealloc {
