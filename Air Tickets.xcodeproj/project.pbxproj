@@ -114,7 +114,7 @@
 		57713040223EA92900FB9806 = {
 			isa = PBXGroup;
 			children = (
-				5771304B223EA92900FB9806 /* Air Tickets */,
+				5771304B223EA92900FB9806 /* Air-Tickets */,
 				5771304A223EA92900FB9806 /* Products */,
 				50C09FAC0493ABE039AD2D0E /* Pods */,
 				5F6E013727A17EA574763144 /* Frameworks */,
@@ -129,7 +129,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5771304B223EA92900FB9806 /* Air Tickets */ = {
+		5771304B223EA92900FB9806 /* Air-Tickets */ = {
 			isa = PBXGroup;
 			children = (
 				57F84F29225238CE0047FCFD /* LocationService */,
@@ -141,7 +141,7 @@
 				57713062223EAA7300FB9806 /* Application */,
 				57713055223EA92B00FB9806 /* Assets.xcassets */,
 			);
-			path = "Air Tickets";
+			path = "Air-Tickets";
 			sourceTree = "<group>";
 		};
 		57713062223EAA7300FB9806 /* Application */ = {
