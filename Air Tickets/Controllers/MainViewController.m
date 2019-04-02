@@ -39,6 +39,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentLocation:) name:kLocationServiceDidUpdateCurrentLocation object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.navigationController.navigationBar setPrefersLargeTitles:YES];
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kDataManagerLoadDataDidComplete object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServiceDidUpdateCurrentLocation object:nil];
