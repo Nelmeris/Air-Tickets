@@ -1,5 +1,5 @@
 //
-//  TabBarViewController.h
+//  PlaceTabBarViewController.h
 //  Air Tickets
 //
 //  Created by Артем Куфаев on 02/04/2019.
@@ -10,7 +10,7 @@
 #import "DataManager.h"
 #import "PlaceViewController.h"
 
-@interface TabBarViewController : UITabBarController
+@interface PlaceTabBarViewController : UITabBarController
 
 - (instancetype)initWithController:(PlaceViewController *)controller origin:(City *)city;
 

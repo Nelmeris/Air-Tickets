@@ -20,15 +20,26 @@
 - (instancetype)initWithTickets:(NSArray *)tickets {
     self = [super init];
     if (self) {
-        _tickets = tickets;
-        self.title = @"Билеты";
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.tableView registerClass:[TicketTableViewCell class] forCellReuseIdentifier:TicketCellReuseIdentifier];
+        [self setTickets:tickets];
+        
+        [self configureController];
+        [self configureTableView];
     }
     return self;
 }
 
-#pragma mark - UITableViewDataSource & UITableViewDelegate
+#pragma mark - Configures
+
+- (void)configureController {
+    [self setTitle:@"Билеты"];
+}
+
+- (void)configureTableView {
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableView registerClass:[TicketTableViewCell class] forCellReuseIdentifier:TicketCellReuseIdentifier];
+}
+
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _tickets.count;
@@ -36,9 +47,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TicketTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TicketCellReuseIdentifier forIndexPath:indexPath];
-    cell.ticket = [_tickets objectAtIndex:indexPath.row];
+    [cell setTicket:[_tickets objectAtIndex:indexPath.row]];
     return cell;
 }
+
+#pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 140.0;

@@ -7,13 +7,14 @@
 //
 
 #import "MainViewController.h"
+
 #import "DataManager.h"
-#import "PlaceViewController.h"
 #import "APIManager.h"
-#import "TicketsTableViewController.h"
-#import "MapViewController.h"
 #import "LocationService.h"
-#import "TabBarViewController.h"
+
+#import "PlaceViewController.h"
+#import "TicketsTableViewController.h"
+#import "PlaceTabBarViewController.h"
 
 @interface MainViewController () <PlaceViewControllerDelegate>
 @property (nonatomic, strong) UIView *placeContainerView;
@@ -30,16 +31,82 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[DataManager sharedInstance] loadData];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.prefersLargeTitles = YES;
-    self.title = @"Поиск";
-    
+    [self configureController];
     [self configurePlaceContainerView];
     
+    [[DataManager sharedInstance] loadData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadedSuccessfully) name:kDataManagerLoadDataDidComplete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentLocation:) name:kLocationServiceDidUpdateCurrentLocation object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDataManagerLoadDataDidComplete object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServiceDidUpdateCurrentLocation object:nil];
+}
+
+#pragma mark - Configures
+
+- (void)configureController {
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
+    [self.navigationController.navigationBar setPrefersLargeTitles:YES];
+}
+
+- (void)configurePlaceContainerView {
+    UIView *placeContainerView = [[UIView alloc] initWithFrame:CGRectMake(20.0, 140.0, [UIScreen mainScreen].bounds.size.width - 40.0, 170.0)];
+    [placeContainerView setBackgroundColor:[UIColor whiteColor]];
+    [placeContainerView.layer setShadowColor:[[[UIColor blackColor] colorWithAlphaComponent:0.1] CGColor]];
+    [placeContainerView.layer setShadowOffset:CGSizeZero];
+    [placeContainerView.layer setShadowRadius:20.0];
+    [placeContainerView.layer setShadowOpacity:1.0];
+    [placeContainerView.layer setCornerRadius:6.0];
+    [self setPlaceContainerView:placeContainerView];
+    
+    [self configureDepartureButton];
+    [self configureArrivalButton];
+    [self configureSearchButton];
+    [self.view addSubview:_placeContainerView];
+}
+
+- (void)configureDepartureButton {
+    UIButton *departureButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [departureButton setTitle:@"Откуда" forState: UIControlStateNormal];
+    [departureButton setFrame:CGRectMake(10.0, 20.0, _placeContainerView.frame.size.width - 20.0, 60.0)];
+    [self setDepartureButton:departureButton];
+    
+    [self configurePlaceButton:departureButton];
+    [self.placeContainerView addSubview:departureButton];
+}
+
+- (void)configureArrivalButton {
+    UIButton *arrivalButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [arrivalButton setTitle:@"Куда" forState: UIControlStateNormal];
+    [arrivalButton setFrame:CGRectMake(10.0, CGRectGetMaxY(_departureButton.frame) + 10.0, _placeContainerView.frame.size.width - 20.0, 60.0)];
+    [self setArrivalButton:arrivalButton];
+    
+    [self configurePlaceButton:arrivalButton];
+    [self.placeContainerView addSubview:arrivalButton];
+}
+
+- (void)configurePlaceButton:(UIButton *)btn {
+    [btn setTintColor:[UIColor blackColor]];
+    [btn setBackgroundColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.1]];
+    [btn.layer setCornerRadius:4.0];
+    [btn addTarget:self action:@selector(placeButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)configureSearchButton {
+    UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [searchButton setTitle:@"Найти" forState:UIControlStateNormal];
+    [searchButton setTintColor:[UIColor whiteColor]];
+    [searchButton setFrame:CGRectMake(30.0, CGRectGetMaxY(_placeContainerView.frame) + 30, [UIScreen mainScreen].bounds.size.width - 60.0, 60.0)];
+    [searchButton setBackgroundColor:[UIColor blackColor]];
+    [searchButton.layer setCornerRadius:8.0];
+    [searchButton.titleLabel setFont:[UIFont systemFontOfSize:20.0 weight:UIFontWeightBold]];
+    [searchButton addTarget:self action:@selector(searchButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:searchButton];
+    [self setSearchButton:searchButton];
 }
 
 #pragma mark - Location
@@ -58,70 +125,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationServiceDidUpdateCurrentLocation object:nil];
 }
 
-#pragma mark - Configurations
-
-- (void)configurePlaceContainerView {
-    _placeContainerView = [[UIView alloc] initWithFrame:CGRectMake(20.0, 140.0, [UIScreen mainScreen].bounds.size.width - 40.0, 170.0)];
-    _placeContainerView.backgroundColor = [UIColor whiteColor];
-    _placeContainerView.layer.shadowColor = [[[UIColor blackColor] colorWithAlphaComponent:0.1] CGColor];
-    _placeContainerView.layer.shadowOffset = CGSizeZero;
-    _placeContainerView.layer.shadowRadius = 20.0;
-    _placeContainerView.layer.shadowOpacity = 1.0;
-    _placeContainerView.layer.cornerRadius = 6.0;
-    
-    [self configureDepartureButton];
-    [self configureArrivalButton];
-    [self configureSearchButton];
-    
-    [self.view addSubview:_placeContainerView];
-}
-
-- (void)configureDepartureButton {
-    _departureButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_departureButton setTitle:@"Откуда" forState: UIControlStateNormal];
-    _departureButton.tintColor = [UIColor blackColor];
-    _departureButton.frame = CGRectMake(10.0, 20.0, _placeContainerView.frame.size.width - 20.0, 60.0);
-    _departureButton.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
-    _departureButton.layer.cornerRadius = 4.0;
-    [_departureButton addTarget:self action:@selector(placeButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.placeContainerView addSubview:_departureButton];
-}
-
-- (void)configureArrivalButton {
-    _arrivalButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_arrivalButton setTitle:@"Куда" forState: UIControlStateNormal];
-    _arrivalButton.tintColor = [UIColor blackColor];
-    _arrivalButton.frame = CGRectMake(10.0, CGRectGetMaxY(_departureButton.frame) + 10.0, _placeContainerView.frame.size.width - 20.0, 60.0);
-    _arrivalButton.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
-    _arrivalButton.layer.cornerRadius = 4.0;
-    [_arrivalButton addTarget:self action:@selector(placeButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.placeContainerView addSubview:_arrivalButton];
-}
-
-- (void)configureSearchButton {
-    _searchButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_searchButton setTitle:@"Найти" forState:UIControlStateNormal];
-    _searchButton.tintColor = [UIColor whiteColor];
-    _searchButton.frame = CGRectMake(30.0, CGRectGetMaxY(_placeContainerView.frame) + 30, [UIScreen mainScreen].bounds.size.width - 60.0, 60.0);
-    _searchButton.backgroundColor = [UIColor blackColor];
-    _searchButton.layer.cornerRadius = 8.0;
-    _searchButton.titleLabel.font = [UIFont systemFontOfSize:20.0 weight:UIFontWeightBold];
-    
-    [_searchButton addTarget:self action:@selector(searchButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:_searchButton];
-}
-
 #pragma mark - Tap reactions
 
 - (void)placeButtonDidTap:(UIButton *)sender {
     PlaceType type = ([sender isEqual:_departureButton]) ? PlaceTypeDeparture : PlaceTypeArrival;
     PlaceViewController *placeViewController = [[PlaceViewController alloc] initWithType:type];
-    placeViewController.delegate = self;
+    [placeViewController setDelegate:self];
     if ([sender isEqual:_arrivalButton]) {
-        TabBarViewController *tabBarViewController = [[TabBarViewController alloc] initWithController:placeViewController origin:_origin];
+        PlaceTabBarViewController *tabBarViewController = [[PlaceTabBarViewController alloc] initWithController:placeViewController origin:_origin];
         [self.navigationController pushViewController: tabBarViewController animated:YES];
     } else {
         [self.navigationController pushViewController: placeViewController animated:YES];
@@ -146,10 +157,6 @@
             [self presentViewController:alertController animated:YES completion:nil];
         }
     }];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDataManagerLoadDataDidComplete object:nil];
 }
 
 #pragma mark - PlaceViewControllerDelegate

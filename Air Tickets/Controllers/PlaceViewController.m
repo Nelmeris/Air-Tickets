@@ -8,19 +8,22 @@
 //
 
 #import "PlaceViewController.h"
+
 #import "SearchCollectionViewCell.h"
 
 @interface PlaceViewController ()
 @property (nonatomic) PlaceType placeType;
-@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
-@property (nonatomic, strong) NSArray *currentArray;
 @end
 
 #define TABLE_CELL_IDENTIFIER @"CellIdentifier"
-#define SEARCH_COLLECTION_CELL_IDENTIFIER @"SearchCell"
+@interface PlaceViewController () <UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *currentArray;
+@end
 
-@interface PlaceViewController () <UISearchResultsUpdating>
+#define SEARCH_COLLECTION_CELL_IDENTIFIER @"SearchCell"
+@interface PlaceViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UISearchResultsUpdating>
 @property (nonatomic, strong) UICollectionView *searchCollectionView;
 @property (nonatomic, strong) NSArray *searchArray;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -31,12 +34,9 @@
 - (instancetype)initWithType:(PlaceType)type {
     self = [super init];
     if (self) {
-        _placeType = type;
+        [self setPlaceType:type];
         
-        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-        self.navigationItem.hidesSearchBarWhenScrolling = NO;
-        self.title = (_placeType == PlaceTypeDeparture) ? @"Откуда" : @"Куда";
-        
+        [self configureController];
         [self configureTableView];
         [self congigureSegmentedControl];
         [self changeSource];
@@ -45,6 +45,11 @@
 }
 
 #pragma mark - Configurations
+
+- (void)configureController {
+    [self.navigationItem setHidesSearchBarWhenScrolling:NO];
+    [self setTitle:(_placeType == PlaceTypeDeparture) ? @"Откуда" : @"Куда"];
+}
 
 - (void)configureTableView {
     [self configureSearchController];

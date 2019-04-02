@@ -34,14 +34,15 @@
 - (instancetype)initWithOrigin:(City *)city {
     self = [super init];
     if (self) {
+        [self setOrigin:city];
+        
         [self configureMapView];
-        _origin = city;
         
         MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(_origin.coordinate, 1000000, 1000000);
-        [_mapView setRegion: region animated: YES];
+        [_mapView setRegion:region animated:YES];
         
         [[APIManager sharedInstance] mapPricesFor:_origin withCompletion:^(NSArray *prices) {
-            self.prices = prices;
+            [self setPrices:prices];
         }];
     }
     return self;
@@ -49,8 +50,8 @@
 
 - (void)configureMapView {
     _mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
-    _mapView.showsUserLocation = YES;
-    _mapView.delegate = self;
+    [_mapView setShowsUserLocation:YES];
+    [_mapView setDelegate:self];
     [self.view addSubview:_mapView];
 }
 
@@ -66,13 +67,13 @@
     CLLocation *currentLocation = notification.object;
     
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, 1000000, 1000000);
-    [_mapView setRegion: region animated: YES];
+    [_mapView setRegion:region animated:YES];
     
     if (!currentLocation) return;
     _origin = [[DataManager sharedInstance] cityForLocation:currentLocation];
     if (!_origin) return;
     [[APIManager sharedInstance] mapPricesFor:_origin withCompletion:^(NSArray *prices) {
-        self.prices = prices;
+        [self setPrices:prices];
     }];
 }
 
@@ -94,25 +95,32 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     static NSString *identifier = @"MarkerIdentifier";
     MKMarkerAnnotationView *annotationView = (MKMarkerAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+    
+    if ([annotationView.annotation.title isEqual: @"My Location"]) {
+        [annotationView setAnnotation:nil];
+        return nil;
+    }
+    
     if (!annotationView) {
         annotationView = [[MKMarkerAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
-        annotationView.canShowCallout = YES;
-        annotationView.calloutOffset = CGPointMake(0, 5.0);
+        [annotationView setCanShowCallout:YES];
+        [annotationView setCalloutOffset:CGPointMake(0, 5.0)];
+        
         UIButton* annotationButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [annotationButton setFrame:CGRectMake(0, 0, 30, 30)];
         [annotationButton setImage:[UIImage imageNamed:@"SelectIcon"] forState:UIControlStateNormal];
-        annotationView.rightCalloutAccessoryView = annotationButton;
         [annotationButton addTarget:self action:@selector(selectAirport) forControlEvents:UIControlEventTouchUpInside];
+        [annotationView setRightCalloutAccessoryView:annotationButton];
     }
-    annotationView.annotation = annotation;
     
+    [annotationView setAnnotation:annotation];
     return annotationView;
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     for (MapPrice *price in _prices) {
         if (price.destination.coordinate.latitude == view.annotation.coordinate.latitude && price.destination.coordinate.longitude == view.annotation.coordinate.longitude)
-            _destination = price.destination;
+            [self setDestination:price.destination];
     }
 }
 
