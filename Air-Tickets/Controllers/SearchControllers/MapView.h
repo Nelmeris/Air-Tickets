@@ -2,16 +2,18 @@
 //  MapView.h
 //  Air Tickets
 //
-//  Created by Artem Kufaev on 05/04/2019.
+//  Created by Артем Куфаев on 01/04/2019.
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import "DataManager.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface MapView : UIView
-
+@protocol MapViewDelegate <NSObject>
+- (void)selectCity:(City *)city;
 @end
 
-NS_ASSUME_NONNULL_END
+@interface MapView : UIView
+@property (nonatomic, strong) id<MapViewDelegate>delegate;
+
+@end

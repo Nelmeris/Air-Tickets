@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
+#import "SearchViewController.h"
 
 @interface MainViewController : UITabBarController
 
-@end
+@property (nonatomic, strong) SearchViewController *searchVC;
 
-NS_ASSUME_NONNULL_END
+@end

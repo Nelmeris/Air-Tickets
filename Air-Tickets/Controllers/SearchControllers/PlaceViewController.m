@@ -1,4 +1,3 @@
-
 //
 //  PlaceViewController.m
 //  Air Tickets
@@ -8,12 +7,18 @@
 //
 
 #import "PlaceViewController.h"
-
+#import "MapView.h"
 #import "SearchCollectionViewCell.h"
+
+#define ReuseIdentifier @"CellIdentifier"
 
 @interface PlaceViewController ()
 @property (nonatomic) PlaceType placeType;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@end
+
+@interface PlaceViewController () <MapViewDelegate>
+@property (nonatomic, strong) MapView *mapView;
 @end
 
 #define TABLE_CELL_IDENTIFIER @"CellIdentifier"
@@ -34,21 +39,26 @@
 - (instancetype)initWithType:(PlaceType)type {
     self = [super init];
     if (self) {
-        [self setPlaceType:type];
+        _placeType = type;
         
         [self configureController];
+        [self configureNavigationController];
         [self configureTableView];
+        [self configureMapView];
         [self congigureSegmentedControl];
         [self changeSource];
     }
     return self;
 }
 
-#pragma mark - Configurations
+#pragma mark - Configures
 
 - (void)configureController {
-    [self.navigationItem setHidesSearchBarWhenScrolling:NO];
     [self setTitle:(_placeType == PlaceTypeDeparture) ? @"Откуда" : @"Куда"];
+}
+
+- (void)configureNavigationController {
+    [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
 }
 
 - (void)configureTableView {
@@ -62,7 +72,6 @@
     } else {
         _tableView.tableHeaderView = _searchController.searchBar;
     }
-    
     [self.view addSubview:_tableView];
 }
 
@@ -90,22 +99,43 @@
     [_searchCollectionView registerClass:[SearchCollectionViewCell class] forCellWithReuseIdentifier:SEARCH_COLLECTION_CELL_IDENTIFIER];
 }
 
+- (void)configureMapView {
+    _mapView = [[MapView alloc] initWithFrame:self.view.bounds];
+    _mapView.delegate = self;
+}
+
 - (void)congigureSegmentedControl {
     NSMutableArray<NSString *> *items = [NSMutableArray arrayWithArray:@[@"Города", @"Аэропорты"]];
+    if (_placeType == PlaceTypeArrival)
+        [items addObject:@"Карта"];
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
     [_segmentedControl addTarget:self action:@selector(changeSource) forControlEvents:UIControlEventValueChanged];
     _segmentedControl.tintColor = [UIColor blackColor];
-    _segmentedControl.selectedSegmentIndex = 0;
     self.navigationItem.titleView = _segmentedControl;
+    _segmentedControl.selectedSegmentIndex = 0;
 }
 
 - (void)changeSource {
     switch (_segmentedControl.selectedSegmentIndex) {
         case 0:
+            if (![self.view.subviews containsObject:_tableView])
+                [self.view addSubview:_tableView];
+            [_mapView removeFromSuperview];
             _currentArray = [[DataManager sharedInstance] cities];
             break;
         case 1:
+            if (![self.view.subviews containsObject:_tableView])
+                [self.view addSubview:_tableView];
+            [_mapView removeFromSuperview];
             _currentArray = [[DataManager sharedInstance] airports];
+            break;
+        case 2:
+            if (![self.view.subviews containsObject:_mapView])
+                [self.view addSubview:_mapView];
+            if ([self.view.subviews containsObject:_tableView])
+                [_tableView removeFromSuperview];
+            break;
+        default:
             break;
     }
     [self.tableView reloadData];
@@ -118,18 +148,18 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TABLE_CELL_IDENTIFIER];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:TABLE_CELL_IDENTIFIER];
+        cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleSubtitle reuseIdentifier:ReuseIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     if (_segmentedControl.selectedSegmentIndex == 0) {
-        City *city = (_searchController.isActive && [_searchArray count] > 0) ? [_searchArray objectAtIndex:indexPath.row] : [_currentArray objectAtIndex:indexPath.row];
+        City *city = [_currentArray objectAtIndex:indexPath.row];
         cell.textLabel.text = city.name;
         cell.detailTextLabel.text = city.code;
     }
     else if (_segmentedControl.selectedSegmentIndex == 1) {
-        Airport *airport = (_searchController.isActive && [_searchArray count] > 0) ? [_searchArray objectAtIndex:indexPath.row] : [_currentArray objectAtIndex:indexPath.row];
+        Airport *airport = [_currentArray objectAtIndex:indexPath.row];
         cell.textLabel.text = airport.name;
         cell.detailTextLabel.text = airport.code;
     }
@@ -141,12 +171,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DataSourceType dataType = ((int)_segmentedControl.selectedSegmentIndex) + 1;
-    if (_searchController.isActive && [_searchArray count] > 0) {
-        [self.delegate selectPlace:[_searchArray objectAtIndex:indexPath.row] withType:_placeType andDataType:dataType];
-        _searchController.active = NO;
-    } else {
-        [self.delegate selectPlace:[_currentArray objectAtIndex:indexPath.row] withType:_placeType andDataType:dataType];
-    }
+    [self.delegate selectPlace:[_currentArray objectAtIndex:indexPath.row] withType:_placeType andDataType:dataType];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - MapViewDelegate
+
+- (void)selectCity:(City *)city {
+    DataSourceType dataType = DataSourceTypeCity;
+    [self.delegate selectPlace:city withType:_placeType andDataType:dataType];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

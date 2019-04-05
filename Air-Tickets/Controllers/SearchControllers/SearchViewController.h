@@ -1,5 +1,5 @@
 //
-//  MainViewController.h
+//  SearchViewController.h
 //  Air Tickets
 //
 //  Created by Artem Kufaev on 28/03/2019.

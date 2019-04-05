@@ -20,10 +20,7 @@
     
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    // Navigation
-    MainViewController *mvc = [MainViewController new];
-    
-    _window.rootViewController = [[UINavigationController alloc] initWithRootViewController:mvc];
+    _window.rootViewController = [MainViewController new];
     [_window makeKeyAndVisible];
     
     return YES;

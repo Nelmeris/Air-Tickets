@@ -1,5 +1,5 @@
 //
-//  MainViewController.m
+//  SearchViewController.m
 //  Air Tickets
 //
 //  Created by Artem Kufaev on 28/03/2019.
@@ -14,7 +14,6 @@
 
 #import "PlaceViewController.h"
 #import "TicketsTableViewController.h"
-#import "PlaceTabBarViewController.h"
 
 @interface SearchViewController () <PlaceViewControllerDelegate>
 @property (nonatomic, strong) UIView *placeContainerView;
@@ -32,16 +31,13 @@
     [super viewDidLoad];
     
     [self configureController];
+    [self configureNavigationController];
     [self configurePlaceContainerView];
+    [self configureSearchButton];
     
     [[DataManager sharedInstance] loadData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadedSuccessfully) name:kDataManagerLoadDataDidComplete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentLocation:) name:kLocationServiceDidUpdateCurrentLocation object:nil];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self.navigationController.navigationBar setPrefersLargeTitles:YES];
 }
 
 - (void)dealloc {
@@ -52,7 +48,11 @@
 #pragma mark - Configures
 
 - (void)configureController {
+    [self setTitle:@"Поиск"];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+}
+
+- (void)configureNavigationController {
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
     [self.navigationController.navigationBar setPrefersLargeTitles:YES];
 }
@@ -69,7 +69,6 @@
     
     [self configureDepartureButton];
     [self configureArrivalButton];
-    [self configureSearchButton];
     [self.view addSubview:_placeContainerView];
 }
 
@@ -109,9 +108,9 @@
     [searchButton.layer setCornerRadius:8.0];
     [searchButton.titleLabel setFont:[UIFont systemFontOfSize:20.0 weight:UIFontWeightBold]];
     [searchButton addTarget:self action:@selector(searchButtonDidTap:) forControlEvents:UIControlEventTouchUpInside];
+    [self setSearchButton:searchButton];
     
     [self.view addSubview:searchButton];
-    [self setSearchButton:searchButton];
 }
 
 #pragma mark - Location
@@ -136,12 +135,7 @@
     PlaceType type = ([sender isEqual:_departureButton]) ? PlaceTypeDeparture : PlaceTypeArrival;
     PlaceViewController *placeViewController = [[PlaceViewController alloc] initWithType:type];
     [placeViewController setDelegate:self];
-    if ([sender isEqual:_arrivalButton]) {
-        PlaceTabBarViewController *tabBarViewController = [[PlaceTabBarViewController alloc] initWithController:placeViewController origin:_origin];
-        [self.navigationController pushViewController: tabBarViewController animated:YES];
-    } else {
-        [self.navigationController pushViewController: placeViewController animated:YES];
-    }
+    [self.navigationController pushViewController: placeViewController animated:YES];
 }
 
 - (void)searchButtonDidTap:(UIButton *)sender {

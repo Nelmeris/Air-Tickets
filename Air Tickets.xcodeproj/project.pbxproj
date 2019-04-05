@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5715B8D3224CE83A0064FA3A /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5715B8D2224CE83A0064FA3A /* MainViewController.m */; };
+		5715B8D3224CE83A0064FA3A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5715B8D2224CE83A0064FA3A /* SearchViewController.m */; };
 		5715B8D6224CE9BC0064FA3A /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5715B8D5224CE9BC0064FA3A /* PlaceViewController.m */; };
 		5715B8DE224CEBA50064FA3A /* airports.json in Resources */ = {isa = PBXBuildFile; fileRef = 5715B8DB224CEBA50064FA3A /* airports.json */; };
 		5715B8DF224CEBA50064FA3A /* cities.json in Resources */ = {isa = PBXBuildFile; fileRef = 5715B8DC224CEBA50064FA3A /* cities.json */; };
@@ -19,6 +19,8 @@
 		57713056223EA92B00FB9806 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57713055223EA92B00FB9806 /* Assets.xcassets */; };
 		57713059223EA92B00FB9806 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57713057223EA92B00FB9806 /* LaunchScreen.storyboard */; };
 		5771305C223EA92B00FB9806 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771305B223EA92B00FB9806 /* main.m */; };
+		57C3CB9F2257BE3B00BC2536 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CB9E2257BE3B00BC2536 /* MainViewController.m */; };
+		57C3CBA22257C5F900BC2536 /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CBA12257C5F900BC2536 /* MapView.m */; };
 		57F47D60224CE11F004653C9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D5F224CE11F004653C9 /* APIManager.m */; };
 		57F47D65224CE1A0004653C9 /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D64224CE1A0004653C9 /* Airport.m */; };
 		57F47D68224CE1E3004653C9 /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D67224CE1E3004653C9 /* Country.m */; };
@@ -26,17 +28,15 @@
 		57F47D6E224CE23F004653C9 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D6D224CE23F004653C9 /* DataManager.m */; };
 		57F84F2C225238EE0047FCFD /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F2B225238EE0047FCFD /* LocationService.m */; };
 		57F84F3022523AA00047FCFD /* MapPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F2F22523AA00047FCFD /* MapPrice.m */; };
-		57F84F3922523D170047FCFD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F3822523D170047FCFD /* MapViewController.m */; };
 		57F84F4022529F860047FCFD /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F3F22529F860047FCFD /* SearchCollectionViewCell.m */; };
-		57F84F45225358B00047FCFD /* PlaceTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F44225358B00047FCFD /* PlaceTabBarViewController.m */; };
 		A5E242518E486B08B78B16B9 /* libPods-Air Tickets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4169EA067D8C569A09DC9C /* libPods-Air Tickets.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4597CE88B0E7E6209B2F7859 /* Pods-Air Tickets.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Air Tickets.release.xcconfig"; path = "Target Support Files/Pods-Air Tickets/Pods-Air Tickets.release.xcconfig"; sourceTree = "<group>"; };
 		503BA6A369D1DBF6684EAD10 /* Pods-Air Tickets.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Air Tickets.debug.xcconfig"; path = "Target Support Files/Pods-Air Tickets/Pods-Air Tickets.debug.xcconfig"; sourceTree = "<group>"; };
-		5715B8D1224CE83A0064FA3A /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		5715B8D2224CE83A0064FA3A /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		5715B8D1224CE83A0064FA3A /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		5715B8D2224CE83A0064FA3A /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		5715B8D4224CE9BC0064FA3A /* PlaceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceViewController.h; sourceTree = "<group>"; };
 		5715B8D5224CE9BC0064FA3A /* PlaceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceViewController.m; sourceTree = "<group>"; };
 		5715B8D7224CEA100064FA3A /* SearchRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchRequest.h; sourceTree = "<group>"; };
@@ -56,6 +56,10 @@
 		57713058223EA92B00FB9806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5771305A223EA92B00FB9806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5771305B223EA92B00FB9806 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		57C3CB9D2257BE3B00BC2536 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		57C3CB9E2257BE3B00BC2536 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		57C3CBA02257C5F900BC2536 /* MapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapView.h; sourceTree = "<group>"; };
+		57C3CBA12257C5F900BC2536 /* MapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapView.m; sourceTree = "<group>"; };
 		57F47D5E224CE11F004653C9 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		57F47D5F224CE11F004653C9 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		57F47D63224CE1A0004653C9 /* Airport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
@@ -70,13 +74,9 @@
 		57F84F2B225238EE0047FCFD /* LocationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationService.m; sourceTree = "<group>"; };
 		57F84F2E22523AA00047FCFD /* MapPrice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapPrice.h; sourceTree = "<group>"; };
 		57F84F2F22523AA00047FCFD /* MapPrice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapPrice.m; sourceTree = "<group>"; };
-		57F84F3722523D170047FCFD /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		57F84F3822523D170047FCFD /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		57F84F3A225250F10047FCFD /* DataSourceType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataSourceType.h; sourceTree = "<group>"; };
 		57F84F3E22529F860047FCFD /* SearchCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCollectionViewCell.h; sourceTree = "<group>"; };
 		57F84F3F22529F860047FCFD /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
-		57F84F412252D44F0047FCFD /* PlaceTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceTabBarViewController.h; sourceTree = "<group>"; };
-		57F84F44225358B00047FCFD /* PlaceTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceTabBarViewController.m; sourceTree = "<group>"; };
 		9A4169EA067D8C569A09DC9C /* libPods-Air Tickets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Air Tickets.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -156,6 +156,19 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		57C3CB9B2257BDF800BC2536 /* SearchControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5715B8D1224CE83A0064FA3A /* SearchViewController.h */,
+				5715B8D2224CE83A0064FA3A /* SearchViewController.m */,
+				5715B8D4224CE9BC0064FA3A /* PlaceViewController.h */,
+				5715B8D5224CE9BC0064FA3A /* PlaceViewController.m */,
+				57C3CBA02257C5F900BC2536 /* MapView.h */,
+				57C3CBA12257C5F900BC2536 /* MapView.m */,
+			);
+			path = SearchControllers;
+			sourceTree = "<group>";
+		};
 		57F47D5D224CE109004653C9 /* APIManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,16 +219,11 @@
 		57F84F3522523C460047FCFD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5715B8D1224CE83A0064FA3A /* MainViewController.h */,
-				5715B8D2224CE83A0064FA3A /* MainViewController.m */,
-				5715B8D4224CE9BC0064FA3A /* PlaceViewController.h */,
-				5715B8D5224CE9BC0064FA3A /* PlaceViewController.m */,
+				57C3CB9D2257BE3B00BC2536 /* MainViewController.h */,
+				57C3CB9E2257BE3B00BC2536 /* MainViewController.m */,
+				57C3CB9B2257BDF800BC2536 /* SearchControllers */,
 				5715B8EB224CF2030064FA3A /* TicketsTableViewController.h */,
 				5715B8EC224CF2030064FA3A /* TicketsTableViewController.m */,
-				57F84F412252D44F0047FCFD /* PlaceTabBarViewController.h */,
-				57F84F44225358B00047FCFD /* PlaceTabBarViewController.m */,
-				57F84F3722523D170047FCFD /* MapViewController.h */,
-				57F84F3822523D170047FCFD /* MapViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -338,9 +346,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				57F47D6B224CE1EC004653C9 /* City.m in Sources */,
-				5715B8D3224CE83A0064FA3A /* MainViewController.m in Sources */,
+				5715B8D3224CE83A0064FA3A /* SearchViewController.m in Sources */,
 				57F84F4022529F860047FCFD /* SearchCollectionViewCell.m in Sources */,
 				5715B8D6224CE9BC0064FA3A /* PlaceViewController.m in Sources */,
+				57C3CBA22257C5F900BC2536 /* MapView.m in Sources */,
 				5715B8E9224CF1B60064FA3A /* TicketTableViewCell.m in Sources */,
 				5771305C223EA92B00FB9806 /* main.m in Sources */,
 				57F47D60224CE11F004653C9 /* APIManager.m in Sources */,
@@ -350,8 +359,7 @@
 				5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */,
 				5715B8E5224CEEB90064FA3A /* Ticket.m in Sources */,
 				5715B8ED224CF2030064FA3A /* TicketsTableViewController.m in Sources */,
-				57F84F45225358B00047FCFD /* PlaceTabBarViewController.m in Sources */,
-				57F84F3922523D170047FCFD /* MapViewController.m in Sources */,
+				57C3CB9F2257BE3B00BC2536 /* MainViewController.m in Sources */,
 				57F47D68224CE1E3004653C9 /* Country.m in Sources */,
 				57F47D6E224CE23F004653C9 /* DataManager.m in Sources */,
 			);
@@ -490,7 +498,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YX6VKW92JQ;
-				INFOPLIST_FILE = "Air Tickets/Application/Info.plist";
+				INFOPLIST_FILE = "Air-Tickets/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -508,7 +516,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YX6VKW92JQ;
-				INFOPLIST_FILE = "Air Tickets/Application/Info.plist";
+				INFOPLIST_FILE = "Air-Tickets/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
