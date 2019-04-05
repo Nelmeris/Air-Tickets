@@ -1,5 +1,5 @@
 //
-//  MainViewController.h
+//  MapView.h
 //  Air Tickets
 //
 //  Created by Artem Kufaev on 05/04/2019.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MainViewController : UITabBarController
+@interface MapView : UIView
 
 @end
 
