@@ -122,6 +122,7 @@
 - (void)updateCurrentLocation:(NSNotification *)notification {
     CLLocation *currentLocation = notification.object;
     City *city = [[DataManager sharedInstance] cityForLocation:currentLocation];
+    _origin = city;
     [self setPlace:city withDataType:DataSourceTypeCity andPlaceType:PlaceTypeDeparture forButton:self->_departureButton];
     
     _locationService = nil;
@@ -133,7 +134,7 @@
 
 - (void)placeButtonDidTap:(UIButton *)sender {
     PlaceType type = ([sender isEqual:_departureButton]) ? PlaceTypeDeparture : PlaceTypeArrival;
-    PlaceViewController *placeViewController = [[PlaceViewController alloc] initWithType:type];
+    PlaceViewController *placeViewController = [[PlaceViewController alloc] initWithType:type origin:_origin];
     [placeViewController setDelegate:self];
     [self.navigationController pushViewController: placeViewController animated:YES];
 }
@@ -172,6 +173,7 @@
         title = city.name;
         iata = city.code;
         _origin = city;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServiceDidUpdateOrigin object:city];
     }
     else if (dataType == DataSourceTypeAirport) {
         Airport *airport = (Airport *)place;

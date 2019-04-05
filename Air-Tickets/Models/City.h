@@ -8,6 +8,8 @@
 
 #import <MapKit/MapKit.h>
 
+#define kLocationServiceDidUpdateOrigin @"OriginDidUpdate"
+
 @interface City : NSObject
 
 @property (nonatomic, strong) NSString *name;

@@ -7,20 +7,31 @@
 //
 
 #import "MainViewController.h"
+#import "TicketsTableViewController.h"
 
 @implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _searchVC = [SearchViewController new];
-    
-    UITabBarItem *tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:0];
-    [_searchVC setTabBarItem:tabBarItem];
-    [self setViewControllers:@[
-                               [[UINavigationController alloc] initWithRootViewController:_searchVC]
-                               ]];
-    // Do any additional setup after loading the view.
+    [self setViewControllers:[self createViewControllers]];
 }
+
+- (NSArray<UIViewController*> *)createViewControllers {
+    NSMutableArray<UIViewController*> *controllers = [NSMutableArray new];
+    
+    SearchViewController *searchVC = [SearchViewController new];
+    searchVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Поиск" image:[UIImage imageNamed:@"search"] selectedImage:[UIImage imageNamed:@"search_selected"]];
+    UINavigationController *searchNC = [[UINavigationController alloc] initWithRootViewController:searchVC];
+    [controllers addObject:searchNC];
+    
+    TicketsTableViewController *favoriteVC = [[TicketsTableViewController alloc] initFavoriteTicketsController];
+    favoriteVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Избранное" image:[UIImage imageNamed:@"favorite"] selectedImage:[UIImage imageNamed:@"favorite_selected"]];
+    UINavigationController *favoriteNC = [[UINavigationController alloc] initWithRootViewController:favoriteVC];
+    [controllers addObject:favoriteNC];
+    
+    return controllers;
+}
+
 
 @end

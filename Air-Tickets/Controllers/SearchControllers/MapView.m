@@ -14,23 +14,29 @@
 @interface MapView () <MKMapViewDelegate>
 @property (strong, nonatomic) MKMapView *mapView;
 @property (nonatomic, strong) LocationService *locationService;
-@property (nonatomic, strong) City *origin;
 @property (nonatomic, strong) City *destination;
 @property (nonatomic, strong) NSArray *prices;
 @end
 
 @implementation MapView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame origin:(City *)origin
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self configureMapView];
         
-        [[DataManager sharedInstance] loadData];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadedSuccessfully) name:kDataManagerLoadDataDidComplete object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentLocation:) name:kLocationServiceDidUpdateCurrentLocation object:nil];
+        if (origin) {
+            _origin = origin;
+            [self setRegion:origin.coordinate];
+            [self loadPrices];
+        } else {
+            [[DataManager sharedInstance] loadData];
+            
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dataLoadedSuccessfully) name:kDataManagerLoadDataDidComplete object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCurrentLocation:) name:kLocationServiceDidUpdateCurrentLocation object:nil];
+        }
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrigin:) name:kLocationServiceDidUpdateOrigin object:nil];
     }
     return self;
 }
@@ -42,6 +48,13 @@
     [self addSubview:_mapView];
 }
 
+- (void)updateOrigin:(NSNotification *)notification {
+    City *city = notification.object;
+    _origin = city;
+    [self setRegion:_origin.coordinate];
+    [self loadPrices];
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -50,18 +63,26 @@
     _locationService = [LocationService new];
 }
 
+- (void)loadPrices {
+    [[APIManager sharedInstance] mapPricesFor:_origin withCompletion:^(NSArray *prices) {
+        self.prices = prices;
+    }];
+}
+
+- (void)setRegion:(CLLocationCoordinate2D)coordinate {
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 1000000, 1000000);
+    [_mapView setRegion: region animated: YES];
+}
+
 - (void)updateCurrentLocation:(NSNotification *)notification {
     CLLocation *currentLocation = notification.object;
     
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, 1000000, 1000000);
-    [_mapView setRegion: region animated: YES];
+    [self setRegion:currentLocation.coordinate];
     
     if (!currentLocation) return;
     _origin = [[DataManager sharedInstance] cityForLocation:currentLocation];
     if (!_origin) return;
-    [[APIManager sharedInstance] mapPricesFor:_origin withCompletion:^(NSArray *prices) {
-        self.prices = prices;
-    }];
+    [self loadPrices];
 }
 
 - (void)setPrices:(NSArray *)prices {

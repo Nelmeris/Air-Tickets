@@ -14,6 +14,10 @@
 @end
 
 @interface MapView : UIView
+
+@property (nonatomic, strong) City *origin;
 @property (nonatomic, strong) id<MapViewDelegate>delegate;
+- (instancetype)initWithFrame:(CGRect)frame origin:(City *)origin;
+- (void)resetOrigin:(City *)city;
 
 @end

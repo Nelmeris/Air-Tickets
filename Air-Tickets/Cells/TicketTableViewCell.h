@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Ticket.h"
+#import "CoreDataHelper.h"
 
 @interface TicketTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) Ticket *ticket;
+@property (nonatomic, strong) FavoriteTicket *favoriteTicket;
 
 @end

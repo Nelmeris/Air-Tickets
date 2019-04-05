@@ -9,6 +9,7 @@
 #import "PlaceViewController.h"
 #import "MapView.h"
 #import "SearchCollectionViewCell.h"
+#import "LocationService.h"
 
 #define ReuseIdentifier @"CellIdentifier"
 
@@ -36,10 +37,11 @@
 
 @implementation PlaceViewController
 
-- (instancetype)initWithType:(PlaceType)type {
+- (instancetype)initWithType:(PlaceType)type origin:(City *)origin {
     self = [super init];
     if (self) {
         _placeType = type;
+        _origin = origin;
         
         [self configureController];
         [self configureNavigationController];
@@ -59,6 +61,7 @@
 
 - (void)configureNavigationController {
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
+    [self.navigationItem setHidesSearchBarWhenScrolling:NO];
 }
 
 - (void)configureTableView {
@@ -100,7 +103,7 @@
 }
 
 - (void)configureMapView {
-    _mapView = [[MapView alloc] initWithFrame:self.view.bounds];
+    _mapView = [[MapView alloc] initWithFrame:self.view.bounds origin:_origin];
     _mapView.delegate = self;
 }
 
@@ -122,18 +125,34 @@
                 [self.view addSubview:_tableView];
             [_mapView removeFromSuperview];
             _currentArray = [[DataManager sharedInstance] cities];
+            
+            if (@available(iOS 11.0, *)) {
+                self.navigationItem.searchController = _searchController;
+            } else {
+                _tableView.tableHeaderView = _searchController.searchBar;
+            }
             break;
         case 1:
             if (![self.view.subviews containsObject:_tableView])
                 [self.view addSubview:_tableView];
             [_mapView removeFromSuperview];
             _currentArray = [[DataManager sharedInstance] airports];
+            if (@available(iOS 11.0, *)) {
+                self.navigationItem.searchController = _searchController;
+            } else {
+                _tableView.tableHeaderView = _searchController.searchBar;
+            }
             break;
         case 2:
             if (![self.view.subviews containsObject:_mapView])
                 [self.view addSubview:_mapView];
             if ([self.view.subviews containsObject:_tableView])
                 [_tableView removeFromSuperview];
+            if (@available(iOS 11.0, *)) {
+                self.navigationItem.searchController = nil;
+            } else {
+                _tableView.tableHeaderView = nil;
+            }
             break;
         default:
             break;
