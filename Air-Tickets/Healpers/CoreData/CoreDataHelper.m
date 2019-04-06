@@ -37,13 +37,13 @@
     }];
 }
 
-- (void)save:(NSString *)notificationName {
+- (void)save:(NSString *)notificationName object:(id)object  {
     NSError *error;
     [_managedObjectContext save: &error];
     if (error) {
         NSLog(@"%@", [error localizedDescription]);
     } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:object];
     }
 }
 
@@ -53,19 +53,6 @@
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FavoriteTicket"];
     request.predicate = [NSPredicate predicateWithFormat:@"price == %ld AND airline == %@ AND from == %@ AND to == %@ AND departure == %@ AND expires == %@ AND flightNumber == %ld", (long)ticket.price.integerValue, ticket.airline, ticket.from, ticket.to, ticket.departure, ticket.expires, (long)ticket.flightNumber.integerValue];
     return [[_managedObjectContext executeFetchRequest:request error:nil] firstObject];
-}
-
-- (Ticket *)ticketFromFavorite:(FavoriteTicket *)favorite {
-    Ticket *ticket = [[Ticket alloc] init];
-    ticket.price = [NSNumber numberWithLongLong:favorite.price];
-    ticket.airline = favorite.airline;
-    ticket.departure = favorite.departure;
-    ticket.expires = favorite.expires;
-    ticket.flightNumber = [NSNumber numberWithLongLong:favorite.flightNumber];
-    ticket.returnDate = favorite.returnDate;
-    ticket.from = favorite.from;
-    ticket.to = favorite.to;
-    return ticket;
 }
 
 - (BOOL)isFavorite:(Ticket *)ticket {
@@ -83,14 +70,21 @@
     favorite.from = ticket.from;
     favorite.to = ticket.to;
     favorite.created = [NSDate date];
-    [self save:kFavoriteDidUpdate];
+    [self save:kFavoriteDidUpdate object:favorite];
 }
 
-- (void)removeFromFavorite:(Ticket *)ticket {
+- (void)removeFromFavorite:(FavoriteTicket *)favorite {
+    if (favorite) {
+        [_managedObjectContext deleteObject:favorite];
+        [self save:kFavoriteDidUpdate object:favorite];
+    }
+}
+
+- (void)removeTicketFromFavorite:(Ticket *)ticket {
     FavoriteTicket *favorite = [self favoriteFromTicket:ticket];
     if (favorite) {
         [_managedObjectContext deleteObject:favorite];
-        [self save:kFavoriteDidUpdate];
+        [self save:kFavoriteDidUpdate object:favorite];
     }
 }
 
@@ -118,14 +112,21 @@
     historyTrack.destinationIATA = mapPrice.destination.code;
     historyTrack.value = mapPrice.value;
     historyTrack.created = [NSDate date];
-    [self save:kHistoryDidUpdate];
+    [self save:kHistoryDidUpdate object:historyTrack];
 }
 
-- (void)removeFromHistory:(MapPrice *)mapPrice {
+- (void)removeFromHistory:(HistoryTrack *)historyTrack {
+    if (historyTrack) {
+        [_managedObjectContext deleteObject:historyTrack];
+        [self save:kHistoryDidUpdate object:historyTrack];
+    }
+}
+
+- (void)removeMapPriceFromHistory:(MapPrice *)mapPrice {
     HistoryTrack *historyTrack = [self historyTrackFromMapPrice:mapPrice];
     if (historyTrack) {
         [_managedObjectContext deleteObject:historyTrack];
-        [self save:kHistoryDidUpdate];
+        [self save:kHistoryDidUpdate object:historyTrack];
     }
 }
 

@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SearchViewController.h"
-
 @interface MainViewController : UITabBarController
-
-@property (nonatomic, strong) SearchViewController *searchVC;
 
 @end

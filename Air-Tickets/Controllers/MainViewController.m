@@ -7,6 +7,8 @@
 //
 
 #import "MainViewController.h"
+
+#import "SearchViewController.h"
 #import "TicketsTableViewController.h"
 #import "HistoryTracksTableViewController.h"
 
@@ -23,20 +25,24 @@
     
     SearchViewController *searchVC = [SearchViewController new];
     searchVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Поиск" image:[UIImage imageNamed:@"search"] selectedImage:[UIImage imageNamed:@"search_selected"]];
-    UINavigationController *searchNC = [[UINavigationController alloc] initWithRootViewController:searchVC];
-    [controllers addObject:searchNC];
+    [controllers addObject:[self createNC:searchVC]];
     
     TicketsTableViewController *favoriteVC = [[TicketsTableViewController alloc] initFavoriteTicketsController];
     favoriteVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Избранное" image:[UIImage imageNamed:@"favorite"] selectedImage:[UIImage imageNamed:@"favorite_selected"]];
-    UINavigationController *favoriteNC = [[UINavigationController alloc] initWithRootViewController:favoriteVC];
-    [controllers addObject:favoriteNC];
+    [controllers addObject:[self createNC:favoriteVC]];
     
     HistoryTracksTableViewController *historyTracksTVC = [HistoryTracksTableViewController new];
     historyTracksTVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:2];
-    UINavigationController *historyTracksNC = [[UINavigationController alloc] initWithRootViewController:historyTracksTVC];
-    [controllers addObject:historyTracksNC];
+    [controllers addObject:[self createNC:historyTracksTVC]];
     
     return controllers;
+}
+
+- (UINavigationController *)createNC:(UIViewController*)rootVC {
+    UINavigationController *NC = [[UINavigationController alloc] initWithRootViewController:rootVC];
+    [NC.navigationBar setPrefersLargeTitles:YES];
+    [NC.navigationBar setTintColor:[UIColor blackColor]];
+    return NC;
 }
 
 

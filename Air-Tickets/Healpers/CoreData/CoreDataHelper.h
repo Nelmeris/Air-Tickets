@@ -21,12 +21,13 @@
 - (BOOL)isFavorite:(Ticket *)ticket;
 - (NSArray *)favorites;
 - (void)addToFavorite:(Ticket *)ticket;
-- (void)removeFromFavorite:(Ticket *)ticket;
-- (Ticket *)ticketFromFavorite:(FavoriteTicket *)favorite;
+- (void)removeFromFavorite:(FavoriteTicket *)favorite;
+- (void)removeTicketFromFavorite:(Ticket *)ticket;
 
 - (BOOL)isHistoryTrack:(MapPrice *)mapPrice;
 - (NSArray *)historyTracks;
 - (void)addToHistory:(MapPrice *)mapPrice;
-- (void)removeFromHistory:(MapPrice *)mapPrice;
+- (void)removeFromHistory:(HistoryTrack *)historyTrack;
+- (void)removeMapPriceFromHistory:(MapPrice *)mapPrice;
 
 @end

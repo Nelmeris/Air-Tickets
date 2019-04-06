@@ -26,8 +26,7 @@
         isFavorites = YES;
         self.tickets = [NSMutableArray new];
         self.title = @"Избранное";
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.tableView registerClass:[TicketTableViewCell class] forCellReuseIdentifier:TicketCellReuseIdentifier];
+        [self configureTableView];
     }
     return self;
 }
@@ -38,20 +37,49 @@
     {
         _tickets = [NSMutableArray arrayWithArray:tickets];
         self.title = @"Билеты";
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.tableView registerClass:[TicketTableViewCell class] forCellReuseIdentifier:TicketCellReuseIdentifier];
+        [self configureTableView];
     }
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
+- (void)configureTableView {
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerClass:[TicketTableViewCell class] forCellReuseIdentifier:TicketCellReuseIdentifier];
     if (isFavorites) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
         _tickets = [NSMutableArray arrayWithArray:[[CoreDataHelper sharedInstance] favorites]];
         [self.tableView reloadData];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData:) name:kFavoriteDidUpdate object:nil];
     }
+}
+
+- (void)reloadData:(NSNotification *)notification {
+    FavoriteTicket *newFavorit = notification.object;
+    [self.tableView beginUpdates];
+    if ([_tickets containsObject:newFavorit]) {
+        for (int i = 0; i < _tickets.count; i++) {
+            if ([_tickets[i] isEqual:newFavorit]) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [_tickets removeObject:newFavorit];
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                break;
+            }
+        }
+    } else {
+        NSMutableArray *newArray = [NSMutableArray arrayWithArray:_tickets];
+        [newArray addObject:newFavorit];
+        [_tickets sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return ((FavoriteTicket *)obj1).created < ((FavoriteTicket *)obj2).created;
+        }];
+        for (int i = 0; i < _tickets.count; i++) {
+            if ([_tickets[i] isEqual:newArray[i]]) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [_tickets insertObject:newFavorit atIndex:i];
+                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                break;
+            }
+        }
+    }
+    [self.tableView endUpdates];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate
@@ -80,10 +108,7 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Действия с билетом" message:@"Удалить из избранного?" preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *favoriteAction;
         favoriteAction = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            Ticket *ticket = [[CoreDataHelper sharedInstance] ticketFromFavorite:[self->_tickets objectAtIndex:indexPath.row]];
-            [self->_tickets removeObjectAtIndex:indexPath.row];
-            [[CoreDataHelper sharedInstance] removeFromFavorite:ticket];
-            [tableView reloadData];
+            [[CoreDataHelper sharedInstance] removeFromFavorite:[self->_tickets objectAtIndex:indexPath.row]];
         }];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Закрыть" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:favoriteAction];
@@ -95,7 +120,7 @@
     UIAlertAction *favoriteAction;
     if ([[CoreDataHelper sharedInstance] isFavorite: [_tickets objectAtIndex:indexPath.row]]) {
         favoriteAction = [UIAlertAction actionWithTitle:@"Удалить из избранного" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            [[CoreDataHelper sharedInstance] removeFromFavorite:[self->_tickets objectAtIndex:indexPath.row]];
+            [[CoreDataHelper sharedInstance] removeTicketFromFavorite:[self->_tickets objectAtIndex:indexPath.row]];
         }];
     } else {
         favoriteAction = [UIAlertAction actionWithTitle:@"Добавить в избранное" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
