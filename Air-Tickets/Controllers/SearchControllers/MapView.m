@@ -65,9 +65,33 @@
 }
 
 - (void)loadPrices {
+    UIView *loadingView = [self createLoadingView];
+    [self addSubview:loadingView];
     [[APIManager sharedInstance] mapPricesFor:_origin withCompletion:^(NSArray *prices) {
+        if ([self.subviews containsObject:loadingView])
+            [loadingView removeFromSuperview];
         self.prices = prices;
     }];
+}
+
+- (UIView *)createLoadingView {
+    UIView *loadingView = [[UIView alloc] initWithFrame:self.bounds];
+    [loadingView setBackgroundColor:[UIColor clearColor]];
+    
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    blurEffectView.frame = self.bounds;
+    blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [loadingView addSubview:blurEffectView];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:loadingView.frame];
+    [label setText:@"Поиск..."];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setFont:[UIFont fontWithName:@"HelveticaNeue" size:40]];
+    [label setTextColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];
+    [loadingView addSubview:label];
+    
+    return loadingView;
 }
 
 - (void)setRegion:(CLLocationCoordinate2D)coordinate {
@@ -104,6 +128,7 @@
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     static NSString *identifier = @"MarkerIdentifier";
     MKMarkerAnnotationView *annotationView = (MKMarkerAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+    if ([annotation isKindOfClass:[MKUserLocation class]]) return nil;
     if (!annotationView) {
         annotationView = [[MKMarkerAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
         annotationView.canShowCallout = YES;
