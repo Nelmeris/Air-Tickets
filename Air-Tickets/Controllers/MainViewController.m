@@ -17,7 +17,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self configureTabBar];
     [self setViewControllers:[self createViewControllers]];
+}
+
+- (void)configureTabBar {
+    [self.tabBar setTintColor:[UIColor blackColor]];
 }
 
 - (NSArray<UIViewController*> *)createViewControllers {
