@@ -25,6 +25,10 @@
 		57C3CBB22257F62000BC2536 /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CBB12257F62000BC2536 /* CoreDataHelper.m */; };
 		57C3CBC62258038700BC2536 /* FavoriteTicket+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CBC42258038700BC2536 /* FavoriteTicket+CoreDataClass.m */; };
 		57C3CBC72258038700BC2536 /* FavoriteTicket+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CBC52258038700BC2536 /* FavoriteTicket+CoreDataProperties.m */; };
+		57C3CBCD22581FA100BC2536 /* HistoryTrack+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CBCB22581FA100BC2536 /* HistoryTrack+CoreDataClass.m */; };
+		57C3CBCE22581FA100BC2536 /* HistoryTrack+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CBCC22581FA100BC2536 /* HistoryTrack+CoreDataProperties.m */; };
+		57C3CBD12258237B00BC2536 /* HistoryTracksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CBD02258237B00BC2536 /* HistoryTracksTableViewController.m */; };
+		57C3CBD422582C8500BC2536 /* HistoryTracksTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CBD322582C8500BC2536 /* HistoryTracksTableViewCell.m */; };
 		57F47D60224CE11F004653C9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D5F224CE11F004653C9 /* APIManager.m */; };
 		57F47D65224CE1A0004653C9 /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D64224CE1A0004653C9 /* Airport.m */; };
 		57F47D68224CE1E3004653C9 /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D67224CE1E3004653C9 /* Country.m */; };
@@ -71,6 +75,14 @@
 		57C3CBC32258038700BC2536 /* FavoriteTicket+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FavoriteTicket+CoreDataClass.h"; sourceTree = "<group>"; };
 		57C3CBC42258038700BC2536 /* FavoriteTicket+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "FavoriteTicket+CoreDataClass.m"; sourceTree = "<group>"; };
 		57C3CBC52258038700BC2536 /* FavoriteTicket+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "FavoriteTicket+CoreDataProperties.m"; sourceTree = "<group>"; };
+		57C3CBC922581FA100BC2536 /* HistoryTrack+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HistoryTrack+CoreDataProperties.h"; sourceTree = "<group>"; };
+		57C3CBCA22581FA100BC2536 /* HistoryTrack+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HistoryTrack+CoreDataClass.h"; sourceTree = "<group>"; };
+		57C3CBCB22581FA100BC2536 /* HistoryTrack+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HistoryTrack+CoreDataClass.m"; sourceTree = "<group>"; };
+		57C3CBCC22581FA100BC2536 /* HistoryTrack+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HistoryTrack+CoreDataProperties.m"; sourceTree = "<group>"; };
+		57C3CBCF2258237B00BC2536 /* HistoryTracksTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryTracksTableViewController.h; sourceTree = "<group>"; };
+		57C3CBD02258237B00BC2536 /* HistoryTracksTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryTracksTableViewController.m; sourceTree = "<group>"; };
+		57C3CBD222582C8500BC2536 /* HistoryTracksTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryTracksTableViewCell.h; sourceTree = "<group>"; };
+		57C3CBD322582C8500BC2536 /* HistoryTracksTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryTracksTableViewCell.m; sourceTree = "<group>"; };
 		57F47D5E224CE11F004653C9 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		57F47D5F224CE11F004653C9 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		57F47D63224CE1A0004653C9 /* Airport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
@@ -203,6 +215,7 @@
 		57C3CBB32257F7A200BC2536 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				57C3CBC822581F7400BC2536 /* HistoryTrack */,
 				57C3CBBA2257F7C800BC2536 /* FavoriteTicket */,
 			);
 			path = Models;
@@ -217,6 +230,17 @@
 				57C3CBC52258038700BC2536 /* FavoriteTicket+CoreDataProperties.m */,
 			);
 			path = FavoriteTicket;
+			sourceTree = "<group>";
+		};
+		57C3CBC822581F7400BC2536 /* HistoryTrack */ = {
+			isa = PBXGroup;
+			children = (
+				57C3CBC922581FA100BC2536 /* HistoryTrack+CoreDataProperties.h */,
+				57C3CBCA22581FA100BC2536 /* HistoryTrack+CoreDataClass.h */,
+				57C3CBCB22581FA100BC2536 /* HistoryTrack+CoreDataClass.m */,
+				57C3CBCC22581FA100BC2536 /* HistoryTrack+CoreDataProperties.m */,
+			);
+			path = HistoryTrack;
 			sourceTree = "<group>";
 		};
 		57F47D5D224CE109004653C9 /* APIManager */ = {
@@ -274,6 +298,8 @@
 				57C3CB9B2257BDF800BC2536 /* SearchControllers */,
 				5715B8EB224CF2030064FA3A /* TicketsTableViewController.h */,
 				5715B8EC224CF2030064FA3A /* TicketsTableViewController.m */,
+				57C3CBCF2258237B00BC2536 /* HistoryTracksTableViewController.h */,
+				57C3CBD02258237B00BC2536 /* HistoryTracksTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -285,6 +311,8 @@
 				5715B8E8224CF1B60064FA3A /* TicketTableViewCell.m */,
 				57F84F3E22529F860047FCFD /* SearchCollectionViewCell.h */,
 				57F84F3F22529F860047FCFD /* SearchCollectionViewCell.m */,
+				57C3CBD222582C8500BC2536 /* HistoryTracksTableViewCell.h */,
+				57C3CBD322582C8500BC2536 /* HistoryTracksTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -397,16 +425,20 @@
 			files = (
 				57F47D6B224CE1EC004653C9 /* City.m in Sources */,
 				57C3CBC62258038700BC2536 /* FavoriteTicket+CoreDataClass.m in Sources */,
+				57C3CBCD22581FA100BC2536 /* HistoryTrack+CoreDataClass.m in Sources */,
 				5715B8D3224CE83A0064FA3A /* SearchViewController.m in Sources */,
 				57F84F4022529F860047FCFD /* SearchCollectionViewCell.m in Sources */,
 				5715B8D6224CE9BC0064FA3A /* PlaceViewController.m in Sources */,
+				57C3CBCE22581FA100BC2536 /* HistoryTrack+CoreDataProperties.m in Sources */,
 				57C3CBA22257C5F900BC2536 /* MapView.m in Sources */,
 				5715B8E9224CF1B60064FA3A /* TicketTableViewCell.m in Sources */,
 				5771305C223EA92B00FB9806 /* main.m in Sources */,
 				57F47D60224CE11F004653C9 /* APIManager.m in Sources */,
 				57C3CBC72258038700BC2536 /* FavoriteTicket+CoreDataProperties.m in Sources */,
 				57C3CBB22257F62000BC2536 /* CoreDataHelper.m in Sources */,
+				57C3CBD422582C8500BC2536 /* HistoryTracksTableViewCell.m in Sources */,
 				57F84F3022523AA00047FCFD /* MapPrice.m in Sources */,
+				57C3CBD12258237B00BC2536 /* HistoryTracksTableViewController.m in Sources */,
 				57F47D65224CE1A0004653C9 /* Airport.m in Sources */,
 				57F84F2C225238EE0047FCFD /* LocationService.m in Sources */,
 				5771304E223EA92A00FB9806 /* AppDelegate.m in Sources */,

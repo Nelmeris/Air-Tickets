@@ -11,7 +11,14 @@
         <attribute name="returnDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="to" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="HistoryTrack" representedClassName="HistoryTrack" syncable="YES">
+        <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="destinationIATA" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="originIATA" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <elements>
         <element name="FavoriteTicket" positionX="-45" positionY="0" width="128" height="180"/>
+        <element name="HistoryTrack" positionX="-9" positionY="108" width="128" height="105"/>
     </elements>
 </model>

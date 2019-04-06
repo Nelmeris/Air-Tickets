@@ -9,6 +9,10 @@
 #import <CoreData/CoreData.h>
 #import "DataManager.h"
 #import "FavoriteTicket+CoreDataClass.h"
+#import "HistoryTrack+CoreDataClass.h"
+
+#define kFavoriteDidUpdate @"FavoriteDidUpdate"
+#define kHistoryDidUpdate @"HistoryDidUpdate"
 
 @interface CoreDataHelper : NSObject
 
@@ -19,5 +23,10 @@
 - (void)addToFavorite:(Ticket *)ticket;
 - (void)removeFromFavorite:(Ticket *)ticket;
 - (Ticket *)ticketFromFavorite:(FavoriteTicket *)favorite;
+
+- (BOOL)isHistoryTrack:(MapPrice *)mapPrice;
+- (NSArray *)historyTracks;
+- (void)addToHistory:(MapPrice *)mapPrice;
+- (void)removeFromHistory:(MapPrice *)mapPrice;
 
 @end

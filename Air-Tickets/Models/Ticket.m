@@ -25,11 +25,12 @@
 
 NSDate *dateFromString(NSString *dateString) {
     if (!dateString) return nil;
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    NSString *correctSrtingDate = [dateString stringByReplacingOccurrencesOfString:@"T" withString:@" "];
-    correctSrtingDate = [correctSrtingDate stringByReplacingOccurrencesOfString:@"Z" withString:@" "];
-    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    return [dateFormatter dateFromString: correctSrtingDate];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSString *correctStringDate = [dateString stringByReplacingOccurrencesOfString:@"Z" withString:@""];
+    correctStringDate = [NSString stringWithFormat:@"%@+0000", correctStringDate];
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
+    NSDate *date = [dateFormatter dateFromString:correctStringDate];
+    return date;
 }
 
 @end

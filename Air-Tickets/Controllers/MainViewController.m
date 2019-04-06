@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "TicketsTableViewController.h"
+#import "HistoryTracksTableViewController.h"
 
 @implementation MainViewController
 
@@ -29,6 +30,11 @@
     favoriteVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Избранное" image:[UIImage imageNamed:@"favorite"] selectedImage:[UIImage imageNamed:@"favorite_selected"]];
     UINavigationController *favoriteNC = [[UINavigationController alloc] initWithRootViewController:favoriteVC];
     [controllers addObject:favoriteNC];
+    
+    HistoryTracksTableViewController *historyTracksTVC = [HistoryTracksTableViewController new];
+    historyTracksTVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:2];
+    UINavigationController *historyTracksNC = [[UINavigationController alloc] initWithRootViewController:historyTracksTVC];
+    [controllers addObject:historyTracksNC];
     
     return controllers;
 }

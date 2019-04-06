@@ -37,13 +37,17 @@
     }];
 }
 
-- (void)save {
+- (void)save:(NSString *)notificationName {
     NSError *error;
     [_managedObjectContext save: &error];
     if (error) {
         NSLog(@"%@", [error localizedDescription]);
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
     }
 }
+
+#pragma mark - Favorite
 
 - (FavoriteTicket *)favoriteFromTicket:(Ticket *)ticket {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FavoriteTicket"];
@@ -79,19 +83,54 @@
     favorite.from = ticket.from;
     favorite.to = ticket.to;
     favorite.created = [NSDate date];
-    [self save];
+    [self save:kFavoriteDidUpdate];
 }
 
 - (void)removeFromFavorite:(Ticket *)ticket {
     FavoriteTicket *favorite = [self favoriteFromTicket:ticket];
     if (favorite) {
         [_managedObjectContext deleteObject:favorite];
-        [self save];
+        [self save:kFavoriteDidUpdate];
     }
 }
 
 - (NSArray *)favorites {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"FavoriteTicket"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"created" ascending:NO]];
+    return [_managedObjectContext executeFetchRequest:request error:nil];
+}
+
+#pragma mark - History Tracks
+
+- (HistoryTrack *)historyTrackFromMapPrice:(MapPrice *)mapPrice {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"HistoryTrack"];
+    request.predicate = [NSPredicate predicateWithFormat:@"originIATA == %@ AND destinationIATA == %@", mapPrice.origin.code, mapPrice.destination.code];
+    return [[_managedObjectContext executeFetchRequest:request error:nil] firstObject];
+}
+
+- (BOOL)isHistoryTrack:(MapPrice *)mapPrice {
+    return [self historyTrackFromMapPrice:mapPrice] != nil;
+}
+
+- (void)addToHistory:(MapPrice *)mapPrice {
+    HistoryTrack *historyTrack = [NSEntityDescription insertNewObjectForEntityForName:@"HistoryTrack" inManagedObjectContext:_managedObjectContext];
+    historyTrack.originIATA = mapPrice.origin.code;
+    historyTrack.destinationIATA = mapPrice.destination.code;
+    historyTrack.value = mapPrice.value;
+    historyTrack.created = [NSDate date];
+    [self save:kHistoryDidUpdate];
+}
+
+- (void)removeFromHistory:(MapPrice *)mapPrice {
+    HistoryTrack *historyTrack = [self historyTrackFromMapPrice:mapPrice];
+    if (historyTrack) {
+        [_managedObjectContext deleteObject:historyTrack];
+        [self save:kHistoryDidUpdate];
+    }
+}
+
+- (NSArray *)historyTracks {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"HistoryTrack"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"created" ascending:NO]];
     return [_managedObjectContext executeFetchRequest:request error:nil];
 }

@@ -166,14 +166,12 @@
 }
 
 - (void)setPlace:(id)place withDataType:(DataSourceType)dataType andPlaceType:(PlaceType)placeType forButton:(UIButton *)button {
+    City *city = (City *)place;
     NSString *title;
     NSString *iata;
     if (dataType == DataSourceTypeCity) {
-        City *city = (City *)place;
         title = city.name;
         iata = city.code;
-        _origin = city;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServiceDidUpdateOrigin object:city];
     }
     else if (dataType == DataSourceTypeAirport) {
         Airport *airport = (Airport *)place;
@@ -182,6 +180,8 @@
     }
     if (placeType == PlaceTypeDeparture) {
         _searchRequest.origin = iata;
+        _origin = city;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServiceDidUpdateOrigin object:city];
     } else {
         _searchRequest.destionation = iata;
     }

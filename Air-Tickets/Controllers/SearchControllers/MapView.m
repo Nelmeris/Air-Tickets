@@ -10,11 +10,12 @@
 #import "LocationService.h"
 #import "APIManager.h"
 #import "MapPrice.h"
+#import "CoreDataHelper.h"
 
 @interface MapView () <MKMapViewDelegate>
 @property (strong, nonatomic) MKMapView *mapView;
 @property (nonatomic, strong) LocationService *locationService;
-@property (nonatomic, strong) City *destination;
+@property (nonatomic, strong) MapPrice *selectedPrice;
 @property (nonatomic, strong) NSArray *prices;
 @end
 
@@ -121,12 +122,13 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     for (MapPrice *price in _prices) {
         if (price.destination.coordinate.latitude == view.annotation.coordinate.latitude && price.destination.coordinate.longitude == view.annotation.coordinate.longitude)
-            _destination = price.destination;
+            _selectedPrice = price;
     }
 }
 
 - (void)selectAirport {
-    [self.delegate selectCity:_destination];
+    [[CoreDataHelper sharedInstance] addToHistory:_selectedPrice];
+    [self.delegate selectCity:_selectedPrice.destination];
 }
 
 @end
