@@ -32,6 +32,7 @@
 }
 
 - (void)configureTableView {
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     UILongPressGestureRecognizer* longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPress:)];
     [self.tableView addGestureRecognizer:longPressRecognizer];
     [self.tableView registerClass:[HistoryTracksTableViewCell class] forCellReuseIdentifier:CellReuseIdentifier];
@@ -58,6 +59,7 @@
         [_historyTracks sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return ((HistoryTrack *)obj1).created < ((HistoryTrack *)obj2).created;
         }];
+        bool flag = false;
         for (int i = 0; i < _historyTracks.count; i++) {
             if ([_historyTracks[i] isEqual:newArray[i]]) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
@@ -65,6 +67,11 @@
                 [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
                 break;
             }
+        }
+        if (!flag) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_historyTracks.count inSection:0];
+            [_historyTracks insertObject:newHistoryTrack atIndex:_historyTracks.count];
+            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
         }
     }
     [self.tableView endUpdates];
