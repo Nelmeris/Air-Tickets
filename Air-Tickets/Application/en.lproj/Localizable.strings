@@ -1,0 +1,64 @@
+/* 
+  Localizable.strings
+  Air Tickets
+
+  Created by Artem Kufaev on 11/04/2019.
+  Copyright © 2019 Artem Kufaev. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "Air Tickets";
+
+"rubles" = "RUB";
+"saved" = "Saved";
+"cancel_btn" = "Cancel";
+"delete_btn" = "Delete";
+
+// MainViewController
+"main_search_bar" = "Search";
+"main_favorite_bar" = "Favorites";
+"main_history_bar" = "History";
+
+// SearchViewController
+"search_title" = "Search";
+"search_departure_btn" = "Departure";
+"search_arrival_btn" = "Arrival";
+"search_search_btn" = "Search";
+
+"search_tickets_alert_title" = "Alas!";
+"search_tickets_alert_msg" = "No one ticket in this direction";
+"search_tickets_alert_close_btn" = "Close";
+
+"search_error_alert_title" = "Attention!";
+"search_error_alert_nil_departure_msg" = "Select your departure address";
+"search_error_alert_nil_arrival_msg" = "Select your arrival address";
+"search_error_alert_close_btn" = "Close";
+
+// FavoriteViewController
+"favorite_title" = "Favorites";
+"favorite_alert_title" = "Action with ticket";
+"favorite_alert_msg" = "Delete from favorites?";
+"favorite_alert_yes_btn" = "Yes";
+"favorite_alert_cancel_btn" = "Cancel";
+
+// PlaceViewController
+"place_departure_title" = "Departure";
+"place_arrival_title" = "Arrival";
+"place_search_placeholder" = "Search...";
+"place_segment_cities" = "Cities";
+"place_segment_airports" = "Airports";
+"place_segment_map" = "Map";
+
+// TicketsViewController
+"tickets_title" = "Tickets";
+"tickets_alert_title" = "Action with ticket";
+"tickets_alert_msg" = "What should be done with the selected ticket?";
+"tickets_alert_delete_btn" = "Remove from favorites";
+"tickets_alert_add_btn" = "Add in favorites";
+"tickets_alert_cancel_btn" = "Cancel";
+
+// HistoryTracksViewController
+"history_title" = "Search history";
+"history_delete_msg" = "Delete from history?";
+
+// MapView
+"map_search_label" = "Search...";

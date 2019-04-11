@@ -1,22 +1,22 @@
 //
-//  TicketsTableViewController.m
+//  TicketsViewController.m
 //  Air Tickets
 //
 //  Created by Artem Kufaev on 28/03/2019.
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
-#import "TicketsTableViewController.h"
+#import "TicketsViewController.h"
 #import "TicketTableViewCell.h"
 #import "CoreDataHelper.h"
 
 #define TicketCellReuseIdentifier @"TicketCellIdentifier"
 
-@interface TicketsTableViewController ()
+@interface TicketsViewController ()
 @property (nonatomic, strong) NSMutableArray *tickets;
 @end
 
-@implementation TicketsTableViewController {
+@implementation TicketsViewController {
     BOOL isFavorites;
 }
 
@@ -25,7 +25,7 @@
     if (self) {
         isFavorites = YES;
         self.tickets = [NSMutableArray new];
-        self.title = @"Избранное";
+        [self setTitle:NSLocalizedString(@"favorite_title", @"")];
         [self configureTableView];
     }
     return self;
@@ -36,7 +36,7 @@
     if (self)
     {
         _tickets = [NSMutableArray arrayWithArray:tickets];
-        self.title = @"Билеты";
+        [self setTitle:NSLocalizedString(@"tickets_title", @"")];
         [self configureTableView];
     }
     return self;
@@ -112,29 +112,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (isFavorites) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Действия с билетом" message:@"Удалить из избранного?" preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"favorite_alert_title", @"") message:NSLocalizedString(@"favorite_alert_msg", @"") preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *favoriteAction;
-        favoriteAction = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        favoriteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"favorite_alert_yes_btn", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [[CoreDataHelper sharedInstance] removeFromFavorite:[self->_tickets objectAtIndex:indexPath.row]];
         }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Закрыть" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"favorite_alert_cancel_btn", @"") style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:favoriteAction];
         [alertController addAction:cancelAction];
         [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Действия с билетом" message:@"Что необходимо сделать с выбранным билетом?" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"tickets_alert_title", @"") message:NSLocalizedString(@"tickets_alert_msg", @"") preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *favoriteAction;
     if ([[CoreDataHelper sharedInstance] isFavorite: [_tickets objectAtIndex:indexPath.row]]) {
-        favoriteAction = [UIAlertAction actionWithTitle:@"Удалить из избранного" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        favoriteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"tickets_alert_delete_btn", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [[CoreDataHelper sharedInstance] removeTicketFromFavorite:[self->_tickets objectAtIndex:indexPath.row]];
         }];
     } else {
-        favoriteAction = [UIAlertAction actionWithTitle:@"Добавить в избранное" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        favoriteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"tickets_alert_add_btn", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [[CoreDataHelper sharedInstance] addToFavorite:[self->_tickets objectAtIndex:indexPath.row]];
         }];
     }
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Закрыть" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"tickets_alert_cancel_btn", @"") style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:favoriteAction];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];

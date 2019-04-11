@@ -1,5 +1,5 @@
 //
-//  HistoryTracksTableViewController.h
+//  HistoryTracksViewController.h
 //  Air Tickets
 //
 //  Created by Artem Kufaev on 06/04/2019.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HistoryTracksTableViewController : UITableViewController
+@interface HistoryTracksViewController : UITableViewController
 
 @end

@@ -56,7 +56,7 @@
 #pragma mark - Configures
 
 - (void)configureController {
-    [self setTitle:(_placeType == PlaceTypeDeparture) ? @"Откуда" : @"Куда"];
+    [self setTitle:(_placeType == PlaceTypeDeparture) ? NSLocalizedString(@"place_departure_title", @"") : NSLocalizedString(@"place_arrival_title", @"")];
 }
 
 - (void)configureNavigationController {
@@ -83,7 +83,7 @@
     _searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     _searchController.dimsBackgroundDuringPresentation = NO;
     _searchController.searchResultsUpdater = self;
-    [_searchController.searchBar setPlaceholder:@"Поиск..."];
+    [_searchController.searchBar setPlaceholder:NSLocalizedString(@"place_search_placeholder", @"")];
     _searchArray = [NSArray new];
     
     [self configureSearchCollectionView];
@@ -112,9 +112,9 @@
 }
 
 - (void)congigureSegmentedControl {
-    NSMutableArray<NSString *> *items = [NSMutableArray arrayWithArray:@[@"Города", @"Аэропорты"]];
+    NSMutableArray<NSString *> *items = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"place_segment_cities", @""), NSLocalizedString(@"place_segment_airports", @"")]];
     if (_placeType == PlaceTypeArrival)
-        [items addObject:@"Карта"];
+        [items addObject:NSLocalizedString(@"place_segment_map", @"")];
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
     [_segmentedControl addTarget:self action:@selector(changeSource) forControlEvents:UIControlEventValueChanged];
     _segmentedControl.tintColor = [UIColor blackColor];

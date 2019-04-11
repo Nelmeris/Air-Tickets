@@ -1,25 +1,25 @@
 //
-//  HistoryTracksTableViewController.m
+//  HistoryTracksViewController.m
 //  Air Tickets
 //
 //  Created by Artem Kufaev on 06/04/2019.
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
-#import "HistoryTracksTableViewController.h"
+#import "HistoryTracksViewController.h"
 #import "CoreDataHelper.h"
 #import "SearchRequest.h"
-#import "TicketsTableViewController.h"
+#import "TicketsViewController.h"
 #import "APIManager.h"
 #import "HistoryTracksTableViewCell.h"
 
 #define CellReuseIdentifier @"ReusableCell"
 
-@interface HistoryTracksTableViewController ()
+@interface HistoryTracksViewController ()
 @property (nonatomic, strong) NSMutableArray<HistoryTrack *> *historyTracks;
 @end
 
-@implementation HistoryTracksTableViewController
+@implementation HistoryTracksViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,7 +28,7 @@
 }
 
 - (void)configureController {
-    [self setTitle:@"История поиска"];
+    [self setTitle:NSLocalizedString(@"history_title", @"")];
 }
 
 - (void)configureTableView {
@@ -101,7 +101,7 @@
     searchRequest.destionation = _historyTracks[indexPath.row].destinationIATA;
     searchRequest.departDate = searchRequest.returnDate = nil;
     [[APIManager sharedInstance] ticketsWithRequest:searchRequest withCompletion:^(NSArray *tickets) {
-        TicketsTableViewController *ticketsTVC = [[TicketsTableViewController alloc] initWithTickets:tickets];
+        TicketsViewController *ticketsTVC = [[TicketsViewController alloc] initWithTickets:tickets];
         [self.navigationController pushViewController:ticketsTVC animated:YES];
     }];
 }
@@ -117,12 +117,12 @@
         CGPoint touchPoint = [pGesture locationInView:self.view];
         NSIndexPath* indexPath = [tableView indexPathForRowAtPoint:touchPoint];
         if (indexPath) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Удалить из истории?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"history_delete_msg", @"") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             UIAlertAction *favoriteAction;
-            favoriteAction = [UIAlertAction actionWithTitle:@"Удалить" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            favoriteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"delete_btn", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 [[CoreDataHelper sharedInstance] removeFromHistory:self->_historyTracks[indexPath.row]];
             }];
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Отменить" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"") style:UIAlertActionStyleCancel handler:nil];
             [alertController addAction:favoriteAction];
             [alertController addAction:cancelAction];
             [self presentViewController:alertController animated:YES completion:nil];

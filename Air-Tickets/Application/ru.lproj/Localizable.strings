@@ -1,0 +1,64 @@
+/* 
+  Localizable.strings
+  Air Tickets
+
+  Created by Artem Kufaev on 11/04/2019.
+  Copyright © 2019 Artem Kufaev. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "Авиабилеты";
+
+"rubles" = "руб.";
+"saved" = "Сохранено";
+"cancel_btn" = "Отменить";
+"delete_btn" = "Удалить";
+
+// MainViewController
+"main_search_bar" = "Поиск";
+"main_favorite_bar" = "Избранное";
+"main_history_bar" = "История";
+
+// SearchViewController
+"search_title" = "Поиск";
+"search_departure_btn" = "Откуда";
+"search_arrival_btn" = "Куда";
+"search_search_btn" = "Найти";
+
+"search_tickets_alert_title" = "Увы!";
+"search_tickets_alert_msg" = "По данному направлению билетов не найдено";
+"search_tickets_alert_close_btn" = "Закрыть";
+
+"search_error_alert_title" = "Внимание!";
+"search_error_alert_nil_departure_msg" = "Выберите адрес отправления";
+"search_error_alert_nil_arrival_msg" = "Выберите адрес прибытия";
+"search_error_alert_close_btn" = "Закрыть";
+
+// FavoriteViewController
+"favorite_title" = "Избранное";
+"favorite_alert_title" = "Действие с билетом";
+"favorite_alert_msg" = "Удалить из избранного?";
+"favorite_alert_yes_btn" = "Да";
+"favorite_alert_cancel_btn" = "Отменить";
+
+// PlaceViewController
+"place_departure_title" = "Откуда";
+"place_arrival_title" = "Куда";
+"place_search_placeholder" = "Поиск...";
+"place_segment_cities" = "Города";
+"place_segment_airports" = "Аэропорты";
+"place_segment_map" = "Карта";
+
+// TicketsViewController
+"tickets_title" = "Билеты";
+"tickets_alert_title" = "Действие с билетом";
+"tickets_alert_msg" = "Что необходимо сделать с выбранным билетом?";
+"tickets_alert_delete_btn" = "Удалить из избранного";
+"tickets_alert_add_btn" = "Добавить в избранное";
+"tickets_alert_cancel_btn" = "Отменить";
+
+// HistoryTracksViewController
+"history_title" = "История поиска";
+"history_delete_msg" = "Удалить из истории?";
+
+// MapView
+"map_search_label" = "Поиск...";
