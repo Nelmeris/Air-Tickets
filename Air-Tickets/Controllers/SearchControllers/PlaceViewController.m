@@ -65,8 +65,6 @@
 }
 
 - (void)configureTableView {
-    [self configureSearchController];
-    
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -75,7 +73,10 @@
     } else {
         _tableView.tableHeaderView = _searchController.searchBar;
     }
+    
     [self.view addSubview:_tableView];
+    
+    [self configureSearchController];
 }
 
 - (void)configureSearchController {
@@ -100,6 +101,9 @@
     _searchCollectionView.delegate = self;
     _searchCollectionView.dataSource = self;
     [_searchCollectionView registerClass:[SearchCollectionViewCell class] forCellWithReuseIdentifier:SEARCH_COLLECTION_CELL_IDENTIFIER];
+    
+    [_searchCollectionView setCenter:CGPointMake(self.view.bounds.size.width / 2, -self.view.bounds.size.height / 2)];
+    [self.view addSubview:_searchCollectionView];
 }
 
 - (void)configureMapView {
@@ -206,18 +210,16 @@
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     if (![searchController.searchBar.text isEqual: @""]) {
-        if (![self.view.subviews containsObject:_searchCollectionView])
-            [self.view addSubview:_searchCollectionView];
-        if ([self.view.subviews containsObject:_tableView])
-            [_tableView removeFromSuperview];
+        [UIView animateWithDuration:0.5 animations:^{
+            [self->_searchCollectionView setCenter:CGPointMake(self.view.bounds.size.width / 2, self.view.bounds.size.height / 2)];
+        }];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.name CONTAINS[cd] %@", searchController.searchBar.text];
         _searchArray = [_currentArray filteredArrayUsingPredicate: predicate];
         [_searchCollectionView reloadData];
     } else {
-        if (![self.view.subviews containsObject:_tableView])
-            [self.view addSubview:_tableView];
-        if ([self.view.subviews containsObject:_searchCollectionView])
-            [_searchCollectionView removeFromSuperview];
+        [UIView animateWithDuration:0.25 animations:^{
+            [self->_searchCollectionView setCenter:CGPointMake(self.view.bounds.size.width / 2, -self.view.bounds.size.height / 2)];
+        }];
     }
 }
 
