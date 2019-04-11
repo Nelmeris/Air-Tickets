@@ -8,6 +8,7 @@
 
 #import "SearchViewController.h"
 
+#import "CoreDataHelper.h"
 #import "DataManager.h"
 #import "APIManager.h"
 #import "LocationService.h"
@@ -23,6 +24,7 @@
 @property (nonatomic, strong) UIButton *searchButton;
 @property (nonatomic, strong) LocationService *locationService;
 @property (nonatomic, strong) City *origin;
+@property (nonatomic, strong) City *destionation;
 @end
 
 @implementation SearchViewController
@@ -143,12 +145,21 @@
     if (!_searchRequest.destionation || !_searchRequest.origin) {
         NSString *msg = (!_searchRequest.origin) ? NSLocalizedString(@"search_error_alert_nil_departure_msg", @"") : NSLocalizedString(@"search_error_alert_nil_arrival_msg", @"");
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"search_error_alert_title", @"") message:msg preferredStyle: UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"search_error_alert_close_btn" style:(UIAlertActionStyleDefault) handler:nil]];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"search_error_alert_close_btn", @"") style:(UIAlertActionStyleDefault) handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
     [[APIManager sharedInstance] ticketsWithRequest:_searchRequest withCompletion:^(NSArray *tickets) {
         if (tickets.count > 0) {
+            NSInteger value = ((Ticket*)[tickets objectAtIndex:0]).price.integerValue;
+            for (int i = 1; i < tickets.count; i++) {
+                if (value > ((Ticket*)[tickets objectAtIndex:i]).price.integerValue)
+                    value = ((Ticket*)[tickets objectAtIndex:i]).price.integerValue;
+            }
+            if ([[CoreDataHelper sharedInstance] isHistoryTrack:self->_origin.code destination:self->_destionation.code value:value]) {
+                [[CoreDataHelper sharedInstance] removeFromHistory:self->_origin.code destination:self->_destionation.code value:value];
+                [[CoreDataHelper sharedInstance] addToHistory:self->_origin.code destination:self->_destionation.code value:value];
+            }
             TicketsViewController *ticketsViewController = [[TicketsViewController alloc] initWithTickets:tickets];
             [self.navigationController showViewController:ticketsViewController sender:self];
         } else {
@@ -184,6 +195,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServiceDidUpdateOrigin object:city];
     } else {
         _searchRequest.destionation = iata;
+        _destionation = city;
     }
     [button setTitle: title forState: UIControlStateNormal];
 }

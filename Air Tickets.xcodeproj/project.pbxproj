@@ -30,6 +30,7 @@
 		57C3CBD12258237B00BC2536 /* HistoryTracksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CBD02258237B00BC2536 /* HistoryTracksViewController.m */; };
 		57C3CBD422582C8500BC2536 /* HistoryTracksTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C3CBD322582C8500BC2536 /* HistoryTracksTableViewCell.m */; };
 		57C8DB14225FC4EB0088EFAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57C8DB16225FC4EB0088EFAD /* Localizable.strings */; };
+		57C8DB1A225FD80E0088EFAD /* DataUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C8DB19225FD80E0088EFAD /* DataUpdater.m */; };
 		57F47D60224CE11F004653C9 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D5F224CE11F004653C9 /* APIManager.m */; };
 		57F47D65224CE1A0004653C9 /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D64224CE1A0004653C9 /* Airport.m */; };
 		57F47D68224CE1E3004653C9 /* Country.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F47D67224CE1E3004653C9 /* Country.m */; };
@@ -87,6 +88,8 @@
 		57C8DB13225FC4920088EFAD /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		57C8DB15225FC4EB0088EFAD /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		57C8DB17225FC4F00088EFAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		57C8DB18225FD80E0088EFAD /* DataUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataUpdater.h; sourceTree = "<group>"; };
+		57C8DB19225FD80E0088EFAD /* DataUpdater.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataUpdater.m; sourceTree = "<group>"; };
 		57F47D5E224CE11F004653C9 /* APIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
 		57F47D5F224CE11F004653C9 /* APIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		57F47D63224CE1A0004653C9 /* Airport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				57F84F29225238CE0047FCFD /* LocationService */,
 				57F47D61224CE166004653C9 /* DataManager */,
 				57F47D5D224CE109004653C9 /* APIManager */,
+				57C8DB18225FD80E0088EFAD /* DataUpdater.h */,
+				57C8DB19225FD80E0088EFAD /* DataUpdater.m */,
 			);
 			path = Healpers;
 			sourceTree = "<group>";
@@ -435,6 +440,7 @@
 				57C3CBCD22581FA100BC2536 /* HistoryTrack+CoreDataClass.m in Sources */,
 				5715B8D3224CE83A0064FA3A /* SearchViewController.m in Sources */,
 				57F84F4022529F860047FCFD /* SearchCollectionViewCell.m in Sources */,
+				57C8DB1A225FD80E0088EFAD /* DataUpdater.m in Sources */,
 				5715B8D6224CE9BC0064FA3A /* PlaceViewController.m in Sources */,
 				57C3CBCE22581FA100BC2536 /* HistoryTrack+CoreDataProperties.m in Sources */,
 				57C3CBA22257C5F900BC2536 /* MapView.m in Sources */,

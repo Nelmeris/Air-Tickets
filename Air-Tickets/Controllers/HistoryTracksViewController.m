@@ -12,6 +12,7 @@
 #import "TicketsViewController.h"
 #import "APIManager.h"
 #import "HistoryTracksTableViewCell.h"
+#import "DataUpdater.h"
 
 #define CellReuseIdentifier @"ReusableCell"
 
@@ -43,36 +44,18 @@
 
 - (void)reloadData:(NSNotification *)notification {
     HistoryTrack *newHistoryTrack = notification.object;
+    DataUpdateInfo info = [DataUpdater getInfo:_historyTracks newObject:newHistoryTrack comparison:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return ((HistoryTrack *)obj1).created.timeIntervalSinceNow < ((HistoryTrack *)obj2).created.timeIntervalSinceNow;
+    }];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:info.index inSection:0];
     [self.tableView beginUpdates];
-    if ([_historyTracks containsObject:newHistoryTrack]) {
-        for (int i = 0; i < _historyTracks.count; i++) {
-            if ([_historyTracks[i] isEqual:newHistoryTrack]) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [_historyTracks removeObject:newHistoryTrack];
-                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                break;
-            }
-        }
+    if (info.type == added) {
+        [_historyTracks insertObject:newHistoryTrack atIndex:info.index];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
     } else {
-        NSMutableArray *newArray = [NSMutableArray arrayWithArray:_historyTracks];
-        [newArray addObject:newHistoryTrack];
-        [_historyTracks sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return ((HistoryTrack *)obj1).created < ((HistoryTrack *)obj2).created;
-        }];
-        bool flag = false;
-        for (int i = 0; i < _historyTracks.count; i++) {
-            if ([_historyTracks[i] isEqual:newArray[i]]) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [_historyTracks insertObject:newHistoryTrack atIndex:i];
-                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                break;
-            }
-        }
-        if (!flag) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_historyTracks.count inSection:0];
-            [_historyTracks insertObject:newHistoryTrack atIndex:_historyTracks.count];
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-        }
+        [_historyTracks removeObjectAtIndex:info.index];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
     }
     [self.tableView endUpdates];
 }

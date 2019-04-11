@@ -152,7 +152,6 @@
 }
 
 - (void)selectAirport {
-    [[CoreDataHelper sharedInstance] addToHistory:_selectedPrice];
     [self.delegate selectCity:_selectedPrice.destination];
 }
 

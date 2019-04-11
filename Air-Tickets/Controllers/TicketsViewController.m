@@ -9,6 +9,7 @@
 #import "TicketsViewController.h"
 #import "TicketTableViewCell.h"
 #import "CoreDataHelper.h"
+#import "DataUpdater.h"
 
 #define TicketCellReuseIdentifier @"TicketCellIdentifier"
 
@@ -54,37 +55,18 @@
 
 - (void)reloadData:(NSNotification *)notification {
     FavoriteTicket *newFavorit = notification.object;
+    DataUpdateInfo info = [DataUpdater getInfo:_tickets newObject:newFavorit comparison:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return ((FavoriteTicket *)obj1).created.timeIntervalSinceNow < ((FavoriteTicket *)obj2).created.timeIntervalSinceNow;
+    }];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:info.index inSection:0];
     [self.tableView beginUpdates];
-    if ([_tickets containsObject:newFavorit]) { // Deleting
-        for (int i = 0; i < _tickets.count; i++) {
-            if ([_tickets[i] isEqual:newFavorit]) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [_tickets removeObject:newFavorit];
-                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                break;
-            }
-        }
-    } else { // Adding
-        NSMutableArray *newArray = [NSMutableArray arrayWithArray:_tickets];
-        [newArray addObject:newFavorit];
-        [newArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return ((FavoriteTicket *)obj1).created < ((FavoriteTicket *)obj2).created;
-        }];
-        bool flag = false;
-        for (int i = 0; i < _tickets.count; i++) {
-            if (![_tickets[i] isEqual:newArray[i]]) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [_tickets insertObject:newFavorit atIndex:i];
-                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_tickets.count inSection:0];
-            [_tickets insertObject:newFavorit atIndex:_tickets.count];
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-        }
+    if (info.type == added) {
+        [_tickets insertObject:newFavorit atIndex:info.index];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    } else {
+        [_tickets removeObjectAtIndex:info.index];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
     }
     [self.tableView endUpdates];
 }

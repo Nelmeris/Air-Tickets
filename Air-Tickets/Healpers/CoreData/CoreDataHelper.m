@@ -102,6 +102,16 @@
     return [[_managedObjectContext executeFetchRequest:request error:nil] firstObject];
 }
 
+- (BOOL)isHistoryTrack:(NSString *)originIATA destination:(NSString *)destinationIATA value:(NSInteger)value {
+    MapPrice *mapPrice = [MapPrice new];
+    mapPrice.origin = [City new];
+    mapPrice.origin.code = originIATA;
+    mapPrice.destination = [City new];
+    mapPrice.destination.code = destinationIATA;
+    mapPrice.value = value;
+    return [self historyTrackFromMapPrice:mapPrice] != nil;
+}
+
 - (BOOL)isHistoryTrack:(MapPrice *)mapPrice {
     return [self historyTrackFromMapPrice:mapPrice] != nil;
 }
@@ -113,6 +123,29 @@
     historyTrack.value = mapPrice.value;
     historyTrack.created = [NSDate date];
     [self save:kHistoryDidUpdate object:historyTrack];
+}
+
+- (void)addToHistory:(NSString *)originIATA destination:(NSString *)destinationIATA value:(NSInteger)value {
+    HistoryTrack *historyTrack = [NSEntityDescription insertNewObjectForEntityForName:@"HistoryTrack" inManagedObjectContext:_managedObjectContext];
+    historyTrack.originIATA = originIATA;
+    historyTrack.destinationIATA = destinationIATA;
+    historyTrack.value = value;
+    historyTrack.created = [NSDate date];
+    [self save:kHistoryDidUpdate object:historyTrack];
+}
+
+- (void)removeFromHistory:(NSString *)originIATA destination:(NSString *)destinationIATA value:(NSInteger)value {
+    MapPrice *mapPrice = [MapPrice new];
+    mapPrice.origin = [City new];
+    mapPrice.origin.code = originIATA;
+    mapPrice.destination = [City new];
+    mapPrice.destination.code = destinationIATA;
+    mapPrice.value = value;
+    HistoryTrack *historyTrack = [self historyTrackFromMapPrice:mapPrice];
+    if (historyTrack) {
+        [_managedObjectContext deleteObject:historyTrack];
+        [self save:kHistoryDidUpdate object:historyTrack];
+    }
 }
 
 - (void)removeFromHistory:(HistoryTrack *)historyTrack {
