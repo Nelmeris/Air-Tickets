@@ -10,8 +10,13 @@
 
 "rubles" = "руб.";
 "saved" = "Сохранено";
+"close_btn" = "Закрыть";
 "cancel_btn" = "Отменить";
 "delete_btn" = "Удалить";
+
+// LocationService
+"loc_serv_alert_title" = "Упс!";
+"loc_serv_alert_msg" = "Не удалось определить текущий город!";
 
 // MainViewController
 "main_search_bar" = "Поиск";
@@ -26,19 +31,16 @@
 
 "search_tickets_alert_title" = "Увы!";
 "search_tickets_alert_msg" = "По данному направлению билетов не найдено";
-"search_tickets_alert_close_btn" = "Закрыть";
 
 "search_error_alert_title" = "Внимание!";
 "search_error_alert_nil_departure_msg" = "Выберите адрес отправления";
 "search_error_alert_nil_arrival_msg" = "Выберите адрес прибытия";
-"search_error_alert_close_btn" = "Закрыть";
 
 // FavoriteViewController
 "favorite_title" = "Избранное";
 "favorite_alert_title" = "Действие с билетом";
 "favorite_alert_msg" = "Удалить из избранного?";
 "favorite_alert_yes_btn" = "Да";
-"favorite_alert_cancel_btn" = "Отменить";
 
 // PlaceViewController
 "place_departure_title" = "Откуда";
@@ -54,7 +56,6 @@
 "tickets_alert_msg" = "Что необходимо сделать с выбранным билетом?";
 "tickets_alert_delete_btn" = "Удалить из избранного";
 "tickets_alert_add_btn" = "Добавить в избранное";
-"tickets_alert_cancel_btn" = "Отменить";
 
 // HistoryTracksViewController
 "history_title" = "История поиска";

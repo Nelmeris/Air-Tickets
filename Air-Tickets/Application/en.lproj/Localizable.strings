@@ -10,8 +10,13 @@
 
 "rubles" = "RUB";
 "saved" = "Saved";
+"close_btn" = "Close";
 "cancel_btn" = "Cancel";
 "delete_btn" = "Delete";
+
+// LocationService
+"loc_serv_alert_title" = "Oops!";
+"loc_serv_alert_msg" = "Could not determine the current city!";
 
 // MainViewController
 "main_search_bar" = "Search";
@@ -24,21 +29,18 @@
 "search_arrival_btn" = "Arrival";
 "search_search_btn" = "Search";
 
-"search_tickets_alert_title" = "Alas!";
+"search_tickets_alert_title" = "Oops!";
 "search_tickets_alert_msg" = "No one ticket in this direction";
-"search_tickets_alert_close_btn" = "Close";
 
 "search_error_alert_title" = "Attention!";
 "search_error_alert_nil_departure_msg" = "Select your departure address";
 "search_error_alert_nil_arrival_msg" = "Select your arrival address";
-"search_error_alert_close_btn" = "Close";
 
 // FavoriteViewController
 "favorite_title" = "Favorites";
 "favorite_alert_title" = "Action with ticket";
 "favorite_alert_msg" = "Delete from favorites?";
 "favorite_alert_yes_btn" = "Yes";
-"favorite_alert_cancel_btn" = "Cancel";
 
 // PlaceViewController
 "place_departure_title" = "Departure";
@@ -54,7 +56,6 @@
 "tickets_alert_msg" = "What should be done with the selected ticket?";
 "tickets_alert_delete_btn" = "Remove from favorites";
 "tickets_alert_add_btn" = "Add in favorites";
-"tickets_alert_cancel_btn" = "Cancel";
 
 // HistoryTracksViewController
 "history_title" = "Search history";

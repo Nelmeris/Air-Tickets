@@ -145,7 +145,7 @@
     if (!_searchRequest.destionation || !_searchRequest.origin) {
         NSString *msg = (!_searchRequest.origin) ? NSLocalizedString(@"search_error_alert_nil_departure_msg", @"") : NSLocalizedString(@"search_error_alert_nil_arrival_msg", @"");
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"search_error_alert_title", @"") message:msg preferredStyle: UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"search_error_alert_close_btn", @"") style:(UIAlertActionStyleDefault) handler:nil]];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"close_btn", @"") style:(UIAlertActionStyleDefault) handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
@@ -164,7 +164,7 @@
             [self.navigationController showViewController:ticketsViewController sender:self];
         } else {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"search_tickets_alert_title", @"") message:NSLocalizedString(@"search_tickets_alert_msg", @"") preferredStyle: UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"search_tickets_alert_close_btn", @"") style:(UIAlertActionStyleDefault) handler:nil]];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"close_btn", @"") style:(UIAlertActionStyleDefault) handler:nil]];
             [self presentViewController:alertController animated:YES completion:nil];
         }
     }];
