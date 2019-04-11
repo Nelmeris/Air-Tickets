@@ -85,7 +85,7 @@
     [loadingView addSubview:blurEffectView];
     
     UILabel *label = [[UILabel alloc] initWithFrame:loadingView.frame];
-    [label setText:@"Поиск..."];
+    [label setText:NSLocalizedString(@"map_search_label", @"")];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setFont:[UIFont fontWithName:@"HelveticaNeue" size:40]];
     [label setTextColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];
@@ -118,7 +118,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             MKPointAnnotation *annotation = [MKPointAnnotation new];
             annotation.title = [NSString stringWithFormat:@"%@ (%@)", price.destination.name, price.destination.code];
-            annotation.subtitle = [NSString stringWithFormat:@"%ld руб.", (long)price.value];
+            annotation.subtitle = [NSString stringWithFormat:@"%ld %@", (long)price.value, NSLocalizedString(@"rubles", @"")];
             annotation.coordinate = price.destination.coordinate;
             [self->_mapView addAnnotation: annotation];
         });
@@ -152,7 +152,6 @@
 }
 
 - (void)selectAirport {
-    [[CoreDataHelper sharedInstance] addToHistory:_selectedPrice];
     [self.delegate selectCity:_selectedPrice.destination];
 }
 

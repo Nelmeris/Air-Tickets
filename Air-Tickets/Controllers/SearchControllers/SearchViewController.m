@@ -8,12 +8,13 @@
 
 #import "SearchViewController.h"
 
+#import "CoreDataHelper.h"
 #import "DataManager.h"
 #import "APIManager.h"
 #import "LocationService.h"
 
 #import "PlaceViewController.h"
-#import "TicketsTableViewController.h"
+#import "TicketsViewController.h"
 
 @interface SearchViewController () <PlaceViewControllerDelegate>
 @property (nonatomic, strong) UIView *placeContainerView;
@@ -23,6 +24,7 @@
 @property (nonatomic, strong) UIButton *searchButton;
 @property (nonatomic, strong) LocationService *locationService;
 @property (nonatomic, strong) City *origin;
+@property (nonatomic, strong) City *destionation;
 @end
 
 @implementation SearchViewController
@@ -48,7 +50,7 @@
 #pragma mark - Configures
 
 - (void)configureController {
-    [self setTitle:@"Поиск"];
+    [self setTitle:NSLocalizedString(@"search_title", @"")];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
@@ -74,7 +76,7 @@
 
 - (void)configureDepartureButton {
     UIButton *departureButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [departureButton setTitle:@"Откуда" forState: UIControlStateNormal];
+    [departureButton setTitle:NSLocalizedString(@"search_departure_btn", @"") forState: UIControlStateNormal];
     [departureButton setFrame:CGRectMake(10.0, 20.0, _placeContainerView.frame.size.width - 20.0, 60.0)];
     [self setDepartureButton:departureButton];
     
@@ -84,7 +86,7 @@
 
 - (void)configureArrivalButton {
     UIButton *arrivalButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [arrivalButton setTitle:@"Куда" forState: UIControlStateNormal];
+    [arrivalButton setTitle:NSLocalizedString(@"search_arrival_btn", @"") forState: UIControlStateNormal];
     [arrivalButton setFrame:CGRectMake(10.0, CGRectGetMaxY(_departureButton.frame) + 10.0, _placeContainerView.frame.size.width - 20.0, 60.0)];
     [self setArrivalButton:arrivalButton];
     
@@ -101,7 +103,7 @@
 
 - (void)configureSearchButton {
     UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [searchButton setTitle:@"Найти" forState:UIControlStateNormal];
+    [searchButton setTitle:NSLocalizedString(@"search_search_btn", @"") forState:UIControlStateNormal];
     [searchButton setTintColor:[UIColor whiteColor]];
     [searchButton setFrame:CGRectMake(30.0, CGRectGetMaxY(_placeContainerView.frame) + 30, [UIScreen mainScreen].bounds.size.width - 60.0, 60.0)];
     [searchButton setBackgroundColor:[UIColor blackColor]];
@@ -141,19 +143,28 @@
 
 - (void)searchButtonDidTap:(UIButton *)sender {
     if (!_searchRequest.destionation || !_searchRequest.origin) {
-        NSString *msg = (!_searchRequest.origin) ? @"Выберите адрес отправления" : @"Выберите адрес прибытия";
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Внимание!" message:msg preferredStyle: UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Закрыть" style:(UIAlertActionStyleDefault) handler:nil]];
+        NSString *msg = (!_searchRequest.origin) ? NSLocalizedString(@"search_error_alert_nil_departure_msg", @"") : NSLocalizedString(@"search_error_alert_nil_arrival_msg", @"");
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"search_error_alert_title", @"") message:msg preferredStyle: UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"close_btn", @"") style:(UIAlertActionStyleDefault) handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
     [[APIManager sharedInstance] ticketsWithRequest:_searchRequest withCompletion:^(NSArray *tickets) {
         if (tickets.count > 0) {
-            TicketsTableViewController *ticketsViewController = [[TicketsTableViewController alloc] initWithTickets:tickets];
+            NSInteger value = ((Ticket*)[tickets objectAtIndex:0]).price.integerValue;
+            for (int i = 1; i < tickets.count; i++) {
+                if (value > ((Ticket*)[tickets objectAtIndex:i]).price.integerValue)
+                    value = ((Ticket*)[tickets objectAtIndex:i]).price.integerValue;
+            }
+            if ([[CoreDataHelper sharedInstance] isHistoryTrack:self->_origin.code destination:self->_destionation.code value:value]) {
+                [[CoreDataHelper sharedInstance] removeFromHistory:self->_origin.code destination:self->_destionation.code value:value];
+                [[CoreDataHelper sharedInstance] addToHistory:self->_origin.code destination:self->_destionation.code value:value];
+            }
+            TicketsViewController *ticketsViewController = [[TicketsViewController alloc] initWithTickets:tickets];
             [self.navigationController showViewController:ticketsViewController sender:self];
         } else {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Увы!" message:@"По данному направлению билетов не найдено" preferredStyle: UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Закрыть" style:(UIAlertActionStyleDefault) handler:nil]];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"search_tickets_alert_title", @"") message:NSLocalizedString(@"search_tickets_alert_msg", @"") preferredStyle: UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"close_btn", @"") style:(UIAlertActionStyleDefault) handler:nil]];
             [self presentViewController:alertController animated:YES completion:nil];
         }
     }];
@@ -184,6 +195,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kLocationServiceDidUpdateOrigin object:city];
     } else {
         _searchRequest.destionation = iata;
+        _destionation = city;
     }
     [button setTitle: title forState: UIControlStateNormal];
 }

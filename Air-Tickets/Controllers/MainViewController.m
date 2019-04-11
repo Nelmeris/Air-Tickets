@@ -9,8 +9,12 @@
 #import "MainViewController.h"
 
 #import "SearchViewController.h"
-#import "TicketsTableViewController.h"
-#import "HistoryTracksTableViewController.h"
+#import "TicketsViewController.h"
+#import "HistoryTracksViewController.h"
+
+@interface MainViewController ()
+@property (nonatomic, strong) SearchViewController *searchVC;
+@end
 
 @implementation MainViewController
 
@@ -28,15 +32,15 @@
 - (NSArray<UIViewController*> *)createViewControllers {
     NSMutableArray<UIViewController*> *controllers = [NSMutableArray new];
     
-    SearchViewController *searchVC = [SearchViewController new];
-    searchVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Поиск" image:[UIImage imageNamed:@"search"] selectedImage:[UIImage imageNamed:@"search_selected"]];
-    [controllers addObject:[self createNC:searchVC]];
+    _searchVC = [SearchViewController new];
+    _searchVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"main_search_bar", @"") image:[UIImage imageNamed:@"search"] selectedImage:[UIImage imageNamed:@"search_selected"]];
+    [controllers addObject:[self createNC:_searchVC]];
     
-    TicketsTableViewController *favoriteVC = [[TicketsTableViewController alloc] initFavoriteTicketsController];
-    favoriteVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Избранное" image:[UIImage imageNamed:@"favorite"] selectedImage:[UIImage imageNamed:@"favorite_selected"]];
+    TicketsViewController *favoriteVC = [[TicketsViewController alloc] initFavoriteTicketsController];
+    favoriteVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"main_favorite_bar", @"") image:[UIImage imageNamed:@"favorite"] selectedImage:[UIImage imageNamed:@"favorite_selected"]];
     [controllers addObject:[self createNC:favoriteVC]];
     
-    HistoryTracksTableViewController *historyTracksTVC = [HistoryTracksTableViewController new];
+    HistoryTracksViewController *historyTracksTVC = [HistoryTracksViewController new];
     historyTracksTVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:2];
     [controllers addObject:[self createNC:historyTracksTVC]];
     
@@ -50,5 +54,8 @@
     return NC;
 }
 
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    NSLog(@"");
+}
 
 @end

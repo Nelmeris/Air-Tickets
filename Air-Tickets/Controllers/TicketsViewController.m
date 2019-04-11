@@ -1,22 +1,23 @@
 //
-//  TicketsTableViewController.m
+//  TicketsViewController.m
 //  Air Tickets
 //
 //  Created by Artem Kufaev on 28/03/2019.
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
-#import "TicketsTableViewController.h"
+#import "TicketsViewController.h"
 #import "TicketTableViewCell.h"
 #import "CoreDataHelper.h"
+#import "DataUpdater.h"
 
 #define TicketCellReuseIdentifier @"TicketCellIdentifier"
 
-@interface TicketsTableViewController ()
+@interface TicketsViewController ()
 @property (nonatomic, strong) NSMutableArray *tickets;
 @end
 
-@implementation TicketsTableViewController {
+@implementation TicketsViewController {
     BOOL isFavorites;
 }
 
@@ -25,7 +26,7 @@
     if (self) {
         isFavorites = YES;
         self.tickets = [NSMutableArray new];
-        self.title = @"Избранное";
+        [self setTitle:NSLocalizedString(@"favorite_title", @"")];
         [self configureTableView];
     }
     return self;
@@ -36,7 +37,7 @@
     if (self)
     {
         _tickets = [NSMutableArray arrayWithArray:tickets];
-        self.title = @"Билеты";
+        [self setTitle:NSLocalizedString(@"tickets_title", @"")];
         [self configureTableView];
     }
     return self;
@@ -54,37 +55,18 @@
 
 - (void)reloadData:(NSNotification *)notification {
     FavoriteTicket *newFavorit = notification.object;
+    DataUpdateInfo info = [DataUpdater getInfo:_tickets newObject:newFavorit comparison:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return ((FavoriteTicket *)obj1).created.timeIntervalSinceNow < ((FavoriteTicket *)obj2).created.timeIntervalSinceNow;
+    }];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:info.index inSection:0];
     [self.tableView beginUpdates];
-    if ([_tickets containsObject:newFavorit]) { // Deleting
-        for (int i = 0; i < _tickets.count; i++) {
-            if ([_tickets[i] isEqual:newFavorit]) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [_tickets removeObject:newFavorit];
-                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                break;
-            }
-        }
-    } else { // Adding
-        NSMutableArray *newArray = [NSMutableArray arrayWithArray:_tickets];
-        [newArray addObject:newFavorit];
-        [newArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return ((FavoriteTicket *)obj1).created < ((FavoriteTicket *)obj2).created;
-        }];
-        bool flag = false;
-        for (int i = 0; i < _tickets.count; i++) {
-            if (![_tickets[i] isEqual:newArray[i]]) {
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [_tickets insertObject:newFavorit atIndex:i];
-                [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_tickets.count inSection:0];
-            [_tickets insertObject:newFavorit atIndex:_tickets.count];
-            [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-        }
+    if (info.type == added) {
+        [_tickets insertObject:newFavorit atIndex:info.index];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    } else {
+        [_tickets removeObjectAtIndex:info.index];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
     }
     [self.tableView endUpdates];
 }
@@ -112,29 +94,29 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (isFavorites) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Действия с билетом" message:@"Удалить из избранного?" preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"favorite_alert_title", @"") message:NSLocalizedString(@"favorite_alert_msg", @"") preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *favoriteAction;
-        favoriteAction = [UIAlertAction actionWithTitle:@"Да" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        favoriteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"favorite_alert_yes_btn", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [[CoreDataHelper sharedInstance] removeFromFavorite:[self->_tickets objectAtIndex:indexPath.row]];
         }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Закрыть" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_btn", @"") style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:favoriteAction];
         [alertController addAction:cancelAction];
         [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Действия с билетом" message:@"Что необходимо сделать с выбранным билетом?" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"tickets_alert_title", @"") message:NSLocalizedString(@"tickets_alert_msg", @"") preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *favoriteAction;
     if ([[CoreDataHelper sharedInstance] isFavorite: [_tickets objectAtIndex:indexPath.row]]) {
-        favoriteAction = [UIAlertAction actionWithTitle:@"Удалить из избранного" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        favoriteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"tickets_alert_delete_btn", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [[CoreDataHelper sharedInstance] removeTicketFromFavorite:[self->_tickets objectAtIndex:indexPath.row]];
         }];
     } else {
-        favoriteAction = [UIAlertAction actionWithTitle:@"Добавить в избранное" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        favoriteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"tickets_alert_add_btn", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [[CoreDataHelper sharedInstance] addToFavorite:[self->_tickets objectAtIndex:indexPath.row]];
         }];
     }
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Закрыть" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_btn", @"") style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:favoriteAction];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];

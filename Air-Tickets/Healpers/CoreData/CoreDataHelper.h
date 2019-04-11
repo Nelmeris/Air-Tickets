@@ -24,9 +24,12 @@
 - (void)removeFromFavorite:(FavoriteTicket *)favorite;
 - (void)removeTicketFromFavorite:(Ticket *)ticket;
 
+- (BOOL)isHistoryTrack:(NSString *)originIATA destination:(NSString *)destinationIATA value:(NSInteger)value;
 - (BOOL)isHistoryTrack:(MapPrice *)mapPrice;
 - (NSArray *)historyTracks;
 - (void)addToHistory:(MapPrice *)mapPrice;
+- (void)addToHistory:(NSString *)originIATA destination:(NSString *)destinationIATA value:(NSInteger)value;
+- (void)removeFromHistory:(NSString *)originIATA destination:(NSString *)destinationIATA value:(NSInteger)value;
 - (void)removeFromHistory:(HistoryTrack *)historyTrack;
 - (void)removeMapPriceFromHistory:(MapPrice *)mapPrice;
 

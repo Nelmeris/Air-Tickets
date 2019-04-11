@@ -67,11 +67,11 @@
     
     self->_placesLabel.text = [NSString stringWithFormat:@"%@ - %@", historyTrack.originIATA, historyTrack.destinationIATA];
     
-    _priceLabel.text = [NSString stringWithFormat:@"%lld руб.", historyTrack.value];
+    _priceLabel.text = [NSString stringWithFormat:@"%lld %@", historyTrack.value, NSLocalizedString(@"rubles", @"")];
     
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     dateFormatter.dateFormat = @"dd MMMM yyyy hh:mm";
-    _dateLabel.text = [NSString stringWithFormat:@"Сохранено %@", [dateFormatter stringFromDate:historyTrack.created]];
+    _dateLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"saved", @""), [dateFormatter stringFromDate:historyTrack.created]];
 }
 
 @end
