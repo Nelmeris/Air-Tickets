@@ -99,7 +99,8 @@
 - (HistoryTrack *)historyTrackFromMapPrice:(MapPrice *)mapPrice {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"HistoryTrack"];
     request.predicate = [NSPredicate predicateWithFormat:@"originIATA == %@ AND destinationIATA == %@", mapPrice.origin.code, mapPrice.destination.code];
-    return [[_managedObjectContext executeFetchRequest:request error:nil] firstObject];
+    HistoryTrack *var = [[_managedObjectContext executeFetchRequest:request error:nil] firstObject];
+    return var;
 }
 
 - (BOOL)isHistoryTrack:(NSString *)originIATA destination:(NSString *)destinationIATA value:(NSInteger)value {

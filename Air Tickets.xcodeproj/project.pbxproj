@@ -39,7 +39,6 @@
 		57F84F2C225238EE0047FCFD /* LocationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F2B225238EE0047FCFD /* LocationService.m */; };
 		57F84F3022523AA00047FCFD /* MapPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F2F22523AA00047FCFD /* MapPrice.m */; };
 		57F84F4022529F860047FCFD /* SearchCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F84F3F22529F860047FCFD /* SearchCollectionViewCell.m */; };
-		A5E242518E486B08B78B16B9 /* libPods-Air Tickets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A4169EA067D8C569A09DC9C /* libPods-Air Tickets.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,7 +106,6 @@
 		57F84F3A225250F10047FCFD /* DataSourceType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataSourceType.h; sourceTree = "<group>"; };
 		57F84F3E22529F860047FCFD /* SearchCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchCollectionViewCell.h; sourceTree = "<group>"; };
 		57F84F3F22529F860047FCFD /* SearchCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchCollectionViewCell.m; sourceTree = "<group>"; };
-		9A4169EA067D8C569A09DC9C /* libPods-Air Tickets.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Air Tickets.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +113,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5E242518E486B08B78B16B9 /* libPods-Air Tickets.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,7 +144,6 @@
 				5771304B223EA92900FB9806 /* Air-Tickets */,
 				5771304A223EA92900FB9806 /* Products */,
 				50C09FAC0493ABE039AD2D0E /* Pods */,
-				5F6E013727A17EA574763144 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -325,14 +321,6 @@
 				57C3CBD322582C8500BC2536 /* HistoryTracksTableViewCell.m */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		5F6E013727A17EA574763144 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9A4169EA067D8C569A09DC9C /* libPods-Air Tickets.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

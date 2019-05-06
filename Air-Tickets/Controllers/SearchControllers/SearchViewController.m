@@ -158,8 +158,8 @@
             }
             if ([[CoreDataHelper sharedInstance] isHistoryTrack:self->_origin.code destination:self->_destionation.code value:value]) {
                 [[CoreDataHelper sharedInstance] removeFromHistory:self->_origin.code destination:self->_destionation.code value:value];
-                [[CoreDataHelper sharedInstance] addToHistory:self->_origin.code destination:self->_destionation.code value:value];
             }
+            [[CoreDataHelper sharedInstance] addToHistory:self->_origin.code destination:self->_destionation.code value:value];
             TicketsViewController *ticketsViewController = [[TicketsViewController alloc] initWithTickets:tickets];
             [self.navigationController showViewController:ticketsViewController sender:self];
         } else {
