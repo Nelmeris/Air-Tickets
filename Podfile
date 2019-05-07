@@ -7,6 +7,6 @@ target 'Air Tickets' do
 
   # Pods for Air Tickets
 
-  pod 'YYWebImage'
+  pod 'YYWebImage', '~> 1.0.5'
 
 end
